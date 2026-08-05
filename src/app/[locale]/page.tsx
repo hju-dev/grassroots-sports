@@ -30,13 +30,13 @@ export default async function HomePage({
       {/* Hero */}
       <section className="bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-28 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="relative w-32 h-32 md:w-44 md:h-44 mx-auto mb-8 rounded-full overflow-hidden shadow-2xl ring-4 ring-white/10">
+          <div className="relative w-40 h-40 md:w-52 md:h-52 mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl">
             <Image
               src="/logo.jpg"
               alt="Grass Roots Sports"
               fill
-              className="object-cover"
-              sizes="(max-width: 768px) 128px, 176px"
+              className="object-contain"
+              sizes="(max-width: 768px) 160px, 208px"
               priority
             />
           </div>
