@@ -54,7 +54,7 @@ export default async function ProgramDetailPage({
         <div className="max-w-5xl mx-auto">
           <Link
             href={`/${locale}/programs`}
-            className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm uppercase tracking-wider mb-8 transition-colors"
+            className="flex w-fit items-center gap-2 text-white/60 hover:text-white text-sm uppercase tracking-wider mb-6 transition-colors"
           >
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="w-4 h-4">
               <path d="M10 3L5 8l5 5" />
