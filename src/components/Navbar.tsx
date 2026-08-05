@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
@@ -26,11 +27,20 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-[var(--color-black)] text-white shadow-md">
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-        <Link href={`/${locale}`} className="flex items-center gap-1.5">
-          <span className="font-black text-lg tracking-tight text-[var(--color-forest)]">
-            Grass Roots
+        <Link href={`/${locale}`} className="flex items-center gap-2.5">
+          <div className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0">
+            <Image
+              src="/logo.jpg"
+              alt="Grass Roots Sports"
+              fill
+              className="object-cover"
+              sizes="36px"
+            />
+          </div>
+          <span className="font-black text-lg tracking-tight">
+            <span className="text-[var(--color-forest)]">Grass Roots </span>
+            <span className="text-white">Sports</span>
           </span>
-          <span className="font-black text-lg tracking-tight text-white">Sports</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-6">

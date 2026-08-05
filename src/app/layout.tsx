@@ -12,6 +12,7 @@ const bebasNeue = Bebas_Neue({
 export const metadata: Metadata = {
   title: 'Grass Roots Sports',
   description: 'Community basketball academy coming to Pattaya, Thailand.',
+  icons: { icon: '/logo.jpg' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

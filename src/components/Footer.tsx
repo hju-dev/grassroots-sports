@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 
 export default async function Footer({ locale }: { locale: string }) {
@@ -10,11 +11,23 @@ export default async function Footer({ locale }: { locale: string }) {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between gap-10">
           <div>
-            <p className="font-black text-xl tracking-tight">
-              <span className="text-[var(--color-forest)]">Grass Roots</span>
-              <span className="text-white"> Sports</span>
-            </p>
-            <p className="text-[var(--color-muted)] text-sm mt-2">{tFooter('tagline')}</p>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
+                <Image
+                  src="/logo.jpg"
+                  alt="Grass Roots Sports"
+                  fill
+                  className="object-cover"
+                  sizes="56px"
+                />
+              </div>
+              <p className="font-black text-xl tracking-tight leading-tight">
+                <span className="text-[var(--color-forest)]">Grass Roots</span>
+                <br />
+                <span className="text-white">Sports</span>
+              </p>
+            </div>
+            <p className="text-[var(--color-muted)] text-sm">{tFooter('tagline')}</p>
           </div>
 
           <nav className="flex flex-col gap-2">
