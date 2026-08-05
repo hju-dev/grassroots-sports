@@ -8,6 +8,24 @@
   "home": {
     "headline": "Where Athletes Grow. Communities Connect.",
     "subheadline": "Basketball coaching, leagues, and community sport in Pattaya.",
-    "cta": "Explore Programs"
+    "cta": "Explore Programs",
+    "missionTitle": "What We Stand For",
+    "mission1Title": "Skill Development",
+    "mission1Desc": "Quality coaching for all ages and skill levels.",
+    "mission2Title": "Community First",
+    "mission2Desc": "Building real connections through the sport we love.",
+    "mission3Title": "Grow Together",
+    "mission3Desc": "From grassroots up, everyone belongs here.",
+    "programsTitle": "Our Programs",
+    "programsSubtitle": "Something for everyone: youth, adults, and everything in between.",
+    "programsCta": "View All Programs",
+    "instagramTitle": "Follow the Journey",
+    "instagramSubtitle": "We're building something special in Pattaya. Come be part of it.",
+    "instagramCta": "Follow @akdovey"
+  },
+  "footer": {
+    "tagline": "Coming to Pattaya, Thailand",
+    "copyright": "© 2025 Grass Roots Sports. All rights reserved.",
+    "followUs": "Follow Us"
   }
 }

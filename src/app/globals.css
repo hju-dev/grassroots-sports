@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand Colors */
   --color-black: #1A1A1A;
   --color-forest: #3A7D2C;
   --color-lime: #8BBF3A;
@@ -18,5 +17,11 @@ html {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-inter), sans-serif;
+}
+
+h1,
+h2 {
+  font-family: var(--font-bebas), sans-serif;
+  line-height: 1;
 }
