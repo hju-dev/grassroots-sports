@@ -1,0 +1,13 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "programs": "Programs",
+    "contact": "Contact"
+  },
+  "home": {
+    "headline": "Where Athletes Grow. Communities Connect.",
+    "subheadline": "Basketball coaching, leagues, and community sport in Pattaya.",
+    "cta": "Explore Programs"
+  }
+}

@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand Colors */
+  --color-black: #1A1A1A;
+  --color-forest: #3A7D2C;
+  --color-lime: #8BBF3A;
+  --color-offwhite: #F7F5F0;
+  --color-sage: #EEF2E8;
+  --color-body: #2C2C2C;
+  --color-muted: #6B7280;
+  --color-white: #FFFFFF;
+}
+
+html {
+  background-color: var(--color-offwhite);
+  color: var(--color-body);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
