@@ -24,16 +24,18 @@ export default function Navbar() {
     { href: `/${locale}/contact`, label: t('contact') },
   ];
 
+  const registerHref = `/${locale}/register`;
+
   return (
     <header className="sticky top-0 z-50 bg-[var(--color-black)] text-white shadow-md">
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
         <Link href={`/${locale}`} className="flex items-center gap-2.5">
-          <div className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0">
+          <div className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0 bg-white">
             <Image
               src="/logo.jpg"
               alt="Grass Roots Sports"
               fill
-              className="object-cover"
+              className="object-contain"
               sizes="36px"
             />
           </div>
@@ -53,6 +55,12 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          <Link
+            href={registerHref}
+            className="text-sm font-bold bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white px-4 py-1.5 rounded-lg uppercase tracking-widest transition-colors"
+          >
+            {t('register')}
+          </Link>
           <Link
             href={otherLocalePath}
             className="text-xs border border-white/30 rounded px-3 py-1 uppercase tracking-widest hover:border-[var(--color-lime)] hover:text-[var(--color-lime)] transition-colors"
@@ -85,6 +93,13 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          <Link
+            href={registerHref}
+            className="block py-3 text-sm font-bold text-[var(--color-lime)] uppercase tracking-wide border-b border-white/5"
+            onClick={() => setMenuOpen(false)}
+          >
+            {t('register')}
+          </Link>
           <Link
             href={otherLocalePath}
             className="block pt-3 text-xs text-[var(--color-muted)] uppercase tracking-widest hover:text-[var(--color-lime)] transition-colors"

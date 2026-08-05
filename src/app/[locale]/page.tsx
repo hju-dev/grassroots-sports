@@ -137,12 +137,12 @@ export default async function HomePage({
       {/* Instagram CTA */}
       <section className="bg-[var(--color-black)] text-white py-14 md:py-16 px-4">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="relative w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden ring-2 ring-white/20">
+          <div className="relative w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden ring-2 ring-white/20 bg-white">
             <Image
               src="/logo.jpg"
               alt="Grass Roots Sports"
               fill
-              className="object-cover"
+              className="object-contain"
               sizes="80px"
             />
           </div>

@@ -1,7 +1,13 @@
 import { getTranslations } from 'next-intl/server';
+import Link from 'next/link';
 import { BasketballIcon, LightningIcon, TrophyIcon, TargetIcon } from '@/components/Icons';
 
-export default async function ProgramsPage() {
+export default async function ProgramsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const t = await getTranslations('programs');
 
   const programs = [
@@ -70,10 +76,24 @@ export default async function ProgramsPage() {
                 <p className="text-[var(--color-body)] text-sm leading-relaxed flex-1">
                   {t(descKey)}
                 </p>
-                <div className="mt-6">
-                  <span className="inline-block bg-[var(--color-lime)] text-white text-xs font-bold py-1.5 px-4 rounded-full uppercase tracking-wider">
+                <div className="mt-6 flex flex-col gap-3">
+                  <span className="inline-block self-start bg-[var(--color-lime)] text-white text-xs font-bold py-1.5 px-4 rounded-full uppercase tracking-wider">
                     {t('comingSoon')}
                   </span>
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <Link
+                      href={`/${locale}/programs/${id}`}
+                      className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white text-xs font-bold py-2 px-4 rounded-lg uppercase tracking-wider transition-colors"
+                    >
+                      {t('learnMore')}
+                    </Link>
+                    <Link
+                      href={`/${locale}/register?program=${id}`}
+                      className="inline-block border border-[var(--color-forest)] text-[var(--color-forest)] hover:bg-[var(--color-forest)] hover:text-white text-xs font-bold py-2 px-4 rounded-lg uppercase tracking-wider transition-colors"
+                    >
+                      {t('registerCta')}
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}

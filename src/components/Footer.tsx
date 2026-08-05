@@ -12,12 +12,12 @@ export default async function Footer({ locale }: { locale: string }) {
         <div className="flex flex-col md:flex-row justify-between gap-10">
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
+              <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 bg-white">
                 <Image
                   src="/logo.jpg"
                   alt="Grass Roots Sports"
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="56px"
                 />
               </div>
