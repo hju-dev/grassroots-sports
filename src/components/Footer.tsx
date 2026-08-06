@@ -66,8 +66,16 @@ export default async function Footer({ locale }: { locale: string }) {
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-10 pt-6">
+        <div className="border-t border-white/10 mt-10 pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <p className="text-xs text-[var(--color-muted)]">{tFooter('copyright')}</p>
+          <div className="flex gap-4">
+            <Link href={`/${locale}/privacy`} className="text-xs text-[var(--color-muted)] hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href={`/${locale}/terms`} className="text-xs text-[var(--color-muted)] hover:text-white transition-colors">
+              Terms &amp; Conditions
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
