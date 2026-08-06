@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { BasketballIcon, CommunityIcon, GrowthIcon } from '@/components/Icons';
 import { sanityClient } from '@/sanity/lib/client';
@@ -16,25 +15,27 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default async function AboutPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations('about');
-  const settings = await sanityClient.fetch(SETTINGS_QUERY).catch(() => null);
-  const bio =
-    (locale === 'th' ? settings?.bioTh : settings?.bioEn) || t('founderBio');
+  const [t, s] = await Promise.all([
+    getTranslations('about'),
+    sanityClient.fetch(SETTINGS_QUERY).catch(() => null),
+  ]);
+
+  const en = locale === 'en';
+  const cms = (enVal: string | null | undefined, thVal: string | null | undefined, fallback: string) =>
+    (en ? enVal : thVal) || fallback;
 
   return (
     <>
       {/* Hero */}
       <section className="bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-24 px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl mb-4">{t('headline')}</h1>
+          <h1 className="text-5xl md:text-7xl mb-4">
+            {cms(s?.aboutHeadlineEn, s?.aboutHeadlineTh, t('headline'))}
+          </h1>
           <p className="text-base md:text-lg text-white/70 max-w-xl mx-auto leading-relaxed">
-            {t('subtitle')}
+            {cms(s?.aboutSubtitleEn, s?.aboutSubtitleTh, t('subtitle'))}
           </p>
         </div>
       </section>
@@ -52,13 +53,13 @@ export default async function AboutPage({
               </div>
             </div>
             <div className="text-center md:text-left">
-              <h2 className="text-3xl md:text-4xl text-[var(--color-black)] mb-1">
-                {t('founderName')}
-              </h2>
+              <h2 className="text-3xl md:text-4xl text-[var(--color-black)] mb-1">{t('founderName')}</h2>
               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--color-forest)] mb-5">
                 {t('founderRole')}
               </p>
-              <p className="text-[var(--color-body)] leading-relaxed max-w-xl">{bio}</p>
+              <p className="text-[var(--color-body)] leading-relaxed max-w-xl">
+                {cms(s?.bioEn, s?.bioTh, t('founderBio'))}
+              </p>
             </div>
           </div>
         </div>
@@ -68,30 +69,26 @@ export default async function AboutPage({
       <section className="bg-[var(--color-sage)] py-16 md:py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-4xl md:text-5xl text-center mb-12 text-[var(--color-black)]">
-            {t('whyTitle')}
+            {cms(s?.whyTitleEn, s?.whyTitleTh, t('whyTitle'))}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-xl p-7 text-center shadow-sm">
-              <div className="flex justify-center mb-4">
-                <BasketballIcon className="w-11 h-11 text-[var(--color-forest)]" />
+            {([
+              { Icon: BasketballIcon, enTitle: s?.why1TitleEn, thTitle: s?.why1TitleTh, enDesc: s?.why1DescEn, thDesc: s?.why1DescTh, ftTitle: t('why1Title'), ftDesc: t('why1Desc') },
+              { Icon: CommunityIcon, enTitle: s?.why2TitleEn, thTitle: s?.why2TitleTh, enDesc: s?.why2DescEn, thDesc: s?.why2DescTh, ftTitle: t('why2Title'), ftDesc: t('why2Desc') },
+              { Icon: GrowthIcon, enTitle: s?.why3TitleEn, thTitle: s?.why3TitleTh, enDesc: s?.why3DescEn, thDesc: s?.why3DescTh, ftTitle: t('why3Title'), ftDesc: t('why3Desc') },
+            ]).map(({ Icon, enTitle, thTitle, enDesc, thDesc, ftTitle, ftDesc }, i) => (
+              <div key={i} className="bg-white rounded-xl p-7 text-center shadow-sm">
+                <div className="flex justify-center mb-4">
+                  <Icon className="w-11 h-11 text-[var(--color-forest)]" />
+                </div>
+                <h3 className="text-lg font-bold text-[var(--color-black)] mb-2">
+                  {cms(enTitle, thTitle, ftTitle)}
+                </h3>
+                <p className="text-sm text-[var(--color-muted)] leading-relaxed">
+                  {cms(enDesc, thDesc, ftDesc)}
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-[var(--color-black)] mb-2">{t('why1Title')}</h3>
-              <p className="text-sm text-[var(--color-muted)] leading-relaxed">{t('why1Desc')}</p>
-            </div>
-            <div className="bg-white rounded-xl p-7 text-center shadow-sm">
-              <div className="flex justify-center mb-4">
-                <CommunityIcon className="w-11 h-11 text-[var(--color-forest)]" />
-              </div>
-              <h3 className="text-lg font-bold text-[var(--color-black)] mb-2">{t('why2Title')}</h3>
-              <p className="text-sm text-[var(--color-muted)] leading-relaxed">{t('why2Desc')}</p>
-            </div>
-            <div className="bg-white rounded-xl p-7 text-center shadow-sm">
-              <div className="flex justify-center mb-4">
-                <GrowthIcon className="w-11 h-11 text-[var(--color-forest)]" />
-              </div>
-              <h3 className="text-lg font-bold text-[var(--color-black)] mb-2">{t('why3Title')}</h3>
-              <p className="text-sm text-[var(--color-muted)] leading-relaxed">{t('why3Desc')}</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -99,10 +96,14 @@ export default async function AboutPage({
       {/* Coming to Pattaya */}
       <section className="bg-[var(--color-black)] text-white py-16 md:py-20 px-4">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-4xl md:text-6xl mb-5">{t('comingTitle')}</h2>
-          <p className="text-white/70 mb-8 leading-relaxed">{t('comingDesc')}</p>
+          <h2 className="text-4xl md:text-6xl mb-5">
+            {cms(s?.comingTitleEn, s?.comingTitleTh, t('comingTitle'))}
+          </h2>
+          <p className="text-white/70 mb-8 leading-relaxed">
+            {cms(s?.comingDescEn, s?.comingDescTh, t('comingDesc'))}
+          </p>
           <a
-            href="https://instagram.com/akdovey"
+            href={`https://instagram.com/${s?.instagramHandle || 'akdovey'}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white font-bold py-3.5 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"

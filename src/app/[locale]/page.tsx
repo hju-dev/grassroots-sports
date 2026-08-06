@@ -2,6 +2,16 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
+import {
+  BasketballIcon,
+  CommunityIcon,
+  GrowthIcon,
+  LightningIcon,
+  TrophyIcon,
+  TargetIcon,
+} from '@/components/Icons';
+import { sanityClient } from '@/sanity/lib/client';
+import { SETTINGS_QUERY } from '@/sanity/lib/queries';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -18,29 +28,32 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
   };
 }
-import {
-  BasketballIcon,
-  CommunityIcon,
-  GrowthIcon,
-  LightningIcon,
-  TrophyIcon,
-  TargetIcon,
-} from '@/components/Icons';
 
 const programs = [
-  { id: 'youth', Icon: BasketballIcon, title: 'Youth Basketball', ages: 'Ages 6-12' },
-  { id: 'teen', Icon: LightningIcon, title: 'Teen Academy', ages: 'Ages 13-17' },
-  { id: 'adult', Icon: TrophyIcon, title: 'Adult Leagues', ages: 'All Adults' },
-  { id: 'private', Icon: TargetIcon, title: 'Private Coaching', ages: 'All Ages' },
+  { id: 'youth', Icon: BasketballIcon },
+  { id: 'teen', Icon: LightningIcon },
+  { id: 'adult', Icon: TrophyIcon },
+  { id: 'private', Icon: TargetIcon },
 ];
 
-export default async function HomePage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations('home');
+  const [t, tp, s] = await Promise.all([
+    getTranslations('home'),
+    getTranslations('programs'),
+    sanityClient.fetch(SETTINGS_QUERY).catch(() => null),
+  ]);
+
+  const en = locale === 'en';
+  const cms = (enKey: keyof typeof s, thKey: keyof typeof s, fallback: string) =>
+    (en ? s?.[enKey] : s?.[thKey]) || fallback;
+
+  const programCards = [
+    { id: 'youth', Icon: BasketballIcon, title: tp('youthTitle'), ages: tp('youthAges') },
+    { id: 'teen', Icon: LightningIcon, title: tp('teenTitle'), ages: tp('teenAges') },
+    { id: 'adult', Icon: TrophyIcon, title: tp('adultTitle'), ages: tp('adultAges') },
+    { id: 'private', Icon: TargetIcon, title: tp('privateTitle'), ages: tp('privateAges') },
+  ];
 
   return (
     <>
@@ -48,18 +61,13 @@ export default async function HomePage({
       <section className="bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-28 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="relative w-40 h-40 md:w-52 md:h-52 mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl">
-            <Image
-              src="/logo.jpg"
-              alt="Grass Roots Sports"
-              fill
-              className="object-contain"
-              sizes="(max-width: 768px) 160px, 208px"
-              priority
-            />
+            <Image src="/logo.jpg" alt="Grass Roots Sports" fill className="object-contain" sizes="(max-width: 768px) 160px, 208px" priority />
           </div>
-          <h1 className="text-4xl md:text-7xl lg:text-8xl mb-5">{t('headline')}</h1>
+          <h1 className="text-4xl md:text-7xl lg:text-8xl mb-5">
+            {cms('heroHeadlineEn', 'heroHeadlineTh', t('headline'))}
+          </h1>
           <p className="text-base md:text-xl text-white/80 mb-8 max-w-2xl mx-auto leading-relaxed">
-            {t('subheadline')}
+            {cms('heroSubheadlineEn', 'heroSubheadlineTh', t('subheadline'))}
           </p>
           <Link
             href={`/${locale}/programs`}
@@ -74,42 +82,26 @@ export default async function HomePage({
       <section className="bg-[var(--color-sage)] py-14 md:py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl md:text-5xl text-center mb-10 md:mb-12 text-[var(--color-black)]">
-            {t('missionTitle')}
+            {cms('missionTitleEn', 'missionTitleTh', t('missionTitle'))}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            <div className="text-center p-5 md:p-6">
-              <div className="flex justify-center mb-4">
-                <BasketballIcon className="w-12 h-12 text-[var(--color-forest)]" />
+            {([
+              { Icon: BasketballIcon, tKey: 'mission1', enTitle: 'mission1TitleEn' as const, thTitle: 'mission1TitleTh' as const, enDesc: 'mission1DescEn' as const, thDesc: 'mission1DescTh' as const },
+              { Icon: CommunityIcon, tKey: 'mission2', enTitle: 'mission2TitleEn' as const, thTitle: 'mission2TitleTh' as const, enDesc: 'mission2DescEn' as const, thDesc: 'mission2DescTh' as const },
+              { Icon: GrowthIcon, tKey: 'mission3', enTitle: 'mission3TitleEn' as const, thTitle: 'mission3TitleTh' as const, enDesc: 'mission3DescEn' as const, thDesc: 'mission3DescTh' as const },
+            ] as const).map(({ Icon, tKey, enTitle, thTitle, enDesc, thDesc }) => (
+              <div key={tKey} className="text-center p-5 md:p-6">
+                <div className="flex justify-center mb-4">
+                  <Icon className="w-12 h-12 text-[var(--color-forest)]" />
+                </div>
+                <h3 className="text-lg md:text-xl font-bold text-[var(--color-black)] mb-2">
+                  {cms(enTitle, thTitle, t(`${tKey}Title` as Parameters<typeof t>[0]))}
+                </h3>
+                <p className="text-[var(--color-muted)] text-sm leading-relaxed">
+                  {cms(enDesc, thDesc, t(`${tKey}Desc` as Parameters<typeof t>[0]))}
+                </p>
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-[var(--color-black)] mb-2">
-                {t('mission1Title')}
-              </h3>
-              <p className="text-[var(--color-muted)] text-sm leading-relaxed">
-                {t('mission1Desc')}
-              </p>
-            </div>
-            <div className="text-center p-5 md:p-6">
-              <div className="flex justify-center mb-4">
-                <CommunityIcon className="w-12 h-12 text-[var(--color-forest)]" />
-              </div>
-              <h3 className="text-lg md:text-xl font-bold text-[var(--color-black)] mb-2">
-                {t('mission2Title')}
-              </h3>
-              <p className="text-[var(--color-muted)] text-sm leading-relaxed">
-                {t('mission2Desc')}
-              </p>
-            </div>
-            <div className="text-center p-5 md:p-6">
-              <div className="flex justify-center mb-4">
-                <GrowthIcon className="w-12 h-12 text-[var(--color-forest)]" />
-              </div>
-              <h3 className="text-lg md:text-xl font-bold text-[var(--color-black)] mb-2">
-                {t('mission3Title')}
-              </h3>
-              <p className="text-[var(--color-muted)] text-sm leading-relaxed">
-                {t('mission3Desc')}
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -124,11 +116,8 @@ export default async function HomePage({
             {t('programsSubtitle')}
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-            {programs.map(({ id, Icon, title, ages }) => (
-              <div
-                key={id}
-                className="bg-[var(--color-sage)] rounded-xl p-5 md:p-6 flex flex-col items-center text-center"
-              >
+            {programCards.map(({ id, Icon, title, ages }) => (
+              <div key={id} className="bg-[var(--color-sage)] rounded-xl p-5 md:p-6 flex flex-col items-center text-center">
                 <div className="mb-3">
                   <Icon className="w-10 h-10 text-[var(--color-forest)]" />
                 </div>
@@ -155,20 +144,16 @@ export default async function HomePage({
       <section className="bg-[var(--color-black)] text-white py-14 md:py-16 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <div className="relative w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden ring-2 ring-white/20 bg-white">
-            <Image
-              src="/logo.jpg"
-              alt="Grass Roots Sports"
-              fill
-              className="object-contain"
-              sizes="80px"
-            />
+            <Image src="/logo.jpg" alt="Grass Roots Sports" fill className="object-contain" sizes="80px" />
           </div>
-          <h2 className="text-3xl md:text-6xl mb-4">{t('instagramTitle')}</h2>
+          <h2 className="text-3xl md:text-6xl mb-4">
+            {cms('igSectionTitleEn', 'igSectionTitleTh', t('instagramTitle'))}
+          </h2>
           <p className="text-white/70 mb-8 leading-relaxed text-sm md:text-base">
-            {t('instagramSubtitle')}
+            {cms('igSectionSubtitleEn', 'igSectionSubtitleTh', t('instagramSubtitle'))}
           </p>
           <a
-            href="https://instagram.com/akdovey"
+            href={`https://instagram.com/${s?.instagramHandle || 'akdovey'}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white font-bold py-3.5 px-8 rounded-lg transition-colors text-sm md:text-base uppercase tracking-widest"

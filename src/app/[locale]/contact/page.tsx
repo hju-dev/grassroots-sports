@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import ContactForm from '@/components/ContactForm';
+import { sanityClient } from '@/sanity/lib/client';
+import { SETTINGS_QUERY } from '@/sanity/lib/queries';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -13,16 +15,28 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default async function ContactPage() {
-  const t = await getTranslations('contact');
+export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const [t, s] = await Promise.all([
+    getTranslations('contact'),
+    sanityClient.fetch(SETTINGS_QUERY).catch(() => null),
+  ]);
+
+  const en = locale === 'en';
+  const cms = (enVal: string | null | undefined, thVal: string | null | undefined, fallback: string) =>
+    (en ? enVal : thVal) || fallback;
 
   return (
     <>
       {/* Hero */}
       <section className="bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-24 px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl mb-4">{t('headline')}</h1>
-          <p className="text-base md:text-lg text-white/70 max-w-xl mx-auto">{t('subtitle')}</p>
+          <h1 className="text-5xl md:text-7xl mb-4">
+            {cms(s?.contactHeadlineEn, s?.contactHeadlineTh, t('headline'))}
+          </h1>
+          <p className="text-base md:text-lg text-white/70 max-w-xl mx-auto">
+            {cms(s?.contactSubtitleEn, s?.contactSubtitleTh, t('subtitle'))}
+          </p>
         </div>
       </section>
 
@@ -36,8 +50,12 @@ export default async function ContactPage() {
               <p className="text-xs font-bold uppercase tracking-widest text-[var(--color-forest)] mb-3">
                 {t('locationTitle')}
               </p>
-              <p className="font-bold text-[var(--color-black)] mb-1">{t('locationDesc')}</p>
-              <p className="text-sm text-[var(--color-muted)]">{t('locationSub')}</p>
+              <p className="font-bold text-[var(--color-black)] mb-1">
+                {cms(s?.locationDescEn, s?.locationDescTh, t('locationDesc'))}
+              </p>
+              <p className="text-sm text-[var(--color-muted)]">
+                {cms(s?.locationSubEn, s?.locationSubTh, t('locationSub'))}
+              </p>
             </div>
 
             <div className="bg-[var(--color-sage)] rounded-2xl p-7">
@@ -46,12 +64,12 @@ export default async function ContactPage() {
               </p>
               <p className="text-sm text-[var(--color-muted)] mb-3">{t('instagramDesc')}</p>
               <a
-                href="https://instagram.com/akdovey"
+                href={`https://instagram.com/${s?.instagramHandle || 'akdovey'}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-bold text-[var(--color-forest)] hover:text-[var(--color-lime)] transition-colors"
               >
-                @akdovey
+                @{s?.instagramHandle || 'akdovey'}
               </a>
             </div>
           </div>
