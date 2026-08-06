@@ -1,5 +1,17 @@
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import ContactForm from '@/components/ContactForm';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === 'en';
+  return {
+    title: isEn ? 'Contact | Grass Roots Sports' : 'ติดต่อเรา | Grass Roots Sports',
+    description: isEn
+      ? 'Get in touch with Grass Roots Sports. Questions about programs, coaching, or joining our community in Pattaya.'
+      : 'ติดต่อ Grass Roots Sports มีคำถามเกี่ยวกับโปรแกรม การโค้ช หรือการเข้าร่วมชุมชนของเราในพัทยา',
+  };
+}
 
 export default async function ContactPage() {
   const t = await getTranslations('contact');

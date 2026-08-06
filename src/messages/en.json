@@ -78,7 +78,8 @@
     "formMessage": "Message",
     "formSubmit": "Send Message",
     "formSuccess": "Thanks! We'll be in touch soon.",
-    "formSuccessSub": "In the meantime, follow us on Instagram."
+    "formSuccessSub": "In the meantime, follow us on Instagram.",
+    "formError": "Something went wrong. Please try again or reach out on Instagram."
   },
   "register": {
     "headline": "Register Interest",

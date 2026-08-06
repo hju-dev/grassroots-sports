@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -24,6 +25,30 @@ const programIcons: Record<Program, [IconComponent, IconComponent, IconComponent
 
 export function generateStaticParams() {
   return validPrograms.map((program) => ({ program }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; program: string }>;
+}): Promise<Metadata> {
+  const { locale, program } = await params;
+  if (!validPrograms.includes(program as Program)) return {};
+
+  const p = program as Program;
+  const t = await getTranslations('programDetail');
+  const d = (key: string): string =>
+    (t as unknown as (k: string) => string)(`${p}.${key}`);
+
+  return {
+    title: `${d('hero')} | Grass Roots Sports`,
+    description: d('overview').slice(0, 155),
+    openGraph: {
+      title: `${d('hero')} — Grass Roots Sports`,
+      description: d('tagline'),
+      images: [{ url: '/logo.jpg', width: 800, height: 800, alt: 'Grass Roots Sports' }],
+    },
+  };
 }
 
 export default async function ProgramDetailPage({

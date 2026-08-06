@@ -1,5 +1,18 @@
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import RegistrationForm from '@/components/RegistrationForm';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === 'en';
+  return {
+    title: isEn ? 'Register Interest | Grass Roots Sports' : 'ลงทะเบียนความสนใจ | Grass Roots Sports',
+    description: isEn
+      ? 'Register your interest in Grass Roots Sports programs. Be first to know when we launch in Pattaya, Thailand.'
+      : 'ลงทะเบียนความสนใจในโปรแกรม Grass Roots Sports รู้เป็นคนแรกเมื่อเราเปิดตัวในพัทยา',
+    robots: { index: false }, // keep registration page out of search results for now
+  };
+}
 
 export default async function RegisterPage({
   searchParams,

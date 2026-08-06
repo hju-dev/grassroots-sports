@@ -7,7 +7,7 @@ import QRCode from 'react-qr-code';
 import { generatePromptPayPayload } from '@/lib/promptpay';
 import { useParams } from 'next/navigation';
 
-const PROMPTPAY_NUMBER = '0812345678'; // placeholder — replace with Alex's real number
+const PROMPTPAY_NUMBER = process.env.NEXT_PUBLIC_PROMPTPAY_NUMBER ?? '0812345678';
 
 type Step = 'form' | 'qr' | 'done';
 

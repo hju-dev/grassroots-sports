@@ -78,7 +78,8 @@
     "formMessage": "ข้อความ",
     "formSubmit": "ส่งข้อความ",
     "formSuccess": "ขอบคุณ! เราจะติดต่อกลับเร็วๆ นี้",
-    "formSuccessSub": "ในระหว่างนี้ ติดตามเราทาง Instagram"
+    "formSuccessSub": "ในระหว่างนี้ ติดตามเราทาง Instagram",
+    "formError": "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้งหรือติดต่อเราทาง Instagram"
   },
   "register": {
     "headline": "ลงทะเบียนความสนใจ",

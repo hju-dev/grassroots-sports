@@ -1,6 +1,18 @@
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { BasketballIcon, LightningIcon, TrophyIcon, TargetIcon } from '@/components/Icons';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === 'en';
+  return {
+    title: isEn ? 'Programs | Grass Roots Sports' : 'โปรแกรม | Grass Roots Sports',
+    description: isEn
+      ? 'Youth basketball, teen academy, adult leagues, and private coaching — programs for every age and level in Pattaya.'
+      : 'บาสเกตบอลเยาวชน Teen Academy ลีกผู้ใหญ่ และการโค้ชส่วนตัว — โปรแกรมสำหรับทุกวัยและทุกระดับในพัทยา',
+  };
+}
 
 export default async function ProgramsPage({
   params,

@@ -1,6 +1,18 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { BasketballIcon, CommunityIcon, GrowthIcon } from '@/components/Icons';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === 'en';
+  return {
+    title: isEn ? 'About | Grass Roots Sports' : 'เกี่ยวกับเรา | Grass Roots Sports',
+    description: isEn
+      ? 'Learn about Grass Roots Sports — founded by Alex Dovey to bring community basketball to Pattaya, Thailand.'
+      : 'เรียนรู้เกี่ยวกับ Grass Roots Sports ก่อตั้งโดย Alex Dovey เพื่อนำบาสเกตบอลชุมชนมาสู่พัทยา',
+  };
+}
 
 export default async function AboutPage({
   params,

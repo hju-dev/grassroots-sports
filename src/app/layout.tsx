@@ -10,6 +10,7 @@ const bebasNeue = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://grassroots-sports.vercel.app'),
   title: 'Grass Roots Sports',
   description: 'Community basketball academy coming to Pattaya, Thailand.',
   icons: { icon: '/logo.jpg' },

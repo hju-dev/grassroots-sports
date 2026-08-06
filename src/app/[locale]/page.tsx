@@ -1,6 +1,23 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === 'en';
+  return {
+    title: 'Grass Roots Sports — Basketball Academy Pattaya',
+    description: isEn
+      ? 'Community basketball coaching, leagues, and development programs for all ages in Pattaya, Thailand.'
+      : 'โค้ชบาสเกตบอล ลีก และโปรแกรมพัฒนานักกีฬาทุกวัยในพัทยา ประเทศไทย',
+    openGraph: {
+      title: 'Grass Roots Sports',
+      description: isEn ? 'Basketball for everyone. Coming to Pattaya, Thailand.' : 'บาสเกตบอลสำหรับทุกคน กำลังมาถึงพัทยา',
+      images: [{ url: '/logo.jpg', width: 800, height: 800, alt: 'Grass Roots Sports' }],
+    },
+  };
+}
 import {
   BasketballIcon,
   CommunityIcon,
