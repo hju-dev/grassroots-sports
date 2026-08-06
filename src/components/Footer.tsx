@@ -36,6 +36,8 @@ export default async function Footer({ locale }: { locale: string }) {
                 { href: `/${locale}`, key: 'home' },
                 { href: `/${locale}/about`, key: 'about' },
                 { href: `/${locale}/programs`, key: 'programs' },
+                { href: `/${locale}/gallery`, key: 'gallery' },
+                { href: `/${locale}/schedule`, key: 'schedule' },
                 { href: `/${locale}/contact`, key: 'contact' },
               ] as const
             ).map((link) => (

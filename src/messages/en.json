@@ -4,7 +4,9 @@
     "about": "About",
     "programs": "Programs",
     "contact": "Contact",
-    "register": "Register"
+    "register": "Register",
+    "gallery": "Gallery",
+    "schedule": "Schedule"
   },
   "home": {
     "headline": "Where Athletes Grow. Communities Connect.",
@@ -104,6 +106,41 @@
     "promptPayLabel": "PromptPay",
     "paidBtn": "I've Paid — Complete Registration",
     "skipBtn": "Pay Later — Just Register Interest"
+  },
+  "gallery": {
+    "headline": "Gallery",
+    "subtitle": "Coaching sessions, leagues, tournaments, and community — captured.",
+    "filterAll": "All",
+    "filterYouth": "Youth",
+    "filterTeen": "Teen",
+    "filterAdult": "Adult",
+    "filterEvents": "Events",
+    "placeholderLabel": "Photos coming soon",
+    "placeholderDesc": "Follow @akdovey on Instagram for the latest from the court.",
+    "instagramCta": "Follow @akdovey"
+  },
+  "schedule": {
+    "headline": "Schedule",
+    "subtitle": "Program days, times, and locations — launching in Pattaya soon.",
+    "comingSoonBadge": "Coming Soon",
+    "weeklyTitle": "Planned Weekly Schedule",
+    "weeklyDesc": "This is the intended session structure. Exact days, times, and locations will be confirmed before launch.",
+    "mon": "Monday",
+    "tue": "Tuesday",
+    "wed": "Wednesday",
+    "thu": "Thursday",
+    "fri": "Friday",
+    "sat": "Saturday",
+    "sun": "Sunday",
+    "closed": "Closed",
+    "tbc": "Time TBC",
+    "byAppt": "By Appointment",
+    "specialTitle": "Camps & Clinics",
+    "specialDesc": "Holiday camps, skills clinics, and tournaments will be announced on Instagram as dates are confirmed.",
+    "notifyTitle": "Get Notified at Launch",
+    "notifyDesc": "Register your interest now and we'll contact you directly when schedules and pricing are confirmed.",
+    "notifyRegister": "Register Interest",
+    "notifyInstagram": "Follow @akdovey"
   },
   "programDetail": {
     "backBtn": "All Programs",
