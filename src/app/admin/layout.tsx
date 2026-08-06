@@ -1,3 +1,5 @@
+import { UserButton } from '@clerk/nextjs';
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -8,9 +10,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </span>
           <span className="text-xs bg-gray-700 text-gray-300 px-2 py-0.5 rounded font-mono">Admin</span>
         </div>
-        <span className="text-xs text-yellow-400 font-semibold uppercase tracking-wider">
-          Demo Data — Clerk Auth Pending
-        </span>
+        <UserButton />
       </header>
       {children}
     </div>
