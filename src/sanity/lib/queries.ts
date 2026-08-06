@@ -49,5 +49,7 @@ export const SETTINGS_QUERY = `*[_type == "settings"][0] {
   location,
   announcementBannerEn,
   announcementBannerTh,
-  registrationsOpen
+  registrationsOpen,
+  bioEn,
+  bioTh
 }`;

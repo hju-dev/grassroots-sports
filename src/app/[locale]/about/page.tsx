@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { BasketballIcon, CommunityIcon, GrowthIcon } from '@/components/Icons';
+import { sanityClient } from '@/sanity/lib/client';
+import { SETTINGS_QUERY } from '@/sanity/lib/queries';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -21,6 +23,9 @@ export default async function AboutPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations('about');
+  const settings = await sanityClient.fetch(SETTINGS_QUERY).catch(() => null);
+  const bio =
+    (locale === 'th' ? settings?.bioTh : settings?.bioEn) || t('founderBio');
 
   return (
     <>
@@ -53,7 +58,7 @@ export default async function AboutPage({
               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--color-forest)] mb-5">
                 {t('founderRole')}
               </p>
-              <p className="text-[var(--color-body)] leading-relaxed max-w-xl">{t('founderBio')}</p>
+              <p className="text-[var(--color-body)] leading-relaxed max-w-xl">{bio}</p>
             </div>
           </div>
         </div>

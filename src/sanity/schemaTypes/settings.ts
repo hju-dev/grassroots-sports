@@ -44,6 +44,19 @@ export const settings = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'bioEn',
+      title: 'Founder Bio (English)',
+      type: 'text',
+      rows: 5,
+      description: 'Shown on the About page under Alex\'s name.',
+    }),
+    defineField({
+      name: 'bioTh',
+      title: 'Founder Bio (Thai)',
+      type: 'text',
+      rows: 5,
+    }),
+    defineField({
       name: 'registrationsOpen',
       title: 'Registrations Open',
       type: 'boolean',
