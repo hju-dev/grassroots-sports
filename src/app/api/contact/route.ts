@@ -18,7 +18,7 @@ export async function POST(request: Request) {
 
   await resend.emails.send({
     from: 'Grass Roots Sports <noreply@grassrootssports.org>',
-    to: 'akdovey@gmail.com',
+    to: 'team@grassrootssports.org',
     subject: `New message from ${name}`,
     text: `New contact form submission\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
   });
