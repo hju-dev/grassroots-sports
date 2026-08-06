@@ -44,18 +44,6 @@ export default async function AdminPage() {
   return (
     <main className="max-w-6xl mx-auto px-4 py-10">
 
-      {/* Pending banners */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-        {[
-          { label: 'Clerk Auth', desc: 'This page is unprotected. Add middleware when CLERK_SECRET_KEY is set.', color: 'border-orange-400 bg-orange-50' },
-          { label: 'Resend Email', desc: 'Confirmation emails are disabled. Add RESEND_API_KEY to Vercel.', color: 'border-blue-400 bg-blue-50' },
-        ].map((b) => (
-          <div key={b.label} className={`border-l-4 rounded-lg px-4 py-3 ${b.color}`}>
-            <p className="text-xs font-bold uppercase tracking-wider mb-1">{b.label} Pending</p>
-            <p className="text-xs text-gray-600">{b.desc}</p>
-          </div>
-        ))}
-      </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-10">
