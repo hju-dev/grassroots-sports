@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
-// import { Resend } from 'resend';
-
-// const resend = new Resend(process.env.RESEND_API_KEY);
+import { Resend } from 'resend';
 
 export async function POST(request: Request) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const { name, email, message } = await request.json();
 
   if (!name || !email || !message) {
@@ -17,7 +16,6 @@ export async function POST(request: Request) {
     VALUES (${name}, ${email}, ${message})
   `;
 
-  /* TODO: uncomment when RESEND_API_KEY is added to Vercel env vars
   await resend.emails.send({
     from: 'Grass Roots Sports <noreply@grassrootssports.org>',
     to: 'akdovey@gmail.com',
@@ -31,7 +29,6 @@ export async function POST(request: Request) {
     subject: 'Message received — Grass Roots Sports',
     text: `Hi ${name},\n\nThanks for reaching out! Alex will get back to you shortly.\n\nFollow us on Instagram for updates: @akdovey\n\n— Grass Roots Sports`,
   });
-  */
 
   return NextResponse.json({ success: true });
 }
