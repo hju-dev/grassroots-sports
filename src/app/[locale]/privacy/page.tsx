@@ -18,7 +18,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
         {isEn ? 'Privacy Policy' : 'นโยบายความเป็นส่วนตัว'}
       </h1>
       <p className="text-[var(--color-muted)] text-sm mb-12">
-        {isEn ? 'Last updated: August 2025' : 'อัปเดตล่าสุด: สิงหาคม 2568'}
+        {isEn ? 'Last updated: August 2026' : 'อัปเดตล่าสุด: สิงหาคม 2569'}
       </p>
 
       <div className="prose prose-sm max-w-none text-[var(--color-body)] space-y-10">
