@@ -4,8 +4,7 @@ export const settings = defineType({
   name: 'settings',
   title: 'Site Settings',
   type: 'document',
-  // Singleton — only one document of this type should exist
-  __experimental_actions: ['update', 'publish'],
+  // Singleton — only one document of this type should exist (create/delete hidden via Studio structure)
   fields: [
     defineField({
       name: 'promptpayNumber',
