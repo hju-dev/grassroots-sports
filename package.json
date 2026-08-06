@@ -11,6 +11,7 @@
   "dependencies": {
     "@clerk/nextjs": "^7.6.5",
     "@neondatabase/serverless": "^1.1.0",
+    "@sanity/client": "^7.26.2",
     "next": "16.3.0",
     "next-intl": "^4.13.5",
     "react": "19.2.8",
