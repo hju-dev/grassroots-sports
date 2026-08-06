@@ -1,12 +1,9 @@
-// Neon database connection
-// TODO: uncomment when DATABASE_URL is added to Vercel env vars
+import { neon } from '@neondatabase/serverless';
 
-// import { neon } from '@neondatabase/serverless';
-// import { drizzle } from 'drizzle-orm/neon-http';
-// import * as schema from './schema';
-
-// const sql = neon(process.env.DATABASE_URL!);
-// export const db = drizzle(sql, { schema });
-
-// Placeholder export so imports don't break before Neon is set up
-export const db = null;
+// Returns a query function connected to Neon — called at request time, not module load
+export function getDb() {
+  if (!process.env.DATABASE_URL) {
+    throw new Error('DATABASE_URL environment variable is not set');
+  }
+  return neon(process.env.DATABASE_URL);
+}
