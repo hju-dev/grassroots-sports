@@ -40,6 +40,18 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
+      {/* Our Story Body */}
+      <section className="py-16 md:py-20 px-4 bg-white">
+        <div className="max-w-3xl mx-auto space-y-6 text-[var(--color-body)] leading-relaxed text-base md:text-lg">
+          <p>{t('storyP1')}</p>
+          <p>{t('storyP2')}</p>
+          <p className="font-semibold text-[var(--color-black)]">{t('storyP3')}</p>
+          <p>{t('storyP4')}</p>
+          <p>{t('storyP5')}</p>
+          <p>{t('storyP6')}</p>
+        </div>
+      </section>
+
       {/* Founder */}
       <section className="py-16 md:py-20 px-4 bg-[var(--color-offwhite)]">
         <div className="max-w-4xl mx-auto">
