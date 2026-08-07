@@ -69,9 +69,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--color-forest)] mb-5">
                 {t('founderRole')}
               </p>
-              <p className="text-[var(--color-body)] leading-relaxed max-w-xl">
-                {cms(s?.bioEn, s?.bioTh, t('founderBio'))}
-              </p>
+              <div className="space-y-4 text-[var(--color-body)] leading-relaxed max-w-xl">
+                <p>{cms(s?.bioEn, s?.bioTh, t('founderBioP1'))}</p>
+                <p>{t('founderBioP2')}</p>
+                <p>{t('founderBioP3')}</p>
+                <p>{t('founderBioP4')}</p>
+              </div>
             </div>
           </div>
         </div>
