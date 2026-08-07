@@ -1,8 +1,7 @@
 import { getDb } from '@/lib/db';
+import MarkPaidButton from '@/components/MarkPaidButton';
 
 export const dynamic = 'force-dynamic';
-
-// TODO: Protect this route with Clerk auth when CLERK_SECRET_KEY is set
 
 type Registration = {
   id: number;
@@ -89,8 +88,14 @@ export default async function AdminPage() {
                         </span>
                       </td>
                       <td className="px-5 py-4">
-                        <span className={`inline-block w-2 h-2 rounded-full ${r.paid ? 'bg-green-500' : 'bg-gray-300'}`} />
-                        <span className="ml-2 text-xs text-gray-500">{r.paid ? 'Paid' : 'Pending'}</span>
+                        {r.paid ? (
+                          <span className="inline-flex items-center gap-1.5 text-xs text-green-600 font-semibold">
+                            <span className="inline-block w-2 h-2 rounded-full bg-green-500" />
+                            Paid
+                          </span>
+                        ) : (
+                          <MarkPaidButton id={r.id} />
+                        )}
                       </td>
                       <td className="px-5 py-4 text-gray-500 text-xs">
                         {new Date(r.created_at).toLocaleDateString('en-GB')}

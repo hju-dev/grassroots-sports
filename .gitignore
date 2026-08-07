@@ -43,3 +43,6 @@ next-env.d.ts
 # sanity studio build output
 /dist
 /.sanity
+
+# clerk configuration (can include secrets)
+/.clerk/
