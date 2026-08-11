@@ -10,8 +10,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isEn ? 'About | Grass Roots Sports' : 'เกี่ยวกับเรา | Grass Roots Sports',
     description: isEn
-      ? 'Learn about Grass Roots Sports — founded by Alex Dovey to bring community basketball to Pattaya, Thailand.'
-      : 'เรียนรู้เกี่ยวกับ Grass Roots Sports ก่อตั้งโดย Alex Dovey เพื่อนำบาสเกตบอลชุมชนมาสู่พัทยา',
+      ? 'The story behind Grass Roots Sports — building accessible, community-driven sport in Pattaya, Thailand.'
+      : 'เรื่องราวของ Grass Roots Sports — สร้างกีฬาที่เข้าถึงได้และขับเคลื่อนโดยชุมชนในพัทยา',
   };
 }
 
@@ -40,27 +40,31 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
-      {/* Founder */}
-      <section className="py-16 md:py-20 px-4 bg-[var(--color-offwhite)]">
-        <div className="max-w-4xl mx-auto">
+      {/* Our Story */}
+      <section className="py-16 md:py-24 px-4 bg-[var(--color-offwhite)]">
+        <div className="max-w-3xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-widest text-[var(--color-forest)] text-center mb-10">
-            {t('founderLabel')}
+            Our Story
           </p>
-          <div className="flex flex-col md:flex-row items-center gap-10">
-            <div className="flex-shrink-0">
-              <div className="w-36 h-36 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-[var(--color-forest)] to-[var(--color-black)] flex items-center justify-center shadow-xl">
-                <span className="text-white text-4xl md:text-5xl font-black tracking-tight">AD</span>
-              </div>
-            </div>
-            <div className="text-center md:text-left">
-              <h2 className="text-3xl md:text-4xl text-[var(--color-black)] mb-1">{t('founderName')}</h2>
-              <p className="text-sm font-semibold uppercase tracking-widest text-[var(--color-forest)] mb-5">
-                {t('founderRole')}
-              </p>
-              <p className="text-[var(--color-body)] leading-relaxed max-w-xl">
-                {cms(s?.bioEn, s?.bioTh, t('founderBio'))}
-              </p>
-            </div>
+          <div className="space-y-6 text-[var(--color-body)]">
+            <p className="text-xl md:text-2xl font-semibold text-[var(--color-black)] leading-snug">
+              Grass Roots Sports wasn&apos;t created overnight. It&apos;s the product of more than 15 years of coaching, learning, and building relationships through sport.
+            </p>
+            <p className="leading-relaxed">
+              From the United States to Spain, Thailand, Vietnam, and China, every community has offered new ideas about coaching, player development, competition, and the role sport plays in bringing people together. Along the way, one lesson has remained constant: the strongest sporting communities are built when everyone has the opportunity to participate.
+            </p>
+            <p className="leading-relaxed font-medium text-[var(--color-black)]">
+              That belief became the foundation of Grass Roots Sports.
+            </p>
+            <p className="leading-relaxed">
+              Our vision is to make quality sport more accessible while creating opportunities for athletes of all ages and abilities. We are committed to providing high-level coaching and professional training environments for those who want to compete, while ensuring that beginners, recreational players, and families always have an affordable and welcoming place to start. We believe there should never be an age limit on enjoying sport or becoming part of a sporting community.
+            </p>
+            <p className="leading-relaxed">
+              Looking beyond our own programs, we hope to help strengthen the sporting landscape across Thailand by supporting the development of local facilities, improving access to equipment, and working alongside schools, clubs, businesses, and community organisations to create more opportunities for participation.
+            </p>
+            <p className="leading-relaxed">
+              As Grass Roots Sports continues to grow, so will the team behind it. What began as one person&apos;s vision has already been shaped by countless coaches, players, educators, parents, and community leaders. In the years ahead, we aim to build a board of experienced community leaders, sporting professionals, and investment partners who share our commitment to creating something that will benefit generations to come.
+            </p>
           </div>
         </div>
       </section>

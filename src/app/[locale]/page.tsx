@@ -9,6 +9,8 @@ import {
   LightningIcon,
   TrophyIcon,
   TargetIcon,
+  PartnerIcon,
+  TrendingUpIcon,
 } from '@/components/Icons';
 import { sanityClient } from '@/sanity/lib/client';
 import { SETTINGS_QUERY } from '@/sanity/lib/queries';
@@ -136,6 +138,62 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             >
               {t('programsCta')}
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Get Involved */}
+      <section className="py-14 md:py-16 px-4 bg-[var(--color-offwhite)]">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-5xl text-center mb-3 text-[var(--color-black)]">
+            Get Involved
+          </h2>
+          <p className="text-center text-[var(--color-muted)] mb-10 text-sm md:text-base max-w-xl mx-auto">
+            There are many ways to be part of Grass Roots Sports — as a player, a partner, an investor, or a member of the team.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {([
+              {
+                Icon: BasketballIcon,
+                title: 'Play',
+                desc: 'Register your interest in any program — for all ages and abilities.',
+                href: `/${locale}/register`,
+                cta: 'Register now',
+              },
+              {
+                Icon: PartnerIcon,
+                title: 'Partner',
+                desc: 'Sponsor a program or become a business, facility, or community partner.',
+                href: `/${locale}/partners`,
+                cta: 'Partner with us',
+              },
+              {
+                Icon: TrendingUpIcon,
+                title: 'Invest',
+                desc: 'We are seeking investment partners who share our long-term vision.',
+                href: `/${locale}/partners#invest`,
+                cta: 'Find out more',
+              },
+              {
+                Icon: CommunityIcon,
+                title: 'Join the Team',
+                desc: 'Coaching, coordination, and community roles as we launch and grow.',
+                href: `/${locale}/partners#team`,
+                cta: 'See opportunities',
+              },
+            ] as const).map(({ Icon, title, desc, href, cta }) => (
+              <div key={title} className="bg-white rounded-xl p-6 flex flex-col gap-3 shadow-sm border border-[var(--color-black)]/5">
+                <Icon className="w-10 h-10 text-[var(--color-forest)]" />
+                <h3 className="text-lg font-bold text-[var(--color-black)]">{title}</h3>
+                <p className="text-sm text-[var(--color-muted)] leading-relaxed flex-1">{desc}</p>
+                <Link
+                  href={href}
+                  className="text-xs font-bold uppercase tracking-widest text-[var(--color-forest)] hover:text-[var(--color-lime)] transition-colors"
+                >
+                  {cta} →
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>

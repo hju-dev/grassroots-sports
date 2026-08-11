@@ -111,3 +111,22 @@ export function TargetIcon({ className = 'w-10 h-10' }: IconProps) {
     </svg>
   );
 }
+
+export function PartnerIcon({ className = 'w-10 h-10' }: IconProps) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M18 32 L13 37 C9 41 3 41 3 35 C3 29 9 29 13 33 L18 28" />
+      <path d="M30 16 L35 11 C39 7 45 7 45 13 C45 19 39 19 35 15 L30 20" />
+      <line x1="20" y1="28" x2="28" y2="20" />
+    </svg>
+  );
+}
+
+export function TrendingUpIcon({ className = 'w-10 h-10' }: IconProps) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <polyline points="6 38 18 24 26 32 42 12" />
+      <polyline points="32 12 42 12 42 22" />
+    </svg>
+  );
+}
