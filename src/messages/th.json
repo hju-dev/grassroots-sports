@@ -116,8 +116,8 @@
     "filterTeen": "วัยรุ่น",
     "filterAdult": "ผู้ใหญ่",
     "filterEvents": "อีเวนต์",
-    "placeholderLabel": "รูปภาพกำลังจะมา",
-    "placeholderDesc": "ติดตาม @akdovey ทาง Instagram เพื่อดูความเคลื่อนไหวล่าสุดจากสนาม",
+    "igLabel": "ติดตามการเดินทาง",
+    "igDesc": "รูปภาพและอัปเดตเพิ่มเติมจากสนามบน Instagram",
     "instagramCta": "ติดตาม @akdovey"
   },
   "schedule": {
