@@ -24,30 +24,18 @@ type SanityPhoto = {
   category: 'youth' | 'teen' | 'adult' | 'events' | null;
 };
 
-type PlaceholderItem = {
-  id: number;
-  label: string;
-  labelTh: string;
-  program: 'youth' | 'teen' | 'adult' | 'private' | 'events';
-  featured?: boolean;
-};
+type StaticPhoto = { src: string; alt: string; caption: string };
 
-const placeholders: PlaceholderItem[] = [
-  { id: 1, program: 'youth',  label: 'Youth Training Session',  labelTh: 'เซสชันฝึกซ้อมเยาวชน',  featured: true },
-  { id: 2, program: 'adult',  label: 'Adult League Night',      labelTh: 'คืนลีกผู้ใหญ่',          featured: true },
-  { id: 3, program: 'teen',   label: 'Teen Academy Drills',     labelTh: 'การฝึก Teen Academy' },
-  { id: 4, program: 'youth',  label: 'Skills Clinic',           labelTh: 'คลินิกทักษะ' },
-  { id: 5, program: 'events', label: 'Community Tournament',    labelTh: 'ทัวร์นาเมนต์ชุมชน' },
-  { id: 6, program: 'private',label: 'Private Coaching',        labelTh: 'เซสชันการโค้ชส่วนตัว' },
+const staticPhotos: StaticPhoto[] = [
+  { src: '/images/team-huddle.png',     alt: 'Grassroots Sports team huddle',           caption: 'Team huddle' },
+  { src: '/images/game-action.png',     alt: 'Game action — Grassroots Sports',          caption: 'Game action' },
+  { src: '/images/coach-huddle.png',    alt: 'Coach and players in huddle',             caption: 'Coaching session' },
+  { src: '/images/team-timeout.png',    alt: 'Team timeout during a game',              caption: 'Game time' },
+  { src: '/images/youth-scrimmage.png', alt: 'Youth scrimmage session',                 caption: 'Youth scrimmage' },
+  { src: '/images/team-champions.png',  alt: 'Girls team celebrating championship win', caption: 'Champions' },
+  { src: '/images/community-group.png', alt: 'Grassroots Sports community group photo', caption: 'Community' },
+  { src: '/images/team-dinner.jpg',     alt: 'Team community dinner',                   caption: 'Team dinner' },
 ];
-
-const categoryGradient: Record<string, string> = {
-  youth:   'from-[var(--color-forest)] to-[var(--color-lime)]',
-  teen:    'from-[var(--color-black)] to-[var(--color-forest)]',
-  adult:   'from-[var(--color-forest)] to-[#1a3a2a]',
-  private: 'from-[#1a3a2a] to-[var(--color-forest)]',
-  events:  'from-[var(--color-lime)] to-[var(--color-forest)]',
-};
 
 const CategoryIcon: Record<string, React.FC<{ className?: string }>> = {
   youth:   BasketballIcon,
@@ -107,25 +95,21 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
               })}
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-              {placeholders.map((item) => {
-                const Icon = CategoryIcon[item.program] || CommunityIcon;
-                const label = isEn ? item.label : item.labelTh;
-                return (
-                  <div
-                    key={item.id}
-                    className={`relative overflow-hidden rounded-2xl group ${item.featured ? 'col-span-2 md:col-span-1 md:row-span-2' : ''}`}
-                    style={{ aspectRatio: item.featured ? '1/1.4' : '1/1' }}
-                  >
-                    <div className={`w-full h-full bg-gradient-to-br ${categoryGradient[item.program]} flex flex-col items-center justify-center`}>
-                      <Icon className="w-12 h-12 md:w-16 md:h-16 text-white/40" />
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 bg-black/40 px-3 py-2">
-                      <p className="text-white text-xs font-semibold truncate">{label}</p>
-                    </div>
+            <div className="columns-2 md:columns-3 gap-3 md:gap-4 space-y-3 md:space-y-4">
+              {staticPhotos.map((photo, i) => (
+                <div key={i} className="relative overflow-hidden rounded-2xl group break-inside-avoid">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    width={600}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end p-4">
+                    <p className="text-white text-sm font-semibold">{photo.caption}</p>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           )}
         </div>

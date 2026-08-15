@@ -63,7 +63,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-28 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="relative w-40 h-40 md:w-52 md:h-52 mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl">
-            <Image src="/logo.jpg" alt="Grass Roots Sports" fill className="object-contain" sizes="(max-width: 768px) 160px, 208px" priority />
+            <Image src="/logo.png" alt="Grass Roots Sports" fill className="object-contain" sizes="(max-width: 768px) 160px, 208px" priority />
           </div>
           <h1 className="text-4xl md:text-7xl lg:text-8xl mb-5">
             {cms('heroHeadlineEn', 'heroHeadlineTh', t('headline'))}
@@ -77,6 +77,21 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           >
             {t('cta')}
           </Link>
+        </div>
+      </section>
+
+      {/* Photo strip */}
+      <section className="px-4 py-6 bg-[var(--color-black)]">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {[
+            { src: '/images/team-huddle.png',  alt: 'Grassroots Sports team' },
+            { src: '/images/game-action.png',  alt: 'Game action' },
+            { src: '/images/coach-huddle.png', alt: 'Coaching session' },
+          ].map((photo) => (
+            <div key={photo.src} className="relative aspect-video overflow-hidden rounded-xl">
+              <Image src={photo.src} alt={photo.alt} fill className="object-cover" sizes="(max-width: 640px) 100vw, 33vw" />
+            </div>
+          ))}
         </div>
       </section>
 
@@ -202,7 +217,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="bg-[var(--color-black)] text-white py-14 md:py-16 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <div className="relative w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden ring-2 ring-white/20 bg-white">
-            <Image src="/logo.jpg" alt="Grass Roots Sports" fill className="object-contain" sizes="80px" />
+            <Image src="/logo.png" alt="Grass Roots Sports" fill className="object-contain" sizes="80px" />
           </div>
           <h2 className="text-3xl md:text-6xl mb-4">
             {cms('igSectionTitleEn', 'igSectionTitleTh', t('instagramTitle'))}

@@ -14,7 +14,7 @@ export default async function Footer({ locale }: { locale: string }) {
             <div className="flex items-center gap-3 mb-3">
               <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 bg-white">
                 <Image
-                  src="/logo.jpg"
+                  src="/logo.png"
                   alt="Grass Roots Sports"
                   fill
                   className="object-contain"

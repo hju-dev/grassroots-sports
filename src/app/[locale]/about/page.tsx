@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { BasketballIcon, CommunityIcon, GrowthIcon } from '@/components/Icons';
 import { sanityClient } from '@/sanity/lib/client';
@@ -53,6 +54,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <p className="leading-relaxed">
               From the United States to Spain, Thailand, Vietnam, and China, every community has offered new ideas about coaching, player development, competition, and the role sport plays in bringing people together. Along the way, one lesson has remained constant: the strongest sporting communities are built when everyone has the opportunity to participate.
             </p>
+            <div className="relative aspect-video w-full rounded-2xl overflow-hidden my-2">
+              <Image
+                src="/images/community-group.png"
+                alt="Grass Roots Sports community — players and coaches together"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 768px"
+              />
+            </div>
             <p className="leading-relaxed font-medium text-[var(--color-black)]">
               That belief became the foundation of Grass Roots Sports.
             </p>

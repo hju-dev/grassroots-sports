@@ -33,7 +33,7 @@ export default function Navbar() {
         <Link href={`/${locale}`} className="flex items-center gap-2.5">
           <div className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0 bg-white">
             <Image
-              src="/logo.jpg"
+              src="/logo.png"
               alt="Grass Roots Sports"
               fill
               className="object-contain"
