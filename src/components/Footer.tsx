@@ -70,7 +70,7 @@ export default async function Footer({ locale }: { locale: string }) {
         <div className="border-t border-white/10 mt-10 pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <p className="text-xs text-[var(--color-muted)]">
             {tFooter('copyright')} · Built by{' '}
-            <a href="https://hju-dev.github.io/portfolio/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">hju-dev</a>
+            <a href="https://hju-dev.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">hju-dev</a>
           </p>
           <div className="flex gap-4">
             <Link href={`/${locale}/privacy`} className="text-xs text-[var(--color-muted)] hover:text-white transition-colors">
