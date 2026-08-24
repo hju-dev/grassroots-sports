@@ -81,6 +81,7 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-24 px-4">
+        <div className="pointer-events-none absolute inset-0 animate-hero-glow bg-gradient-to-br from-[var(--color-black)] to-[var(--color-lime)]" />
         <CourtLines className="text-white/10" fit="contain" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <span className="inline-block bg-[var(--color-lime)] text-white text-xs font-bold py-1.5 px-4 rounded-full uppercase tracking-widest mb-5">
