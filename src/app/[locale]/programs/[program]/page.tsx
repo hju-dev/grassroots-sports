@@ -13,6 +13,7 @@ import {
 import { sanityClient } from '@/sanity/lib/client';
 import { PROGRAM_QUERY } from '@/sanity/lib/queries';
 import { buildAlternates } from '@/lib/seo';
+import CourtLines from '@/components/CourtLines';
 
 const validPrograms = ['youth', 'teen', 'adult', 'private'] as const;
 type Program = (typeof validPrograms)[number];
@@ -103,8 +104,9 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-28 px-4">
-        <div className="max-w-5xl mx-auto">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-28 px-4">
+        <CourtLines className="text-white/10" />
+        <div className="relative z-10 max-w-5xl mx-auto">
           <Link
             href={`/${locale}/programs`}
             className="flex w-fit items-center gap-2 text-white/60 hover:text-white text-sm uppercase tracking-wider mb-6 transition-colors"

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PartnerIcon, TrendingUpIcon, CommunityIcon, BasketballIcon, TargetIcon, GrowthIcon } from '@/components/Icons';
 import { buildAlternates } from '@/lib/seo';
+import CourtLines from '@/components/CourtLines';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -67,8 +68,9 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-24 px-4">
-        <div className="max-w-3xl mx-auto text-center">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-24 px-4">
+        <CourtLines className="text-white/10" />
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
           <h1 className="text-5xl md:text-7xl mb-4">Partner With Us</h1>
           <p className="text-base md:text-lg text-white/70 max-w-xl mx-auto leading-relaxed">
             Help build something that matters: quality, accessible sport for all ages in Pattaya, Thailand.

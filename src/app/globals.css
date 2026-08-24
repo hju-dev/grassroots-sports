@@ -25,3 +25,18 @@ h2 {
   font-family: var(--font-bebas), sans-serif;
   line-height: 1;
 }
+
+@keyframes court-lines-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.animate-court-lines {
+  animation: court-lines-pulse 8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-court-lines {
+    animation: none;
+  }
+}

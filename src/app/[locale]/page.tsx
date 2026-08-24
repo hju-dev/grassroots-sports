@@ -15,6 +15,7 @@ import {
 import { sanityClient } from '@/sanity/lib/client';
 import { SETTINGS_QUERY } from '@/sanity/lib/queries';
 import { buildAlternates } from '@/lib/seo';
+import CourtLines from '@/components/CourtLines';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -62,8 +63,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-28 px-4">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-28 px-4">
+        <CourtLines className="text-white/10" />
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
           <div className="relative w-40 h-40 md:w-52 md:h-52 mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl">
             <Image src="/logo.png" alt="Grass Roots Sports" fill className="object-contain" sizes="(max-width: 768px) 160px, 208px" priority />
           </div>
