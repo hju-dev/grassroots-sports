@@ -8,10 +8,10 @@ export default async function Footer({ locale }: { locale: string }) {
 
   return (
     <footer className="bg-[var(--color-black)] text-white/80 py-12 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between gap-10">
-          <div>
-            <div className="flex items-center gap-3 mb-3">
+      <div className="max-w-3xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-center gap-10 md:gap-20 text-center md:text-left">
+          <div className="max-w-xs mx-auto md:mx-0">
+            <div className="flex items-center gap-3 mb-3 justify-center md:justify-start">
               <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 bg-white">
                 <Image
                   src="/logo.png"
@@ -30,7 +30,7 @@ export default async function Footer({ locale }: { locale: string }) {
             <p className="text-[var(--color-muted)] text-sm">{tFooter('tagline')}</p>
           </div>
 
-          <nav className="flex flex-col gap-2">
+          <nav className="grid grid-cols-2 gap-x-10 gap-y-2.5 justify-center md:justify-start">
             {(
               [
                 { href: `/${locale}`, key: 'home' },
@@ -51,28 +51,22 @@ export default async function Footer({ locale }: { locale: string }) {
               </Link>
             ))}
           </nav>
-
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wider mb-2">
-              {tFooter('followUs')}
-            </p>
-            <a
-              href="https://instagram.com/akdovey"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-[var(--color-lime)] hover:text-white transition-colors"
-            >
-              @akdovey
-            </a>
-          </div>
         </div>
 
-        <div className="border-t border-white/10 mt-10 pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="border-t border-white/10 mt-10 pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-center gap-3 sm:gap-6 text-center">
           <p className="text-xs text-[var(--color-muted)]">
             {tFooter('copyright')} · Built by{' '}
             <a href="https://hju-dev.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">hju-dev</a>
           </p>
-          <div className="flex gap-4">
+          <div className="flex items-center justify-center gap-4">
+            <a
+              href="https://instagram.com/akdovey"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-semibold text-[var(--color-lime)] hover:text-white transition-colors"
+            >
+              {tFooter('followUs')}: @akdovey
+            </a>
             <Link href={`/${locale}/privacy`} className="text-xs text-[var(--color-muted)] hover:text-white transition-colors">
               Privacy Policy
             </Link>
