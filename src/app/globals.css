@@ -40,18 +40,3 @@ h2 {
     animation: none;
   }
 }
-
-@keyframes hero-glow-breathe {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 0.6; }
-}
-
-.animate-hero-glow {
-  animation: hero-glow-breathe 10s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-hero-glow {
-    animation: none;
-  }
-}

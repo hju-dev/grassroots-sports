@@ -69,7 +69,6 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-24 px-4">
-        <div className="pointer-events-none absolute inset-0 animate-hero-glow bg-gradient-to-br from-[var(--color-black)] to-[var(--color-lime)]" />
         <CourtLines className="text-white/10" fit="contain" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <h1 className="text-5xl md:text-7xl mb-4">Partner With Us</h1>

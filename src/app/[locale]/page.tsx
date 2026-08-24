@@ -64,7 +64,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-28 px-4">
-        <div className="pointer-events-none absolute inset-0 animate-hero-glow bg-gradient-to-br from-[var(--color-black)] to-[var(--color-lime)]" />
         <CourtLines className="text-white/10" />
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <div className="relative w-40 h-40 md:w-52 md:h-52 mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl">
