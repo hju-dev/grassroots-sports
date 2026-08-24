@@ -12,6 +12,7 @@ import {
 } from '@/components/Icons';
 import { sanityClient } from '@/sanity/lib/client';
 import { PROGRAM_QUERY } from '@/sanity/lib/queries';
+import { buildAlternates } from '@/lib/seo';
 
 const validPrograms = ['youth', 'teen', 'adult', 'private'] as const;
 type Program = (typeof validPrograms)[number];
@@ -48,6 +49,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${hero} | Grass Roots Sports`,
     description: overview.slice(0, 155),
+    alternates: buildAlternates(locale, `/programs/${p}`),
     openGraph: {
       title: `${hero} — Grass Roots Sports`,
       description: tagline,

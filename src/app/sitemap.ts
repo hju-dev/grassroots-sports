@@ -13,6 +13,7 @@ const routes = [
   { path: '/programs/private',    priority: 0.8, changeFrequency: 'monthly' },
   { path: '/gallery',             priority: 0.7, changeFrequency: 'weekly'  },
   { path: '/schedule',            priority: 0.7, changeFrequency: 'weekly'  },
+  { path: '/partners',            priority: 0.6, changeFrequency: 'monthly' },
   { path: '/contact',             priority: 0.6, changeFrequency: 'monthly' },
   { path: '/privacy',             priority: 0.3, changeFrequency: 'yearly'  },
   { path: '/terms',               priority: 0.3, changeFrequency: 'yearly'  },

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PartnerIcon, TrendingUpIcon, CommunityIcon, BasketballIcon, TargetIcon, GrowthIcon } from '@/components/Icons';
+import { buildAlternates } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -10,6 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: isEn
       ? 'Partner with Grass Roots Sports — sponsorship, investment, facility partnerships, and team opportunities in Pattaya, Thailand.'
       : 'เป็นพาร์ทเนอร์กับ Grass Roots Sports — สปอนเซอร์ การลงทุน และโอกาสด้านกีฬาในพัทยา',
+    alternates: buildAlternates(locale, '/partners'),
   };
 }
 

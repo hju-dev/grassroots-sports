@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import RegistrationForm from '@/components/RegistrationForm';
 import { sanityClient } from '@/sanity/lib/client';
+import { buildAlternates } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -11,6 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: isEn
       ? 'Register your interest in Grass Roots Sports programs. Be first to know when we launch in Pattaya, Thailand.'
       : 'ลงทะเบียนความสนใจในโปรแกรม Grass Roots Sports รู้เป็นคนแรกเมื่อเราเปิดตัวในพัทยา',
+    alternates: buildAlternates(locale, '/register'),
     robots: { index: false }, // keep registration page out of search results for now
   };
 }

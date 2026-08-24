@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { BasketballIcon, LightningIcon, TrophyIcon, TargetIcon } from '@/components/Icons';
+import { buildAlternates } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -11,6 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: isEn
       ? 'Youth basketball, teen academy, adult leagues, and private coaching — programs for every age and level in Pattaya.'
       : 'บาสเกตบอลเยาวชน Teen Academy ลีกผู้ใหญ่ และการโค้ชส่วนตัว — โปรแกรมสำหรับทุกวัยและทุกระดับในพัทยา',
+    alternates: buildAlternates(locale, '/programs'),
   };
 }
 

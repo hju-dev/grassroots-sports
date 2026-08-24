@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
+import { buildAlternates } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -10,6 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: isEn
       ? 'Program schedule for Grass Roots Sports in Pattaya. Youth, teen, adult leagues, and private coaching — launching soon.'
       : 'ตารางเวลาโปรแกรม Grass Roots Sports ในพัทยา บาสเกตบอลเยาวชน วัยรุ่น ลีกผู้ใหญ่ และการโค้ชส่วนตัว — เปิดตัวเร็วๆ นี้',
+    alternates: buildAlternates(locale, '/schedule'),
   };
 }
 
