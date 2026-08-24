@@ -52,7 +52,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
 
             <section>
               <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">4. Data Retention</h2>
-              <p className="leading-relaxed">We retain your personal data for as long as necessary to provide our services and comply with legal obligations — typically no longer than 3 years after your last interaction with us. You may request deletion at any time.</p>
+              <p className="leading-relaxed">We retain your personal data for as long as necessary to provide our services and comply with legal obligations (typically no longer than 3 years after your last interaction with us). You may request deletion at any time.</p>
             </section>
 
             <section>

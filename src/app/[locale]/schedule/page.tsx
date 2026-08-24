@@ -9,8 +9,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isEn ? 'Schedule | Grass Roots Sports' : 'ตารางเวลา | Grass Roots Sports',
     description: isEn
-      ? 'Program schedule for Grass Roots Sports in Pattaya. Youth, teen, adult leagues, and private coaching — launching soon.'
-      : 'ตารางเวลาโปรแกรม Grass Roots Sports ในพัทยา บาสเกตบอลเยาวชน วัยรุ่น ลีกผู้ใหญ่ และการโค้ชส่วนตัว — เปิดตัวเร็วๆ นี้',
+      ? 'Program schedule for Grass Roots Sports in Pattaya. Youth, teen, adult leagues, and private coaching, launching soon.'
+      : 'ตารางเวลาโปรแกรม Grass Roots Sports ในพัทยา บาสเกตบอลเยาวชน วัยรุ่น ลีกผู้ใหญ่ และการโค้ชส่วนตัว เปิดตัวเร็วๆ นี้',
     alternates: buildAlternates(locale, '/schedule'),
   };
 }

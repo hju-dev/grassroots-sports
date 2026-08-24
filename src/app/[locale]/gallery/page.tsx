@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 const photos = [
   { src: '/images/team-huddle.webp',     alt: 'Grassroots Sports team huddle',           caption: 'Team huddle' },
-  { src: '/images/game-action.webp',     alt: 'Game action — Grassroots Sports',          caption: 'Game action' },
+  { src: '/images/game-action.webp',     alt: 'Grassroots Sports game action',            caption: 'Game action' },
   { src: '/images/coach-huddle.webp',    alt: 'Coach and players in huddle',             caption: 'Coaching session' },
   { src: '/images/team-timeout.webp',    alt: 'Team timeout during a game',              caption: 'Game time' },
   { src: '/images/youth-scrimmage.webp', alt: 'Youth scrimmage session',                 caption: 'Youth scrimmage' },

@@ -10,8 +10,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isEn ? 'Programs | Grass Roots Sports' : 'โปรแกรม | Grass Roots Sports',
     description: isEn
-      ? 'Youth basketball, teen academy, adult leagues, and private coaching — programs for every age and level in Pattaya.'
-      : 'บาสเกตบอลเยาวชน Teen Academy ลีกผู้ใหญ่ และการโค้ชส่วนตัว — โปรแกรมสำหรับทุกวัยและทุกระดับในพัทยา',
+      ? 'Youth basketball, teen academy, adult leagues, and private coaching: programs for every age and level in Pattaya.'
+      : 'บาสเกตบอลเยาวชน Teen Academy ลีกผู้ใหญ่ และการโค้ชส่วนตัว โปรแกรมสำหรับทุกวัยและทุกระดับในพัทยา',
     alternates: buildAlternates(locale, '/programs'),
   };
 }

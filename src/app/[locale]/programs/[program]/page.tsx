@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: overview.slice(0, 155),
     alternates: buildAlternates(locale, `/programs/${p}`),
     openGraph: {
-      title: `${hero} — Grass Roots Sports`,
+      title: `${hero} | Grass Roots Sports`,
       description: tagline,
       images: [{ url: '/logo.jpg', width: 800, height: 800, alt: 'Grass Roots Sports' }],
     },

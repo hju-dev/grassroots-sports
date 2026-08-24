@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const isEn = locale === 'en';
   return {
-    title: 'Grass Roots Sports — Basketball Academy Pattaya',
+    title: 'Grass Roots Sports | Basketball Academy Pattaya',
     description: isEn
       ? 'Community basketball coaching, leagues, and development programs for all ages in Pattaya, Thailand.'
       : 'โค้ชบาสเกตบอล ลีก และโปรแกรมพัฒนานักกีฬาทุกวัยในพัทยา ประเทศไทย',
@@ -166,14 +166,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             Get Involved
           </h2>
           <p className="text-center text-[var(--color-muted)] mb-10 text-sm md:text-base max-w-xl mx-auto">
-            There are many ways to be part of Grass Roots Sports — as a player, a partner, an investor, or a member of the team.
+            There are many ways to be part of Grass Roots Sports, as a player, a partner, an investor, or a member of the team.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {([
               {
                 Icon: BasketballIcon,
                 title: 'Play',
-                desc: 'Register your interest in any program — for all ages and abilities.',
+                desc: 'Register your interest in any program, for all ages and abilities.',
                 href: `/${locale}/register`,
                 cta: 'Register now',
               },

@@ -12,8 +12,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isEn ? 'About | Grass Roots Sports' : 'เกี่ยวกับเรา | Grass Roots Sports',
     description: isEn
-      ? 'The story behind Grass Roots Sports — building accessible, community-driven sport in Pattaya, Thailand.'
-      : 'เรื่องราวของ Grass Roots Sports — สร้างกีฬาที่เข้าถึงได้และขับเคลื่อนโดยชุมชนในพัทยา',
+      ? 'The story behind Grass Roots Sports: building accessible, community-driven sport in Pattaya, Thailand.'
+      : 'เรื่องราวของ Grass Roots Sports สร้างกีฬาที่เข้าถึงได้และขับเคลื่อนโดยชุมชนในพัทยา',
     alternates: buildAlternates(locale, '/about'),
   };
 }
@@ -59,7 +59,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <div className="relative aspect-video w-full rounded-2xl overflow-hidden my-2">
               <Image
                 src="/images/community-group.webp"
-                alt="Grass Roots Sports community — players and coaches together"
+                alt="Grass Roots Sports community: players and coaches together"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 768px"

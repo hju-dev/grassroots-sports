@@ -9,8 +9,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isEn ? 'Partners & Sponsorship | Grass Roots Sports' : 'พาร์ทเนอร์ | Grass Roots Sports',
     description: isEn
-      ? 'Partner with Grass Roots Sports — sponsorship, investment, facility partnerships, and team opportunities in Pattaya, Thailand.'
-      : 'เป็นพาร์ทเนอร์กับ Grass Roots Sports — สปอนเซอร์ การลงทุน และโอกาสด้านกีฬาในพัทยา',
+      ? 'Partner with Grass Roots Sports: sponsorship, investment, facility partnerships, and team opportunities in Pattaya, Thailand.'
+      : 'เป็นพาร์ทเนอร์กับ Grass Roots Sports สปอนเซอร์ การลงทุน และโอกาสด้านกีฬาในพัทยา',
     alternates: buildAlternates(locale, '/partners'),
   };
 }
@@ -25,13 +25,13 @@ const sponsorshipTiers = [
   {
     Icon: BasketballIcon,
     title: 'Program Sponsor',
-    desc: 'Co-brand a specific program — "Youth Basketball presented by [Your Brand]", for example. Direct connection to one audience: families, teens, adults, or private clients.',
+    desc: 'Co-brand a specific program: "Youth Basketball presented by [Your Brand]", for example. Direct connection to one audience: families, teens, adults, or private clients.',
     badge: 'Available',
   },
   {
     Icon: TargetIcon,
     title: 'Equipment & Kit Partner',
-    desc: 'Supply basketballs, training gear, apparel, or court equipment. Your brand in players\' hands every session — high-frequency, high-visibility exposure at the grassroots level.',
+    desc: 'Supply basketballs, training gear, apparel, or court equipment. Your brand in players\' hands every session. High-frequency, high-visibility exposure at the grassroots level.',
     badge: 'Available',
   },
   {
@@ -71,7 +71,7 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-5xl md:text-7xl mb-4">Partner With Us</h1>
           <p className="text-base md:text-lg text-white/70 max-w-xl mx-auto leading-relaxed">
-            Help build something that matters — quality, accessible sport for all ages in Pattaya, Thailand.
+            Help build something that matters: quality, accessible sport for all ages in Pattaya, Thailand.
           </p>
         </div>
       </section>
@@ -86,10 +86,10 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
             Get in early on something real.
           </h2>
           <p className="text-[var(--color-body)] leading-relaxed mb-4">
-            Grass Roots Sports is building the sporting infrastructure that Pattaya doesn&apos;t yet have — structured programs, professional coaching, and a genuine community around basketball. We are at the beginning of that journey, and we are looking for partners who want to be part of it from the ground up.
+            Grass Roots Sports is building the sporting infrastructure that Pattaya doesn&apos;t yet have: structured programs, professional coaching, and a genuine community around basketball. We are at the beginning of that journey, and we are looking for partners who want to be part of it from the ground up.
           </p>
           <p className="text-[var(--color-body)] leading-relaxed">
-            Whether you are a local business looking for community presence, a brand seeking authentic sporting exposure, a facility that wants to be at the centre of something growing, or an investor with a long view — there is a partnership here for you.
+            Whether you are a local business looking for community presence, a brand seeking authentic sporting exposure, a facility that wants to be at the centre of something growing, or an investor with a long view, there is a partnership here for you.
           </p>
         </div>
       </section>
@@ -150,7 +150,7 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
           <h2 className="text-3xl md:text-5xl text-center mb-6">Investment Partners</h2>
           <div className="space-y-4 text-white/80 leading-relaxed mb-10">
             <p>
-              Grass Roots Sports is building a long-term sporting organisation — not a single program, but a platform for community sport across Thailand. We are in the early stages of that vision, and we are seeking investment partners who share our commitment to it.
+              Grass Roots Sports is building a long-term sporting organisation, not a single program, but a platform for community sport across Thailand. We are in the early stages of that vision, and we are seeking investment partners who share our commitment to it.
             </p>
             <p>
               We are looking for individuals, organisations, and funds who understand the value of grassroots sport as both a social good and a commercial opportunity. Investment conversations are open and we welcome any level of engagement, from initial dialogue to formal partnership.
@@ -194,7 +194,7 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
             ))}
           </div>
           <p className="text-center text-sm text-[var(--color-muted)] mt-8">
-            No open positions listed yet — but we are always interested in hearing from the right people.
+            No open positions listed yet, but we are always interested in hearing from the right people.
           </p>
         </div>
       </section>
