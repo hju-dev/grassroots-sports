@@ -31,6 +31,7 @@ export default function RegistrationForm({ defaultProgram }: Props) {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [program, setProgram] = useState(defaultProgram ?? '');
+  const [website, setWebsite] = useState(''); // honeypot — real users never fill this in
 
   const programs = [
     { value: 'youth', label: t('programYouth') },
@@ -48,7 +49,7 @@ export default function RegistrationForm({ defaultProgram }: Props) {
       await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, program }),
+        body: JSON.stringify({ name, email, phone, program, website }),
       });
     } catch {
       // non-blocking — show QR regardless
@@ -118,6 +119,18 @@ export default function RegistrationForm({ defaultProgram }: Props) {
   return (
     <form onSubmit={handleSubmit} className="bg-[var(--color-sage)] rounded-2xl p-8 md:p-10 flex flex-col gap-5">
       <h2 className="text-2xl font-bold text-[var(--color-black)]">{t('step1Title')}</h2>
+
+      {/* Honeypot — hidden from real users, catches basic bots */}
+      <input
+        type="text"
+        name="website"
+        value={website}
+        onChange={(e) => setWebsite(e.target.value)}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute -left-[9999px] w-px h-px opacity-0"
+      />
 
       <div className="flex flex-col gap-1.5">
         <label className={labelClass}>{t('labelName')}</label>

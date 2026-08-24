@@ -18,6 +18,7 @@ export default function ContactForm() {
       name: (form.elements.namedItem('name') as HTMLInputElement).value,
       email: (form.elements.namedItem('email') as HTMLInputElement).value,
       message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
+      website: (form.elements.namedItem('website') as HTMLInputElement).value,
     };
 
     try {
@@ -65,6 +66,16 @@ export default function ContactForm() {
           <p className="text-sm text-red-700">{t('formError')}</p>
         </div>
       )}
+
+      {/* Honeypot — hidden from real users, catches basic bots */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute -left-[9999px] w-px h-px opacity-0"
+      />
 
       <div className="flex flex-col gap-1.5">
         <label className="text-xs font-semibold uppercase tracking-wider text-[var(--color-body)]">{t('formName')}</label>

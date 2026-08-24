@@ -2,12 +2,23 @@ import { NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { Resend } from 'resend';
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export async function POST(request: Request) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
-  const { name, email, phone, program, locale } = await request.json();
+  const { name, email, phone, program, locale, website } = await request.json();
+
+  // Honeypot: bots fill every field, real users never see or fill this one.
+  // Report success without writing anything, so bots don't learn to skip it.
+  if (website) {
+    return NextResponse.json({ success: true });
+  }
 
   if (!name || !email || !phone || !program) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+  }
+
+  if (!EMAIL_REGEX.test(email)) {
+    return NextResponse.json({ error: 'Invalid email' }, { status: 400 });
   }
 
   const validPrograms = ['youth', 'teen', 'adult', 'private'];
@@ -15,6 +26,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid program' }, { status: 400 });
   }
 
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const sql = getDb();
   await sql`
     INSERT INTO registrations (name, email, phone, program, locale)
