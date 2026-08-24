@@ -40,21 +40,3 @@ h2 {
     animation: none;
   }
 }
-
-.hero-gradient {
-  background-image: linear-gradient(135deg, var(--color-black), var(--color-forest));
-  background-size: 200% 200%;
-  animation: hero-gradient-pan 18s ease-in-out infinite;
-}
-
-@keyframes hero-gradient-pan {
-  0%, 100% { background-position: 0% 0%; }
-  50% { background-position: 100% 100%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-gradient {
-    animation: none;
-    background-position: 0% 0%;
-  }
-}

@@ -104,7 +104,7 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden hero-gradient text-white py-16 md:py-28 px-4">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-28 px-4">
         <CourtLines className="text-white/10" fit="contain" />
         <div className="relative z-10 max-w-5xl mx-auto">
           <Link
