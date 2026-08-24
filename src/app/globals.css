@@ -40,3 +40,21 @@ h2 {
     animation: none;
   }
 }
+
+.hero-glow-blob {
+  background: radial-gradient(circle, var(--color-lime) 0%, transparent 70%);
+  opacity: 0.25;
+  filter: blur(80px);
+  animation: hero-glow-drift 20s ease-in-out infinite;
+}
+
+@keyframes hero-glow-drift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-15%, 10%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow-blob {
+    animation: none;
+  }
+}

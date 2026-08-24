@@ -16,6 +16,7 @@ import { sanityClient } from '@/sanity/lib/client';
 import { SETTINGS_QUERY } from '@/sanity/lib/queries';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
+import HeroGlow from '@/components/HeroGlow';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -64,6 +65,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-28 px-4">
+        <HeroGlow className="-top-1/3 -right-1/4" />
         <CourtLines className="text-white/10" />
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <div className="relative w-40 h-40 md:w-52 md:h-52 mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl">

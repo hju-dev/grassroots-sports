@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
+import HeroGlow from '@/components/HeroGlow';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -81,6 +82,7 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-24 px-4">
+        <HeroGlow className="-top-1/3 -right-1/4" />
         <CourtLines className="text-white/10" fit="contain" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <span className="inline-block bg-[var(--color-lime)] text-white text-xs font-bold py-1.5 px-4 rounded-full uppercase tracking-widest mb-5">
