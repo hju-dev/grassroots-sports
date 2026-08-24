@@ -105,7 +105,7 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-28 px-4">
-        <CourtLines className="text-white/10" />
+        <CourtLines className="text-white/10" fit="contain" />
         <div className="relative z-10 max-w-5xl mx-auto">
           <Link
             href={`/${locale}/programs`}
@@ -120,7 +120,7 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
             {ages}
           </span>
           <h1 className="text-5xl md:text-8xl mb-4">{hero}</h1>
-          <p className="text-lg md:text-2xl text-white/80 max-w-2xl leading-relaxed">{tagline}</p>
+          <p className="text-lg md:text-2xl text-white/90 max-w-2xl leading-relaxed">{tagline}</p>
           <div className="mt-10">
             <Link
               href={`/${locale}/register?program=${p}`}

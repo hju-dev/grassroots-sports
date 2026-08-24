@@ -3,12 +3,23 @@
  * ambient decoration behind hero sections. Purely decorative: colored via
  * `currentColor` from the wrapping className, so hidden from screen readers.
  */
-export default function CourtLines({ className = '' }: { className?: string }) {
+export default function CourtLines({
+  className = '',
+  fit = 'cover',
+}: {
+  className?: string;
+  /**
+   * 'cover' fills the section edge-to-edge (crops top of the arc on short sections).
+   * 'contain' always shows the whole shape, including the empty margin above the
+   * arc baked into the viewBox, so there's visible space between it and the header.
+   */
+  fit?: 'cover' | 'contain';
+}) {
   return (
     <svg
       className={`pointer-events-none absolute inset-0 h-full w-full ${className}`}
       viewBox="0 0 1000 600"
-      preserveAspectRatio="xMidYMax slice"
+      preserveAspectRatio={fit === 'cover' ? 'xMidYMax slice' : 'xMidYMax meet'}
       aria-hidden="true"
       focusable="false"
     >
