@@ -14,6 +14,7 @@ import {
 } from '@/components/Icons';
 import { sanityClient } from '@/sanity/lib/client';
 import { SETTINGS_QUERY } from '@/sanity/lib/queries';
+import { buildAlternates } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -23,6 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: isEn
       ? 'Community basketball coaching, leagues, and development programs for all ages in Pattaya, Thailand.'
       : 'โค้ชบาสเกตบอล ลีก และโปรแกรมพัฒนานักกีฬาทุกวัยในพัทยา ประเทศไทย',
+    alternates: buildAlternates(locale),
     openGraph: {
       title: 'Grass Roots Sports',
       description: isEn ? 'Basketball for everyone. Coming to Pattaya, Thailand.' : 'บาสเกตบอลสำหรับทุกคน กำลังมาถึงพัทยา',
@@ -84,9 +86,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="px-4 py-6 bg-[var(--color-black)]">
         <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
-            { src: '/images/team-huddle.png',  alt: 'Grassroots Sports team' },
-            { src: '/images/game-action.png',  alt: 'Game action' },
-            { src: '/images/coach-huddle.png', alt: 'Coaching session' },
+            { src: '/images/team-huddle.webp',  alt: 'Grassroots Sports team' },
+            { src: '/images/game-action.webp',  alt: 'Game action' },
+            { src: '/images/coach-huddle.webp', alt: 'Coaching session' },
           ].map((photo) => (
             <div key={photo.src} className="relative aspect-video overflow-hidden rounded-xl">
               <Image src={photo.src} alt={photo.alt} fill className="object-cover" sizes="(max-width: 640px) 100vw, 33vw" />

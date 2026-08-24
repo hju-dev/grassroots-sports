@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
+import { buildAlternates } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -10,18 +11,19 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: isEn
       ? 'Photos from Grass Roots Sports coaching sessions, leagues, tournaments, and community events in Pattaya.'
       : 'ภาพถ่ายจากเซสชันการโค้ช ลีก ทัวร์นาเมนต์ และอีเวนต์ชุมชน Grass Roots Sports ในพัทยา',
+    alternates: buildAlternates(locale, '/gallery'),
   };
 }
 
 const photos = [
-  { src: '/images/team-huddle.png',     alt: 'Grassroots Sports team huddle',           caption: 'Team huddle' },
-  { src: '/images/game-action.png',     alt: 'Game action — Grassroots Sports',          caption: 'Game action' },
-  { src: '/images/coach-huddle.png',    alt: 'Coach and players in huddle',             caption: 'Coaching session' },
-  { src: '/images/team-timeout.png',    alt: 'Team timeout during a game',              caption: 'Game time' },
-  { src: '/images/youth-scrimmage.png', alt: 'Youth scrimmage session',                 caption: 'Youth scrimmage' },
-  { src: '/images/team-champions.png',  alt: 'Girls team celebrating championship win', caption: 'Champions' },
-  { src: '/images/community-group.png', alt: 'Grassroots Sports community group photo', caption: 'Community' },
-  { src: '/images/team-dinner.jpg',     alt: 'Team community dinner',                   caption: 'Team dinner' },
+  { src: '/images/team-huddle.webp',     alt: 'Grassroots Sports team huddle',           caption: 'Team huddle' },
+  { src: '/images/game-action.webp',     alt: 'Game action — Grassroots Sports',          caption: 'Game action' },
+  { src: '/images/coach-huddle.webp',    alt: 'Coach and players in huddle',             caption: 'Coaching session' },
+  { src: '/images/team-timeout.webp',    alt: 'Team timeout during a game',              caption: 'Game time' },
+  { src: '/images/youth-scrimmage.webp', alt: 'Youth scrimmage session',                 caption: 'Youth scrimmage' },
+  { src: '/images/team-champions.webp',  alt: 'Girls team celebrating championship win', caption: 'Champions' },
+  { src: '/images/community-group.webp', alt: 'Grassroots Sports community group photo', caption: 'Community' },
+  { src: '/images/team-dinner.webp',     alt: 'Team community dinner',                   caption: 'Team dinner' },
 ];
 
 export default async function GalleryPage({ params }: { params: Promise<{ locale: string }> }) {

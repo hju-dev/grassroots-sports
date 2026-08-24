@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { BasketballIcon, CommunityIcon, GrowthIcon } from '@/components/Icons';
 import { sanityClient } from '@/sanity/lib/client';
 import { SETTINGS_QUERY } from '@/sanity/lib/queries';
+import { buildAlternates } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -13,6 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: isEn
       ? 'The story behind Grass Roots Sports — building accessible, community-driven sport in Pattaya, Thailand.'
       : 'เรื่องราวของ Grass Roots Sports — สร้างกีฬาที่เข้าถึงได้และขับเคลื่อนโดยชุมชนในพัทยา',
+    alternates: buildAlternates(locale, '/about'),
   };
 }
 
@@ -56,7 +58,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </p>
             <div className="relative aspect-video w-full rounded-2xl overflow-hidden my-2">
               <Image
-                src="/images/community-group.png"
+                src="/images/community-group.webp"
                 alt="Grass Roots Sports community — players and coaches together"
                 fill
                 className="object-cover"
