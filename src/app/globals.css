@@ -40,3 +40,29 @@ h2 {
     animation: none;
   }
 }
+
+.hero-sheen {
+  inset: -50% -30%;
+  background: linear-gradient(
+    75deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.12) 48%,
+    rgba(255, 255, 255, 0.28) 50%,
+    rgba(255, 255, 255, 0.12) 52%,
+    transparent 58%
+  );
+  animation: hero-sheen-sweep 7s ease-in-out infinite;
+}
+
+@keyframes hero-sheen-sweep {
+  0% { transform: translateX(-70%); }
+  18% { transform: translateX(70%); }
+  100% { transform: translateX(70%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-sheen {
+    animation: none;
+    opacity: 0;
+  }
+}

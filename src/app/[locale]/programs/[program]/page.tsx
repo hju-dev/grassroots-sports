@@ -14,6 +14,7 @@ import { sanityClient } from '@/sanity/lib/client';
 import { PROGRAM_QUERY } from '@/sanity/lib/queries';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
+import HeroSheen from '@/components/HeroSheen';
 
 const validPrograms = ['youth', 'teen', 'adult', 'private'] as const;
 type Program = (typeof validPrograms)[number];
@@ -105,6 +106,7 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-28 px-4">
+        <HeroSheen />
         <CourtLines className="text-white/10" fit="contain" />
         <div className="relative z-10 max-w-5xl mx-auto">
           <Link
