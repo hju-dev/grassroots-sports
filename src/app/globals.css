@@ -40,3 +40,23 @@ h2 {
     animation: none;
   }
 }
+
+.hero-arc-glow {
+  background: radial-gradient(circle, var(--color-lime) 0%, transparent 65%);
+  filter: blur(40px);
+  transform: translate(-50%, 50%) scale(0.9);
+  animation: hero-arc-breathe 8s ease-in-out infinite;
+}
+
+@keyframes hero-arc-breathe {
+  0%, 100% { opacity: 0.12; transform: translate(-50%, 50%) scale(0.9); }
+  50% { opacity: 0.32; transform: translate(-50%, 50%) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-arc-glow {
+    animation: none;
+    opacity: 0.18;
+    transform: translate(-50%, 50%) scale(1);
+  }
+}

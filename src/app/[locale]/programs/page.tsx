@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { BasketballIcon, LightningIcon, TrophyIcon, TargetIcon } from '@/components/Icons';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
+import HeroArcGlow from '@/components/HeroArcGlow';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -60,6 +61,7 @@ export default async function ProgramsPage({
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-24 px-4">
+        <HeroArcGlow />
         <CourtLines className="text-white/10" fit="contain" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <h1 className="text-5xl md:text-7xl mb-4">{t('headline')}</h1>
