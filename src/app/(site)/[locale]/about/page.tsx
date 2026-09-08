@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { BasketballIcon, CommunityIcon, GrowthIcon } from '@/components/Icons';
 import { getPayloadClient } from '@/lib/payload';
 import CourtLines from '@/components/CourtLines';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import { buildAlternates } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -21,8 +22,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const payload = await getPayloadClient();
-  const [t, s] = await Promise.all([
+  const [t, tNav, s] = await Promise.all([
     getTranslations('about'),
+    getTranslations('nav'),
     payload.findGlobal({ slug: 'settings', locale: locale as 'en' | 'th' }).catch(() => null),
   ]);
 
@@ -33,6 +35,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   return (
     <>
+      <Breadcrumbs items={[{ label: tNav('home'), href: `/${locale}` }, { label: tNav('about') }]} />
+
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-24 px-4">
         <CourtLines className="text-white/10" fit="contain" />

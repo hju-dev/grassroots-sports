@@ -43,6 +43,7 @@ export default function ContactForm() {
         </div>
         <h3 className="text-xl font-bold text-[var(--color-black)] mb-2">{t('formSuccess')}</h3>
         <p className="text-sm text-[var(--color-muted)]">{t('formSuccessSub')}</p>
+        <p className="text-xs font-semibold text-[var(--color-forest)] uppercase tracking-wider mt-4">{t('responseTime')}</p>
         <a
           href="https://instagram.com/akdovey"
           target="_blank"
@@ -96,6 +97,7 @@ export default function ContactForm() {
       >
         {state === 'loading' ? '...' : t('formSubmit')}
       </button>
+      <p className="text-xs text-[var(--color-muted)] text-center -mt-2">{t('responseTime')}</p>
     </form>
   );
 }

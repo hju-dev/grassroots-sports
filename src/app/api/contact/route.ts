@@ -51,7 +51,7 @@ export async function POST(request: Request) {
     from: 'Grass Roots Sports <noreply@grassrootssports.org>',
     to: email,
     subject: 'Message received | Grass Roots Sports',
-    text: `Hi ${name},\n\nThanks for reaching out! Alex will get back to you shortly.\n\nFollow us on Instagram for updates: @akdovey\n\nGrass Roots Sports`,
+    text: `Hi ${name},\n\nThanks for reaching out! We reply within 24 hours.\n\nFollow us on Instagram for updates: @akdovey\n\nGrass Roots Sports`,
   });
 
   return NextResponse.json({ success: true });

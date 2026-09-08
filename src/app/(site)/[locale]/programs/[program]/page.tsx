@@ -13,6 +13,7 @@ import {
 import { getPayloadClient } from '@/lib/payload';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const validPrograms = ['youth', 'teen', 'adult', 'private'] as const;
 type Program = (typeof validPrograms)[number];
@@ -68,7 +69,7 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
   if (!validPrograms.includes(program as Program)) notFound();
 
   const p = program as Program;
-  const [t, s] = await Promise.all([getTranslations('programDetail'), findProduct(p, locale)]);
+  const [t, tNav, s] = await Promise.all([getTranslations('programDetail'), getTranslations('nav'), findProduct(p, locale)]);
 
   const icons = programIcons[p];
   const d = (key: string): string => (t as unknown as (k: string) => string)(`${p}.${key}`);
@@ -102,6 +103,14 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
 
   return (
     <>
+      <Breadcrumbs
+        items={[
+          { label: tNav('home'), href: `/${locale}` },
+          { label: tNav('programs'), href: `/${locale}/programs` },
+          { label: hero },
+        ]}
+      />
+
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-28 px-4">
         <CourtLines className="text-white/10" fit="contain" />

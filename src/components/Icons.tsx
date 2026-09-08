@@ -130,3 +130,12 @@ export function TrendingUpIcon({ className = 'w-10 h-10' }: IconProps) {
     </svg>
   );
 }
+
+export function MapPinIcon({ className = 'w-10 h-10' }: IconProps) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M24 44C24 44 38 30 38 19C38 10.716 31.732 4 24 4C16.268 4 10 10.716 10 19C10 30 24 44 24 44Z" />
+      <circle cx="24" cy="19" r="6" />
+    </svg>
+  );
+}

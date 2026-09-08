@@ -65,7 +65,18 @@
     "registerCta": "Register Interest",
     "notifyTitle": "Be the First to Know",
     "notifyDesc": "Programs are launching soon. Follow us on Instagram for dates, pricing, and registration details.",
-    "notifyCta": "Follow @akdovey"
+    "notifyCta": "Follow @akdovey",
+    "faqTitle": "Frequently Asked Questions",
+    "faq1Q": "When do programs start?",
+    "faq1A": "We're in the final stages of launching in Pattaya. Register your interest now and you'll be first to know the exact start date for your program.",
+    "faq2Q": "How much does it cost?",
+    "faq2A": "Exact pricing is being finalized. Register your interest and Alex will follow up with pricing before you need to commit to anything.",
+    "faq3Q": "What ages do you coach?",
+    "faq3A": "Youth Basketball (ages 6–12), Teen Academy (13–17), Adult Leagues (all adults), and Private Coaching for any age.",
+    "faq4Q": "Where do sessions take place?",
+    "faq4A": "We coach at partner facilities across Pattaya rather than one fixed venue. We'll confirm the exact location once you've registered for a program.",
+    "faq5Q": "How do I pay, and is PromptPay the only option?",
+    "faq5A": "PromptPay — Thailand's QR-code bank transfer system — is how we currently accept payment. Scan the code with any Thai banking app after registering; other options may be added later."
   },
   "contact": {
     "headline": "Get In Touch",
@@ -73,6 +84,7 @@
     "locationTitle": "Location",
     "locationDesc": "Coming to Pattaya, Thailand",
     "locationSub": "Exact venue to be announced.",
+    "locationModel": "We coach at partner facilities across Pattaya rather than one fixed venue — you'll get the exact address as soon as you register interest in a program.",
     "instagramTitle": "Instagram",
     "instagramDesc": "The best way to reach us right now.",
     "formTitle": "Send a Message",
@@ -80,6 +92,7 @@
     "formEmail": "Email Address",
     "formMessage": "Message",
     "formSubmit": "Send Message",
+    "responseTime": "We reply within 24 hours.",
     "formSuccess": "Thanks! We'll be in touch soon.",
     "formSuccessSub": "In the meantime, follow us on Instagram.",
     "formError": "Something went wrong. Please try again or reach out on Instagram."

@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { BasketballIcon, LightningIcon, TrophyIcon, TargetIcon } from '@/components/Icons';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import FAQ from '@/components/FAQ';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -23,7 +25,7 @@ export default async function ProgramsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations('programs');
+  const [t, tNav] = await Promise.all([getTranslations('programs'), getTranslations('nav')]);
 
   const programs = [
     {
@@ -58,6 +60,8 @@ export default async function ProgramsPage({
 
   return (
     <>
+      <Breadcrumbs items={[{ label: tNav('home'), href: `/${locale}` }, { label: tNav('programs') }]} />
+
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-24 px-4">
         <CourtLines className="text-white/10" fit="contain" />
@@ -116,6 +120,14 @@ export default async function ProgramsPage({
           </div>
         </div>
       </section>
+
+      <FAQ
+        title={t('faqTitle')}
+        items={[1, 2, 3, 4, 5].map((n) => ({
+          question: t(`faq${n}Q` as Parameters<typeof t>[0]),
+          answer: t(`faq${n}A` as Parameters<typeof t>[0]),
+        }))}
+      />
 
       {/* Notify CTA */}
       <section className="bg-[var(--color-black)] text-white py-16 md:py-20 px-4">

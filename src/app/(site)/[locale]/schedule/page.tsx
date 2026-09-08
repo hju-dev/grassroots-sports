@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -26,6 +27,7 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
   const { locale } = await params;
   const t = await getTranslations('schedule');
   const tPrograms = await getTranslations('programs');
+  const tNav = await getTranslations('nav');
 
   const week: DaySchedule[] = [
     {
@@ -79,6 +81,8 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
 
   return (
     <>
+      <Breadcrumbs items={[{ label: tNav('home'), href: `/${locale}` }, { label: tNav('schedule') }]} />
+
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-24 px-4">
         <CourtLines className="text-white/10" fit="contain" />

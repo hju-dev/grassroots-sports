@@ -5,6 +5,7 @@ import { routing } from '@/i18n/routing';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import HtmlLangSync from '@/components/HtmlLangSync';
+import StickyMobileCTA from '@/components/StickyMobileCTA';
 import { getPayloadClient } from '@/lib/payload';
 
 export function generateStaticParams() {
@@ -41,8 +42,9 @@ export default async function LocaleLayout({
         </div>
       )}
       <Navbar />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 pb-20 md:pb-0">{children}</main>
       <Footer locale={locale} />
+      <StickyMobileCTA />
     </NextIntlClientProvider>
   );
 }

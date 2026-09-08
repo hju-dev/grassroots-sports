@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import { getPayloadClient } from '@/lib/payload';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -20,8 +21,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function GalleryPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const payload = await getPayloadClient();
-  const [t, media, settings] = await Promise.all([
+  const [t, tNav, media, settings] = await Promise.all([
     getTranslations('gallery'),
+    getTranslations('nav'),
     payload
       .find({
         collection: 'media',
@@ -47,6 +49,8 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
 
   return (
     <>
+      <Breadcrumbs items={[{ label: tNav('home'), href: `/${locale}` }, { label: tNav('gallery') }]} />
+
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[var(--color-black)] to-[var(--color-forest)] text-white py-16 md:py-24 px-4">
         <CourtLines className="text-white/10" fit="contain" />
