@@ -33,9 +33,15 @@ export default buildConfig({
   globals: [Settings],
   plugins: [
     vercelBlobStorage({
-      collections: { media: true },
+      // disablePayloadAccessControl makes the plugin return real
+      // *.public.blob.vercel-storage.com URLs. Without it, the cloud-storage
+      // plugin's afterRead/beforeChange hooks never call the adapter's
+      // generateURL and silently keep Payload's default local-disk URL
+      // (/api/media/file/<name>) even though the file itself is correctly
+      // uploaded to Blob — this was the actual cause of every image 400/404ing.
+      collections: { media: { disablePayloadAccessControl: true } },
       token: process.env.BLOB_READ_WRITE_TOKEN,
-      clientUploads: false, // TEMPORARY: diagnosing why uploads still land on local disk
+      clientUploads: false,
     }),
   ],
 });
