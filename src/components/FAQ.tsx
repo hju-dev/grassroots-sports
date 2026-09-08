@@ -1,3 +1,5 @@
+import { toSafeJsonLd } from '@/lib/jsonLd';
+
 export type FAQItem = { question: string; answer: string };
 
 // Native <details>/<summary> — an accordion with zero client JS, which
@@ -16,7 +18,7 @@ export default function FAQ({ title, items }: { title: string; items: FAQItem[] 
 
   return (
     <section className="py-16 md:py-20 px-4">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(jsonLd) }} />
       <div className="max-w-3xl mx-auto">
         <h2 className="text-3xl md:text-5xl text-[var(--color-black)] mb-10 md:mb-12 text-center">{title}</h2>
         <div className="flex flex-col gap-3">

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { SITE_URL } from '@/lib/seo';
+import { toSafeJsonLd } from '@/lib/jsonLd';
 
 export type Crumb = { label: string; href?: string };
 
@@ -20,7 +21,7 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
 
   return (
     <nav aria-label="Breadcrumb" className="px-4 py-3 bg-[var(--color-offwhite)] border-b border-[var(--color-black)]/5">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toSafeJsonLd(jsonLd) }} />
       <ol className="max-w-5xl mx-auto flex flex-wrap items-center gap-1.5 text-xs text-[var(--color-muted)]">
         {items.map((item, i) => {
           const isLast = i === items.length - 1;
