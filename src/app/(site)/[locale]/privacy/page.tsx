@@ -18,7 +18,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
         {isEn ? 'Privacy Policy' : 'นโยบายความเป็นส่วนตัว'}
       </h1>
       <p className="text-[var(--color-muted)] text-sm mb-12">
-        {isEn ? 'Last updated: August 2026' : 'อัปเดตล่าสุด: สิงหาคม 2569'}
+        {isEn ? 'Last updated: September 2026' : 'อัปเดตล่าสุด: กันยายน 2569'}
       </p>
 
       <div className="prose prose-sm max-w-none text-[var(--color-body)] space-y-10">
@@ -27,14 +27,14 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
           <>
             <section>
               <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">1. Who We Are</h2>
-              <p className="leading-relaxed">Grass Roots Sports ("we", "us", "our") is a community basketball academy based in Pattaya, Thailand. We operate the website at grassrootssports.org. For questions about this policy, contact us at <a href="mailto:akdovey@gmail.com" className="text-[var(--color-forest)] hover:underline">akdovey@gmail.com</a>.</p>
+              <p className="leading-relaxed">Grass Roots Sports (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) is a community basketball academy based in Pattaya, Thailand. We operate the website at grassrootssports.org. For questions about this policy, contact us at <a href="mailto:akdovey@gmail.com" className="text-[var(--color-forest)] hover:underline">akdovey@gmail.com</a>.</p>
             </section>
 
             <section>
               <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">2. Data We Collect</h2>
               <p className="leading-relaxed mb-3">We collect personal data only when you voluntarily provide it:</p>
               <ul className="list-disc list-inside space-y-2 text-sm">
-                <li><strong>Registration form:</strong> name, email address, phone number, child's name and age (for youth/teen programs), selected program</li>
+                <li><strong>Registration form:</strong> name, email address, phone number, child&apos;s name and age (for youth/teen programs), selected program</li>
                 <li><strong>Contact form:</strong> name, email address, message content</li>
                 <li><strong>Payment:</strong> we do not store payment details. PromptPay QR codes are generated locally in your browser and no card or bank data passes through our servers.</li>
               </ul>
@@ -57,7 +57,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
 
             <section>
               <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">5. Your Rights (PDPA)</h2>
-              <p className="leading-relaxed mb-3">Under Thailand's Personal Data Protection Act B.E. 2562 (PDPA), you have the right to:</p>
+              <p className="leading-relaxed mb-3">Under Thailand&apos;s Personal Data Protection Act B.E. 2562 (PDPA), you have the right to:</p>
               <ul className="list-disc list-inside space-y-2 text-sm">
                 <li>Access the personal data we hold about you</li>
                 <li>Correct inaccurate data</li>
@@ -70,7 +70,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
 
             <section>
               <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">6. Cookies</h2>
-              <p className="leading-relaxed">This website does not use tracking cookies or third-party analytics. We use only essential session-level storage required for the site to function.</p>
+              <p className="leading-relaxed">We use Google Analytics (GA4) to understand how visitors use this site — which pages are visited, how people arrived here, and general usage patterns. Google Analytics sets cookies to do this. This data is aggregated and does not identify you personally. You can opt out at any time using the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-[var(--color-forest)] hover:underline">Google Analytics Opt-out Browser Add-on</a> or by adjusting your browser&apos;s cookie settings. We do not use these cookies for advertising, and we do not share this data with third parties beyond Google&apos;s own processing of it.</p>
             </section>
 
             <section>
@@ -82,7 +82,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
           <>
             <section>
               <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">1. เกี่ยวกับเรา</h2>
-              <p className="leading-relaxed">Grass Roots Sports ("เรา") เป็นสถาบันบาสเกตบอลชุมชนในพัทยา ประเทศไทย เราดำเนินเว็บไซต์ที่ grassrootssports.org หากมีคำถามเกี่ยวกับนโยบายนี้ ติดต่อเราที่ <a href="mailto:akdovey@gmail.com" className="text-[var(--color-forest)] hover:underline">akdovey@gmail.com</a></p>
+              <p className="leading-relaxed">Grass Roots Sports (&quot;เรา&quot;) เป็นสถาบันบาสเกตบอลชุมชนในพัทยา ประเทศไทย เราดำเนินเว็บไซต์ที่ grassrootssports.org หากมีคำถามเกี่ยวกับนโยบายนี้ ติดต่อเราที่ <a href="mailto:akdovey@gmail.com" className="text-[var(--color-forest)] hover:underline">akdovey@gmail.com</a></p>
             </section>
 
             <section>
@@ -125,7 +125,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
 
             <section>
               <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">6. คุกกี้</h2>
-              <p className="leading-relaxed">เว็บไซต์นี้ไม่ใช้คุกกี้ติดตามหรือการวิเคราะห์จากบุคคลที่สาม เราใช้เฉพาะการจัดเก็บระดับเซสชันที่จำเป็นสำหรับการทำงานของเว็บไซต์</p>
+              <p className="leading-relaxed">เราใช้ Google Analytics (GA4) เพื่อทำความเข้าใจว่าผู้เข้าชมใช้เว็บไซต์นี้อย่างไร เช่น หน้าที่เข้าชม ที่มาของผู้เข้าชม และรูปแบบการใช้งานทั่วไป Google Analytics จะตั้งค่าคุกกี้เพื่อจุดประสงค์นี้ ข้อมูลนี้เป็นข้อมูลรวมและไม่สามารถระบุตัวตนของคุณได้ คุณสามารถเลือกไม่เข้าร่วมได้ตลอดเวลาโดยใช้ <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-[var(--color-forest)] hover:underline">ส่วนขยายเบราว์เซอร์ Google Analytics Opt-out</a> หรือปรับการตั้งค่าคุกกี้ในเบราว์เซอร์ของคุณ เราไม่ใช้คุกกี้เหล่านี้เพื่อการโฆษณา และไม่แชร์ข้อมูลนี้กับบุคคลที่สามนอกเหนือจากการประมวลผลของ Google เอง</p>
             </section>
 
             <section>
