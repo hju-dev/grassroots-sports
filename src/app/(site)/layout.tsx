@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Inter, Bebas_Neue } from 'next/font/google';
-import { ClerkProvider } from '@clerk/nextjs';
 import { Analytics } from '@vercel/analytics/next';
 import '../globals.css';
 
@@ -36,18 +35,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   // The `[locale]` segment lives below this layout, so Next.js never resolves it
   // into this layout's params — `<html lang>` gets synced client-side instead,
   // by HtmlLangSync in the locale layout.
+  //
+  // No <ClerkProvider> here deliberately — Clerk is only needed for the /ops
+  // dashboard and /sign-in, so it's scoped to those subtrees instead
+  // (ops/layout.tsx, sign-in/page.tsx). Wrapping the whole site in it made
+  // Clerk set session-tracking cookies on every public visitor, which never
+  // needed them and contradicted the privacy policy's "no tracking cookies"
+  // claim.
   return (
-    <ClerkProvider>
-      <html lang="en" className={`${inter.variable} ${bebasNeue.variable}`}>
-        <body className="min-h-screen flex flex-col">
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-          />
-          {children}
-          <Analytics />
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" className={`${inter.variable} ${bebasNeue.variable}`}>
+      <body className="min-h-screen flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        {children}
+        <Analytics />
+      </body>
+    </html>
   );
 }
