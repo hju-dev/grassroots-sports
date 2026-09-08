@@ -23,7 +23,15 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
   const [t, media, settings] = await Promise.all([
     getTranslations('gallery'),
     payload
-      .find({ collection: 'media', locale: locale as 'en' | 'th', sort: '-createdAt', limit: 50 })
+      .find({
+        collection: 'media',
+        locale: locale as 'en' | 'th',
+        sort: '-createdAt',
+        limit: 50,
+        // Uncategorized uploads (test/admin uploads, seed leftovers) never
+        // show up on the public gallery, only ones deliberately tagged for it.
+        where: { category: { exists: true } },
+      })
       .catch(() => null),
     payload.findGlobal({ slug: 'settings' }).catch(() => null),
   ]);

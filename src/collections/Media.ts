@@ -33,6 +33,7 @@ export const Media: CollectionConfig = {
     {
       name: 'category',
       type: 'select',
+      required: true,
       options: [
         { label: 'Youth', value: 'youth' },
         { label: 'Teen', value: 'teen' },
@@ -40,7 +41,7 @@ export const Media: CollectionConfig = {
         { label: 'Events', value: 'events' },
       ],
       admin: {
-        description: 'Used to filter photos on the Gallery page.',
+        description: 'Required — the public Gallery page only shows photos that have a category set.',
       },
     },
   ],
