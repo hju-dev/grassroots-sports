@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://grassrootssports.org'),
   title: 'Grass Roots Sports',
   description: 'Community basketball academy coming to Pattaya, Thailand.',
+  verification: {
+    google: 'jTfkX-dF6GJKSpeFXhxG2MdmG3wArch_qC8wK_xbO6M',
+  },
 };
 
 const organizationJsonLd = {
