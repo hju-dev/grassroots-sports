@@ -1,17 +1,24 @@
 import { NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { Resend } from 'resend';
+import { sanitizeText } from '@/lib/sanitize';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(request: Request) {
-  const { name, email, phone, program, locale, website } = await request.json();
+  const body = await request.json();
+  const { website, locale } = body;
 
   // Honeypot: bots fill every field, real users never see or fill this one.
   // Report success without writing anything, so bots don't learn to skip it.
   if (website) {
     return NextResponse.json({ success: true });
   }
+
+  const name = sanitizeText(body.name, 100);
+  const email = sanitizeText(body.email, 254);
+  const phone = sanitizeText(body.phone, 30);
+  const program = sanitizeText(body.program, 20);
 
   if (!name || !email || !phone || !program) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });

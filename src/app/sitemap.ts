@@ -17,6 +17,7 @@ const routes = [
   { path: '/contact',             priority: 0.6, changeFrequency: 'monthly' },
   { path: '/privacy',             priority: 0.3, changeFrequency: 'yearly'  },
   { path: '/terms',               priority: 0.3, changeFrequency: 'yearly'  },
+  { path: '/accessibility',       priority: 0.3, changeFrequency: 'yearly'  },
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {

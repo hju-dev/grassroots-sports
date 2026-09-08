@@ -1,10 +1,18 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
+import { getPayloadClient } from '@/lib/payload';
 
 export default async function Footer({ locale }: { locale: string }) {
-  const tNav = await getTranslations('nav');
-  const tFooter = await getTranslations('footer');
+  const payload = await getPayloadClient();
+  const [tNav, tFooter, settings] = await Promise.all([
+    getTranslations('nav'),
+    getTranslations('footer'),
+    payload.findGlobal({ slug: 'settings' }).catch(() => null),
+  ]);
+  const instagramUrl =
+    settings?.socialLinks?.find((l: { platform?: string | null; url: string }) => l.platform === 'Instagram')?.url ||
+    'https://instagram.com/akdovey';
 
   return (
     <footer className="bg-[var(--color-black)] text-white/80 py-12 px-4">
@@ -55,7 +63,7 @@ export default async function Footer({ locale }: { locale: string }) {
           <div className="flex flex-col items-center md:items-start gap-2.5">
             <p className="text-xs font-semibold uppercase tracking-wider text-white/60">{tFooter('followUs')}</p>
             <a
-              href="https://instagram.com/akdovey"
+              href={instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white font-bold py-2.5 px-6 rounded-lg transition-colors uppercase tracking-widest text-xs"
@@ -76,6 +84,9 @@ export default async function Footer({ locale }: { locale: string }) {
             </Link>
             <Link href={`/${locale}/terms`} className="text-xs text-[var(--color-muted)] hover:text-white transition-colors">
               Terms &amp; Conditions
+            </Link>
+            <Link href={`/${locale}/accessibility`} className="text-xs text-[var(--color-muted)] hover:text-white transition-colors">
+              Accessibility
             </Link>
           </div>
         </div>

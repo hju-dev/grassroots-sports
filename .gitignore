@@ -40,9 +40,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# sanity studio build output
-/dist
-/.sanity
-
 # clerk configuration (can include secrets)
 /.clerk/
+
+# payload local upload fallback (dev only, without BLOB_READ_WRITE_TOKEN —
+# production uploads go to Vercel Blob instead)
+/media
+
+# generic build output
+/dist
