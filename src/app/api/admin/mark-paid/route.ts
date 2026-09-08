@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
+import { currentUser } from '@clerk/nextjs/server';
 import { getDb } from '@/lib/db';
+import { isAdminEmail } from '@/lib/adminEmails';
 
 export async function POST(request: Request) {
-  const { userId } = await auth();
-  if (!userId) {
+  const user = await currentUser();
+  if (!isAdminEmail(user?.emailAddresses?.[0]?.emailAddress)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

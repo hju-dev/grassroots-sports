@@ -1,19 +1,13 @@
 import { UserButton } from '@clerk/nextjs';
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
-
-const ADMIN_EMAILS = (process.env.ADMIN_EMAILS ?? '')
-  .split(',')
-  .map((e) => e.trim().toLowerCase())
-  .filter(Boolean);
+import { isAdminEmail } from '@/lib/adminEmails';
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  if (ADMIN_EMAILS.length > 0) {
-    const user = await currentUser();
-    const email = user?.emailAddresses?.[0]?.emailAddress?.toLowerCase() ?? '';
-    if (!ADMIN_EMAILS.includes(email)) {
-      redirect('/');
-    }
+  const user = await currentUser();
+  const email = user?.emailAddresses?.[0]?.emailAddress;
+  if (!isAdminEmail(email)) {
+    redirect('/');
   }
   return (
     <div className="min-h-screen bg-gray-50">

@@ -31,12 +31,14 @@ When forking this repo for a new client, these are the parts that are specific t
 - The `Products.slug` options (`youth`/`teen`/`adult`/`private`) — basketball-academy-specific. Replace with whatever the new client actually sells.
 - Every page under `src/app/(site)/[locale]/` — hand-built for this site's exact design. The *pattern* (fetch from Payload via `getPayloadClient()`, fall back to `next-intl` translation keys via a local `cms()` helper when a field is empty) is what should carry over, not the JSX itself.
 
-## Known gaps (pre-existing, not introduced by the Payload migration — don't assume fixed)
+## Known gaps
 
-- `src/app/api/admin/mark-paid/route.ts` only checks that a Clerk session exists (`auth()` returns a `userId`), not that the user's email is in `ADMIN_EMAILS`. Any authenticated Clerk user can currently hit this endpoint.
-- `src/app/(site)/ops/layout.tsx`'s `ADMIN_EMAILS` allowlist check may not default-deny if the env var is unset — verify before relying on it.
 - `Settings.promptpayNumber` was seeded with the placeholder `"REPLACE_ME"` during the Sanity migration (Sanity's dataset had no real content at all — see git history around September 2026 for the full story). **Must be replaced with a real PromptPay number in the Payload admin before this drives any real payment QR codes.** `Products.priceAmount` was likewise seeded at `0` for all four programs — no real pricing existed anywhere (not in Sanity, not in the i18n fallback copy it was actually seeded from).
-- `payload-types.ts` (Payload's generated TypeScript types) could not be generated via `payload generate:types` in this dev environment — the Payload CLI's tsx-based loader hit a Node 24 compatibility bug unrelated to this app's code (`ERR_REQUIRE_ASYNC_MODULE` loading `richtext-lexical`). Pages currently use manual type annotations (e.g. on `.find()` callbacks) instead of generated types. Try running `npx payload generate:types` again on a different Node version or on Vercel/CI — if it works there, wire the generated file in and remove the manual annotations.
+- Fixed as of the same migration: `src/app/api/admin/mark-paid/route.ts` used to only check that *any* Clerk session existed, not that the user's email was in `ADMIN_EMAILS`; `src/app/(site)/ops/layout.tsx`'s allowlist check used to skip entirely (fail open) if `ADMIN_EMAILS` was unset. Both now go through `src/lib/adminEmails.ts`'s `isAdminEmail()`, which fails closed — an unset/empty `ADMIN_EMAILS` locks everyone out of `/ops`, not everyone in. **`ADMIN_EMAILS` must actually be set in Vercel** (documented in `env.example`) or `/ops` becomes inaccessible to everyone, including real admins.
+
+### Regenerating `payload-types.ts`
+
+`npx payload generate:types` hits a Node 24 / tsx compatibility bug in this dev environment (`ERR_REQUIRE_ASYNC_MODULE` loading `richtext-lexical`) — unrelated to this app's code, and it may well work fine on a different Node version or on Vercel/CI. If the CLI is broken again, the workaround that worked here: add a temporary route under `src/app/(payload)/api/`, call `getPayloadClient()` and pass `payload.config` to `generateTypes` (imported via a direct relative path into `node_modules/payload/dist/bin/generateTypes.js`, since that subpath isn't in the package's public `exports` map), hit it once, then delete the route. This runs Payload's type generator through Next's own working bundler instead of the broken standalone CLI loader.
 
 ## Forking checklist (new client)
 

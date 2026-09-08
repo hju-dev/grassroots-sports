@@ -11,7 +11,7 @@ export default async function Footer({ locale }: { locale: string }) {
     payload.findGlobal({ slug: 'settings' }).catch(() => null),
   ]);
   const instagramUrl =
-    settings?.socialLinks?.find((l: { platform?: string | null; url: string }) => l.platform === 'Instagram')?.url ||
+    settings?.socialLinks?.find((l) => l.platform === 'Instagram')?.url ||
     'https://instagram.com/akdovey';
 
   return (

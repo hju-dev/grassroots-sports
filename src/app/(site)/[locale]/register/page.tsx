@@ -35,7 +35,7 @@ export default async function RegisterPage({
 
   const isOpen = settings?.registrationsOpen !== false;
   const instagramUrl =
-    settings?.socialLinks?.find((l: { platform?: string | null; url: string }) => l.platform === 'Instagram')?.url ||
+    settings?.socialLinks?.find((l) => l.platform === 'Instagram')?.url ||
     'https://instagram.com/akdovey';
   const instagramHandle = instagramUrl.replace(/^https?:\/\/(www\.)?instagram\.com\//, '').replace(/\/$/, '') || 'akdovey';
 

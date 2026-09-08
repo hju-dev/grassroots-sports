@@ -52,7 +52,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   const cms = (val: string | null | undefined, fallback: string) => val || fallback;
   const instagramUrl =
-    s?.socialLinks?.find((l: { platform?: string | null; url: string }) => l.platform === 'Instagram')?.url ||
+    s?.socialLinks?.find((l) => l.platform === 'Instagram')?.url ||
     'https://instagram.com/akdovey';
   const missionIcons = [BasketballIcon, CommunityIcon, GrowthIcon];
 

@@ -34,7 +34,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
     caption: doc.caption || '',
   }));
   const instagramUrl =
-    settings?.socialLinks?.find((l: { platform?: string | null; url: string }) => l.platform === 'Instagram')?.url ||
+    settings?.socialLinks?.find((l) => l.platform === 'Instagram')?.url ||
     'https://instagram.com/akdovey';
 
   return (

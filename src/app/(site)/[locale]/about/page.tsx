@@ -28,7 +28,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   const cms = (val: string | null | undefined, fallback: string) => val || fallback;
   const instagramUrl =
-    s?.socialLinks?.find((l: { platform?: string | null; url: string }) => l.platform === 'Instagram')?.url ||
+    s?.socialLinks?.find((l) => l.platform === 'Instagram')?.url ||
     'https://instagram.com/akdovey';
 
   return (

@@ -92,7 +92,7 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
   const ctaBtn = d('cta');
 
   const learnCards = ([1, 2, 3, 4] as const).map((n, i) => {
-    const card = s?.learnCards?.[i] as { title?: string | null; description?: string | null } | undefined;
+    const card = s?.learnCards?.[i];
     return {
       Icon: icons[i],
       title: cms(card?.title, d(`learn${n}Title`)),
