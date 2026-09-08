@@ -2,8 +2,13 @@ import { NextResponse } from 'next/server';
 import { currentUser } from '@clerk/nextjs/server';
 import { getDb } from '@/lib/db';
 import { isAdminEmail } from '@/lib/adminEmails';
+import { isBodyTooLarge } from '@/lib/requestSize';
 
 export async function POST(request: Request) {
+  if (isBodyTooLarge(request, 1_000)) {
+    return NextResponse.json({ error: 'Request too large' }, { status: 413 });
+  }
+
   const user = await currentUser();
   const email = user?.emailAddresses?.[0]?.emailAddress;
   if (!isAdminEmail(email)) {

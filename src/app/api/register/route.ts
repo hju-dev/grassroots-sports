@@ -3,10 +3,15 @@ import { getDb } from '@/lib/db';
 import { Resend } from 'resend';
 import { sanitizeText } from '@/lib/sanitize';
 import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
+import { isBodyTooLarge } from '@/lib/requestSize';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(request: Request) {
+  if (isBodyTooLarge(request, 10_000)) {
+    return NextResponse.json({ error: 'Request too large' }, { status: 413 });
+  }
+
   const sql = getDb();
   const ip = getClientIp(request);
   if (await checkRateLimit(sql, `register:${ip}`, { windowMs: 10 * 60 * 1000, max: 5 })) {
