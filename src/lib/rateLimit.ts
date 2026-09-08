@@ -15,15 +15,14 @@ export async function checkRateLimit(
   bucket: string,
   { windowMs = 10 * 60 * 1000, max = 5 }: { windowMs?: number; max?: number } = {}
 ): Promise<boolean> {
-  await sql`
-    CREATE TABLE IF NOT EXISTS rate_limit_hits (
-      id         SERIAL PRIMARY KEY,
-      bucket     TEXT        NOT NULL,
-      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    )
-  `;
-  await sql`CREATE INDEX IF NOT EXISTS rate_limit_hits_bucket_created_idx ON rate_limit_hits (bucket, created_at)`;
-
+  // rate_limit_hits already exists in production (schema.sql) — this used to
+  // run CREATE TABLE/INDEX IF NOT EXISTS here on every request "just in
+  // case," but each `sql` call is its own HTTP round-trip to Neon
+  // (@neondatabase/serverless's fetch-based driver, not a pooled
+  // connection), so that was 2 of the 4 round-trips this function made on
+  // every single submission — measured at 1.2-2.9s total round-trip on a
+  // honeypot-only request that does almost nothing else. Removing the two
+  // no-op DDL calls roughly halves that.
   const windowStart = new Date(Date.now() - windowMs);
   const rows = (await sql`
     SELECT count(*)::int AS count FROM rate_limit_hits
