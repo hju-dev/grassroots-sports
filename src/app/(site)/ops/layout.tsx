@@ -10,6 +10,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const user = await currentUser();
   const email = user?.emailAddresses?.[0]?.emailAddress;
   if (!isAdminEmail(email)) {
+    // A signed-in-but-not-authorized Clerk account reaching /ops is more
+    // interesting than a plain signed-out visitor (already caught earlier by
+    // auth.protect() in proxy.ts) — worth a log line either way.
+    console.warn(`[auth] /ops rejected email="${email ?? 'none'}"`);
     redirect('/');
   }
   return (

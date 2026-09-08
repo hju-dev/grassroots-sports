@@ -5,7 +5,9 @@ import { isAdminEmail } from '@/lib/adminEmails';
 
 export async function POST(request: Request) {
   const user = await currentUser();
-  if (!isAdminEmail(user?.emailAddresses?.[0]?.emailAddress)) {
+  const email = user?.emailAddresses?.[0]?.emailAddress;
+  if (!isAdminEmail(email)) {
+    console.warn(`[auth] mark-paid rejected email="${email ?? 'none'}"`);
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

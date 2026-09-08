@@ -19,6 +19,7 @@ export async function POST(request: Request) {
   // Honeypot: bots fill every field, real users never see or fill this one.
   // Report success without writing anything, so bots don't learn to skip it.
   if (website) {
+    console.warn(`[honeypot] register ip="${ip}"`);
     return NextResponse.json({ success: true });
   }
 

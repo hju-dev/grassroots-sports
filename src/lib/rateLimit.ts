@@ -31,6 +31,10 @@ export async function checkRateLimit(
   `) as Array<{ count: number }>;
 
   if (rows[0].count >= max) {
+    // Deliberately minimal — bucket + count only, no request body/headers —
+    // but enough for Vercel's Function Logs to show a repeat offender
+    // without needing a separate monitoring service for a site this size.
+    console.warn(`[rate-limit] blocked bucket="${bucket}" count=${rows[0].count} max=${max}`);
     return true;
   }
 
