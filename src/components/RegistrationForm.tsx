@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import QRCode from 'react-qr-code';
+import { sendGAEvent } from '@next/third-parties/google';
 import { generatePromptPayPayload } from '@/lib/promptpay';
 import { useParams } from 'next/navigation';
 
@@ -56,6 +57,13 @@ export default function RegistrationForm({ defaultProgram }: Props) {
     } finally {
       setLoading(false);
       setStep('qr');
+      // Honeypot filled means it's a bot, not real registration intent —
+      // don't let it pollute the conversion count. GA has no server-side
+      // visibility into the honeypot check /api/register does, so this
+      // client-side guard is the only place to exclude it.
+      if (!website) {
+        sendGAEvent('event', 'register_started', { program });
+      }
     }
   }
 
