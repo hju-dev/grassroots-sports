@@ -2,10 +2,17 @@ import { NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { Resend } from 'resend';
 import { sanitizeText } from '@/lib/sanitize';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(request: Request) {
+  const sql = getDb();
+  const ip = getClientIp(request);
+  if (await checkRateLimit(sql, `contact:${ip}`, { windowMs: 10 * 60 * 1000, max: 5 })) {
+    return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 });
+  }
+
   const body = await request.json();
   const { website } = body;
 
@@ -28,7 +35,6 @@ export async function POST(request: Request) {
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const sql = getDb();
   await sql`
     INSERT INTO contact_messages (name, email, message)
     VALUES (${name}, ${email}, ${message})

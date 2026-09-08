@@ -26,3 +26,14 @@ CREATE TABLE IF NOT EXISTS contact_messages (
 CREATE INDEX IF NOT EXISTS registrations_email_idx ON registrations (email);
 CREATE INDEX IF NOT EXISTS registrations_program_idx ON registrations (program);
 CREATE INDEX IF NOT EXISTS registrations_created_idx ON registrations (created_at DESC);
+
+-- Rate limiting for /api/register and /api/contact (see src/lib/rateLimit.ts).
+-- Not required here — the app creates this table itself on first use
+-- (CREATE TABLE IF NOT EXISTS) — kept for documentation consistency with
+-- the rest of this file.
+CREATE TABLE IF NOT EXISTS rate_limit_hits (
+  id         SERIAL PRIMARY KEY,
+  bucket     TEXT        NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS rate_limit_hits_bucket_created_idx ON rate_limit_hits (bucket, created_at);
