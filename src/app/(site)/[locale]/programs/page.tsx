@@ -97,7 +97,7 @@ export default async function ProgramsPage({
                   {t(descKey)}
                 </p>
                 <div className="mt-6 flex flex-col gap-3">
-                  <span className="inline-block self-start bg-[var(--color-lime)] text-white text-xs font-bold py-1.5 px-4 rounded-full uppercase tracking-wider">
+                  <span className="inline-block self-start bg-[var(--color-lime)] text-[var(--color-black)] text-xs font-bold py-1.5 px-4 rounded-full uppercase tracking-wider">
                     {t('comingSoon')}
                   </span>
                   <div className="flex items-center gap-3 flex-wrap">

@@ -148,7 +148,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 </div>
                 <h3 className="text-sm md:text-base font-bold text-[var(--color-black)] mb-1">{title}</h3>
                 <p className="text-xs text-[var(--color-muted)] mb-4">{ages}</p>
-                <span className="text-xs bg-[var(--color-lime)] text-white font-bold py-1 px-3 rounded-full uppercase tracking-wider">
+                <span className="text-xs bg-[var(--color-lime)] text-[var(--color-black)] font-bold py-1 px-3 rounded-full uppercase tracking-wider">
                   Coming Soon
                 </span>
               </div>

@@ -124,7 +124,7 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
             </svg>
             {t('backBtn')}
           </Link>
-          <span className="inline-block bg-[var(--color-lime)] text-white text-xs font-bold py-1.5 px-4 rounded-full uppercase tracking-widest mb-5">
+          <span className="inline-block bg-[var(--color-lime)] text-[var(--color-black)] text-xs font-bold py-1.5 px-4 rounded-full uppercase tracking-widest mb-5">
             {ages}
           </span>
           <h1 className="text-5xl md:text-8xl mb-4">{hero}</h1>
