@@ -30,7 +30,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-[var(--color-black)] text-white shadow-md">
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-        <Link href={`/${locale}`} className="flex items-center gap-2.5">
+        <Link href={`/${locale}`} className="flex items-center gap-2.5 shrink-0">
           <div className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0 bg-white">
             <Image
               src="/logo.png"
@@ -40,13 +40,13 @@ export default function Navbar() {
               sizes="36px"
             />
           </div>
-          <span className="font-black text-lg tracking-tight">
+          <span className="font-black text-lg tracking-tight whitespace-nowrap">
             <span className="text-[var(--color-forest)]">Grass Roots </span>
             <span className="text-white">Sports</span>
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden lg:flex items-center gap-6">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -71,7 +71,7 @@ export default function Navbar() {
         </nav>
 
         <button
-          className="md:hidden p-2 rounded hover:bg-white/10 transition-colors"
+          className="lg:hidden p-2 rounded hover:bg-white/10 transition-colors"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
@@ -83,7 +83,7 @@ export default function Navbar() {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden bg-[var(--color-black)] border-t border-white/10 px-4 pb-4 pt-2">
+        <div className="lg:hidden bg-[var(--color-black)] border-t border-white/10 px-4 pb-4 pt-2">
           {links.map((link) => (
             <Link
               key={link.href}

@@ -5,10 +5,11 @@ import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 // Registration ends with scanning a PromptPay QR on the same phone someone's
-// already browsing with — this keeps "Register" one tap away on mobile
-// without needing to scroll back to the nav. Hidden on desktop (the sticky
-// header's own Register button already covers that) and on /register
-// itself, where it would just duplicate the page's own submit button.
+// already browsing with — this keeps "Register" one tap away without
+// needing to scroll back to the nav. Matches the header's own lg: breakpoint
+// (not md:) since the full nav doesn't fit until then — this bar is what
+// covers Register in between. Hidden on /register itself, where it would
+// just duplicate the page's own submit button.
 export default function StickyMobileCTA() {
   const t = useTranslations('nav');
   const pathname = usePathname();
@@ -23,7 +24,7 @@ export default function StickyMobileCTA() {
 
   return (
     <div
-      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[var(--color-black)] border-t border-white/10 px-4 pt-3"
+      className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[var(--color-black)] border-t border-white/10 px-4 pt-3"
       style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
     >
       <Link

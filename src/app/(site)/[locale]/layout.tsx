@@ -42,7 +42,7 @@ export default async function LocaleLayout({
         </div>
       )}
       <Navbar />
-      <main className="flex-1 pb-20 md:pb-0">{children}</main>
+      <main className="flex-1 pb-20 lg:pb-0">{children}</main>
       <Footer locale={locale} />
       <StickyMobileCTA />
     </NextIntlClientProvider>
