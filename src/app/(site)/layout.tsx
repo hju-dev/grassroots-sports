@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Bebas_Neue } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import '../globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -42,6 +43,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   // Clerk set session-tracking cookies on every public visitor, which never
   // needed them and contradicted the privacy policy's "no tracking cookies"
   // claim.
+  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
   return (
     <html lang="en" className={`${inter.variable} ${bebasNeue.variable}`}>
       <body className="min-h-screen flex flex-col">
@@ -51,6 +54,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         {children}
         <Analytics />
+        {/* No-op until NEXT_PUBLIC_GA_MEASUREMENT_ID is set in Vercel — see
+            env.example. Once it is, this starts setting GA's measurement
+            cookies, which the privacy policy's cookie section needs to be
+            updated to reflect (it currently says "no tracking cookies"). */}
+        {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
     </html>
   );
