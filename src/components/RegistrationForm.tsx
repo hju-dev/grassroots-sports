@@ -79,7 +79,7 @@ export default function RegistrationForm({ defaultProgram }: Props) {
         <p className="text-[var(--color-body)] mb-8 leading-relaxed">{t('step3Desc')}</p>
         <Link
           href={`/${locale}/programs`}
-          className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white font-bold py-3 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
+          className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white hover:text-[var(--color-black)] font-bold py-3 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
         >
           {t('doneBtn')}
         </Link>
@@ -109,7 +109,7 @@ export default function RegistrationForm({ defaultProgram }: Props) {
         <div className="flex flex-col gap-3 w-full">
           <button
             onClick={() => setStep('done')}
-            className="w-full bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white font-bold py-3.5 rounded-lg transition-colors uppercase tracking-widest text-sm"
+            className="w-full bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white hover:text-[var(--color-black)] font-bold py-3.5 rounded-lg transition-colors uppercase tracking-widest text-sm"
           >
             {t('paidBtn')}
           </button>
@@ -141,8 +141,9 @@ export default function RegistrationForm({ defaultProgram }: Props) {
       />
 
       <div className="flex flex-col gap-1.5">
-        <label className={labelClass}>{t('labelName')}</label>
+        <label htmlFor="register-name" className={labelClass}>{t('labelName')}</label>
         <input
+          id="register-name"
           type="text"
           required
           value={name}
@@ -153,8 +154,9 @@ export default function RegistrationForm({ defaultProgram }: Props) {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label className={labelClass}>{t('labelEmail')}</label>
+        <label htmlFor="register-email" className={labelClass}>{t('labelEmail')}</label>
         <input
+          id="register-email"
           type="email"
           required
           value={email}
@@ -165,8 +167,9 @@ export default function RegistrationForm({ defaultProgram }: Props) {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label className={labelClass}>{t('labelPhone')}</label>
+        <label htmlFor="register-phone" className={labelClass}>{t('labelPhone')}</label>
         <input
+          id="register-phone"
           type="tel"
           required
           value={phone}
@@ -177,8 +180,9 @@ export default function RegistrationForm({ defaultProgram }: Props) {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label className={labelClass}>{t('labelProgram')}</label>
+        <label htmlFor="register-program" className={labelClass}>{t('labelProgram')}</label>
         <select
+          id="register-program"
           required
           value={program}
           onChange={(e) => setProgram(e.target.value)}
@@ -194,7 +198,7 @@ export default function RegistrationForm({ defaultProgram }: Props) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-[var(--color-forest)] hover:bg-[var(--color-lime)] disabled:opacity-60 text-white font-bold py-3.5 rounded-lg transition-colors uppercase tracking-widest text-sm"
+        className="w-full bg-[var(--color-forest)] hover:bg-[var(--color-lime)] disabled:opacity-60 text-white hover:text-[var(--color-black)] font-bold py-3.5 rounded-lg transition-colors uppercase tracking-widest text-sm"
       >
         {loading ? '...' : t('submitBtn')}
       </button>

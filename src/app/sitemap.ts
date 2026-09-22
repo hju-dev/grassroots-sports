@@ -1,8 +1,12 @@
 import type { MetadataRoute } from 'next';
 
-const BASE = 'https://grassrootssports.org';
+const BASE = 'https://www.grassrootssports.org';
 const LOCALES = ['en', 'th'];
 
+// privacy/terms/accessibility are deliberately `robots: { index: false }`
+// (see their page.tsx files) and register is too — none belong here, since
+// submitting a noindex'd URL in the sitemap sends Google a contradictory
+// signal (index this / don't index this) for the same page.
 const routes = [
   { path: '',                     priority: 1.0, changeFrequency: 'weekly'  },
   { path: '/about',               priority: 0.8, changeFrequency: 'monthly' },
@@ -15,9 +19,6 @@ const routes = [
   { path: '/schedule',            priority: 0.7, changeFrequency: 'weekly'  },
   { path: '/partners',            priority: 0.6, changeFrequency: 'monthly' },
   { path: '/contact',             priority: 0.6, changeFrequency: 'monthly' },
-  { path: '/privacy',             priority: 0.3, changeFrequency: 'yearly'  },
-  { path: '/terms',               priority: 0.3, changeFrequency: 'yearly'  },
-  { path: '/accessibility',       priority: 0.3, changeFrequency: 'yearly'  },
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {

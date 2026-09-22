@@ -103,7 +103,7 @@ export default async function ProgramsPage({
                   <div className="flex items-center gap-3 flex-wrap">
                     <Link
                       href={`/${locale}/programs/${id}`}
-                      className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white text-xs font-bold py-2 px-4 rounded-lg uppercase tracking-wider transition-colors"
+                      className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white hover:text-[var(--color-black)] text-xs font-bold py-2 px-4 rounded-lg uppercase tracking-wider transition-colors"
                     >
                       {t('learnMore')}
                     </Link>
@@ -138,7 +138,7 @@ export default async function ProgramsPage({
             href="https://instagram.com/akdovey"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white font-bold py-3.5 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
+            className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white hover:text-[var(--color-black)] font-bold py-3.5 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
           >
             {t('notifyCta')}
           </a>

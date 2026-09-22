@@ -13,7 +13,7 @@ const bebasNeue = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://grassrootssports.org'),
+  metadataBase: new URL('https://www.grassrootssports.org'),
   title: 'Grass Roots Sports',
   description: 'Community basketball academy coming to Pattaya, Thailand.',
   verification: {
@@ -25,8 +25,8 @@ const organizationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SportsOrganization',
   name: 'Grass Roots Sports',
-  url: 'https://grassrootssports.org',
-  logo: 'https://grassrootssports.org/logo.png',
+  url: 'https://www.grassrootssports.org',
+  logo: 'https://www.grassrootssports.org/logo.png',
   description: 'Community basketball coaching, leagues, and development programs for all ages in Pattaya, Thailand.',
   sport: 'Basketball',
   areaServed: {

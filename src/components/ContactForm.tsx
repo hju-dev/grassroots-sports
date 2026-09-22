@@ -79,21 +79,21 @@ export default function ContactForm() {
       />
 
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-semibold uppercase tracking-wider text-[var(--color-body)]">{t('formName')}</label>
-        <input type="text" name="name" required className={inputClass} placeholder={t('formName')} />
+        <label htmlFor="contact-name" className="text-xs font-semibold uppercase tracking-wider text-[var(--color-body)]">{t('formName')}</label>
+        <input id="contact-name" type="text" name="name" required className={inputClass} placeholder={t('formName')} />
       </div>
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-semibold uppercase tracking-wider text-[var(--color-body)]">{t('formEmail')}</label>
-        <input type="email" name="email" required className={inputClass} placeholder={t('formEmail')} />
+        <label htmlFor="contact-email" className="text-xs font-semibold uppercase tracking-wider text-[var(--color-body)]">{t('formEmail')}</label>
+        <input id="contact-email" type="email" name="email" required className={inputClass} placeholder={t('formEmail')} />
       </div>
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-semibold uppercase tracking-wider text-[var(--color-body)]">{t('formMessage')}</label>
-        <textarea name="message" required rows={5} className={`${inputClass} resize-none`} placeholder={t('formMessage')} />
+        <label htmlFor="contact-message" className="text-xs font-semibold uppercase tracking-wider text-[var(--color-body)]">{t('formMessage')}</label>
+        <textarea id="contact-message" name="message" required rows={5} className={`${inputClass} resize-none`} placeholder={t('formMessage')} />
       </div>
       <button
         type="submit"
         disabled={state === 'loading'}
-        className="w-full bg-[var(--color-forest)] hover:bg-[var(--color-lime)] disabled:opacity-60 text-white font-bold py-3.5 rounded-lg transition-colors uppercase tracking-widest text-sm"
+        className="w-full bg-[var(--color-forest)] hover:bg-[var(--color-lime)] disabled:opacity-60 text-white hover:text-[var(--color-black)] font-bold py-3.5 rounded-lg transition-colors uppercase tracking-widest text-sm"
       >
         {state === 'loading' ? '...' : t('formSubmit')}
       </button>

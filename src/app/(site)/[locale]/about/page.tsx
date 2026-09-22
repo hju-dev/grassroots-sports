@@ -140,7 +140,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             href={instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white font-bold py-3.5 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
+            className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white hover:text-[var(--color-black)] font-bold py-3.5 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
           >
             {t('instagramCta')}
           </a>

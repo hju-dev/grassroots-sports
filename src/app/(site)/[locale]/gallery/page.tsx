@@ -42,6 +42,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
     src: doc.url || '',
     alt: doc.alt,
     caption: doc.caption || '',
+    category: doc.category || 'events',
   }));
   const instagramUrl =
     settings?.socialLinks?.find((l) => l.platform === 'Instagram')?.url ||
@@ -61,11 +62,35 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
       </section>
 
       {/* Masonry grid */}
-      <section className="py-16 md:py-20 px-4">
+      <section className="gallery-filter-section py-16 md:py-20 px-4">
         <div className="max-w-6xl mx-auto">
+          <fieldset className="mb-8 md:mb-10 flex flex-wrap justify-center gap-2 border-0 p-0 m-0">
+            <legend className="sr-only">{t('filterLabel')}</legend>
+            {(['all', 'youth', 'teen', 'adult', 'events'] as const).map((key) => (
+              <div key={key}>
+                <input
+                  type="radio"
+                  name="gallery-filter"
+                  id={`filter-${key}`}
+                  defaultChecked={key === 'all'}
+                  className="peer sr-only"
+                />
+                <label
+                  htmlFor={`filter-${key}`}
+                  className="inline-flex min-h-11 items-center cursor-pointer rounded-full border border-[var(--color-black)]/10 bg-white px-5 text-xs font-bold uppercase tracking-wider text-[var(--color-body)] transition-colors hover:border-[var(--color-forest)] peer-checked:border-[var(--color-forest)] peer-checked:bg-[var(--color-forest)] peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--color-forest)] peer-focus-visible:ring-offset-2"
+                >
+                  {t(key === 'all' ? 'filterAll' : (`filter${key.charAt(0).toUpperCase()}${key.slice(1)}` as Parameters<typeof t>[0]))}
+                </label>
+              </div>
+            ))}
+          </fieldset>
           <div className="columns-2 md:columns-3 gap-3 md:gap-4 space-y-3 md:space-y-4">
             {photos.map((photo, i) => (
-              <div key={i} className="relative overflow-hidden rounded-2xl group break-inside-avoid">
+              <div
+                key={i}
+                data-category={photo.category}
+                className="gallery-photo relative overflow-hidden rounded-2xl group break-inside-avoid"
+              >
                 <Image
                   src={photo.src}
                   alt={photo.alt}
@@ -92,7 +117,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
             href={instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white font-bold py-3.5 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
+            className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white hover:text-[var(--color-black)] font-bold py-3.5 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
           >
             {t('instagramCta')}
           </a>

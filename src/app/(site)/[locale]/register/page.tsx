@@ -73,7 +73,7 @@ export default async function RegisterPage({
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white font-bold py-3 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
+                className="mt-2 inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white hover:text-[var(--color-black)] font-bold py-3 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
               >
                 Follow @{instagramHandle}
               </a>

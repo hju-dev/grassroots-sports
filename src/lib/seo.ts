@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://grassrootssports.org';
+export const SITE_URL = 'https://www.grassrootssports.org';
 
 const LOCALES = ['en', 'th'] as const;
 

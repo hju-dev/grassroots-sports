@@ -60,3 +60,11 @@ h2 {
     transform: translate(-50%, 50%) scale(1);
   }
 }
+
+/* Gallery category filter — CSS-only via :has(), no client JS required. */
+.gallery-filter-section:has(#filter-youth:checked) .gallery-photo:not([data-category='youth']),
+.gallery-filter-section:has(#filter-teen:checked) .gallery-photo:not([data-category='teen']),
+.gallery-filter-section:has(#filter-adult:checked) .gallery-photo:not([data-category='adult']),
+.gallery-filter-section:has(#filter-events:checked) .gallery-photo:not([data-category='events']) {
+  display: none;
+}

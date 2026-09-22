@@ -132,7 +132,7 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
           <div className="mt-10">
             <Link
               href={`/${locale}/register?program=${p}`}
-              className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] border border-white/20 text-white font-bold py-4 px-10 rounded-lg transition-colors uppercase tracking-widest text-sm"
+              className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] border border-white/20 text-white hover:text-[var(--color-black)] font-bold py-4 px-10 rounded-lg transition-colors uppercase tracking-widest text-sm"
             >
               {ctaBtn}
             </Link>
@@ -209,7 +209,7 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={`/${locale}/register?program=${p}`}
-              className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white font-bold py-3.5 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
+              className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white hover:text-[var(--color-black)] font-bold py-3.5 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
             >
               {ctaBtn}
             </Link>

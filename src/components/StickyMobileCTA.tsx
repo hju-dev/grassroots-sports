@@ -29,7 +29,7 @@ export default function StickyMobileCTA() {
     >
       <Link
         href={`/${locale}/register`}
-        className="block w-full text-center bg-[var(--color-forest)] active:bg-[var(--color-lime)] text-white font-bold py-3.5 rounded-lg uppercase tracking-widest text-sm transition-colors"
+        className="block w-full text-center bg-[var(--color-forest)] active:bg-[var(--color-lime)] text-white active:text-[var(--color-black)] font-bold py-3.5 rounded-lg uppercase tracking-widest text-sm transition-colors"
       >
         {t('register')}
       </Link>

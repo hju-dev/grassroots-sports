@@ -34,7 +34,7 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
       dayKey: 'mon',
       slots: [
         { program: tPrograms('youthTitle'), programKey: 'youth', color: 'bg-[var(--color-forest)]/10 text-[var(--color-forest)]' },
-        { program: tPrograms('teenTitle'),  programKey: 'teen',  color: 'bg-[var(--color-lime)]/10   text-[var(--color-lime)]'   },
+        { program: tPrograms('teenTitle'),  programKey: 'teen',  color: 'bg-[var(--color-lime)]/10   text-[var(--color-black)]'   },
       ],
     },
     {
@@ -47,7 +47,7 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
       dayKey: 'wed',
       slots: [
         { program: tPrograms('youthTitle'), programKey: 'youth', color: 'bg-[var(--color-forest)]/10 text-[var(--color-forest)]' },
-        { program: tPrograms('teenTitle'),  programKey: 'teen',  color: 'bg-[var(--color-lime)]/10   text-[var(--color-lime)]'   },
+        { program: tPrograms('teenTitle'),  programKey: 'teen',  color: 'bg-[var(--color-lime)]/10   text-[var(--color-black)]'   },
         { program: tPrograms('adultTitle'), programKey: 'adult', color: 'bg-[var(--color-black)]/5   text-[var(--color-body)]'   },
       ],
     },
@@ -60,7 +60,7 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
     {
       dayKey: 'fri',
       slots: [
-        { program: tPrograms('teenTitle'),  programKey: 'teen',  color: 'bg-[var(--color-lime)]/10 text-[var(--color-lime)]'     },
+        { program: tPrograms('teenTitle'),  programKey: 'teen',  color: 'bg-[var(--color-lime)]/10 text-[var(--color-black)]'     },
         { program: tPrograms('adultTitle'), programKey: 'adult', color: 'bg-[var(--color-black)]/5 text-[var(--color-body)]'     },
       ],
     },
@@ -68,7 +68,7 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
       dayKey: 'sat',
       slots: [
         { program: tPrograms('youthTitle'), programKey: 'youth', color: 'bg-[var(--color-forest)]/10 text-[var(--color-forest)]' },
-        { program: 'Skills Clinic',         programKey: 'event', color: 'bg-[var(--color-lime)]/10   text-[var(--color-lime)]'   },
+        { program: 'Skills Clinic',         programKey: 'event', color: 'bg-[var(--color-lime)]/10   text-[var(--color-black)]'   },
         { program: tPrograms('privateTitle'), programKey: 'private', color: 'bg-[var(--color-black)]/5 text-[var(--color-body)]' },
       ],
     },
@@ -166,7 +166,7 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={`/${locale}/register`}
-              className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white font-bold py-3.5 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
+              className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white hover:text-[var(--color-black)] font-bold py-3.5 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
             >
               {t('notifyRegister')}
             </Link>

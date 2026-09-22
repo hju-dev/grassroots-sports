@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/admin', '/ops', '/api/'],
       },
     ],
-    sitemap: 'https://grassrootssports.org/sitemap.xml',
+    sitemap: 'https://www.grassrootssports.org/sitemap.xml',
   };
 }

@@ -58,7 +58,7 @@ export default function Navbar() {
           ))}
           <Link
             href={registerHref}
-            className="text-sm font-bold bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white px-4 py-1.5 rounded-lg uppercase tracking-widest transition-colors"
+            className="text-sm font-bold bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white hover:text-[var(--color-black)] px-4 py-1.5 rounded-lg uppercase tracking-widest transition-colors"
           >
             {t('register')}
           </Link>
@@ -71,7 +71,7 @@ export default function Navbar() {
         </nav>
 
         <button
-          className="lg:hidden p-2 rounded hover:bg-white/10 transition-colors"
+          className="lg:hidden min-w-11 min-h-11 flex flex-col items-center justify-center rounded hover:bg-white/10 transition-colors"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}

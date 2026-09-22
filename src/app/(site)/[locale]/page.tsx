@@ -81,7 +81,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           </p>
           <Link
             href={`/${locale}/programs`}
-            className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white font-bold py-3.5 px-8 md:py-4 md:px-10 rounded-lg transition-colors text-sm md:text-base uppercase tracking-widest"
+            className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white hover:text-[var(--color-black)] font-bold py-3.5 px-8 md:py-4 md:px-10 rounded-lg transition-colors text-sm md:text-base uppercase tracking-widest"
           >
             {t('cta')}
           </Link>
@@ -237,7 +237,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             href={instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white font-bold py-3.5 px-8 rounded-lg transition-colors text-sm md:text-base uppercase tracking-widest"
+            className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white hover:text-[var(--color-black)] font-bold py-3.5 px-8 rounded-lg transition-colors text-sm md:text-base uppercase tracking-widest"
           >
             {t('instagramCta')}
           </a>
