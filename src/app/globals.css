@@ -26,6 +26,13 @@ h2 {
   line-height: 1;
 }
 
+/* The owner dashboard uses the body font for headings, not the site's display face. */
+.dashboard-root h1,
+.dashboard-root h2 {
+  font-family: var(--font-inter), sans-serif;
+  line-height: 1.25;
+}
+
 @keyframes court-lines-pulse {
   0%, 100% { opacity: 0.5; }
   50% { opacity: 1; }

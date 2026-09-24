@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/admin', '/ops', '/api/'],
+        disallow: ['/admin', '/ops', '/dashboard', '/api/'],
       },
     ],
     sitemap: 'https://www.grassrootssports.org/sitemap.xml',

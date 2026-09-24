@@ -10,3 +10,11 @@ export async function getAdminEmail(): Promise<string | null> {
   const email = primary?.verification?.status === 'verified' ? primary.emailAddress : null;
   return isAdminEmail(email) ? email : null;
 }
+
+// For server actions and route handlers: being signed in is not enough, the
+// caller must be on the ADMIN_EMAILS allowlist. Throws so the action stops.
+export async function assertAdmin(): Promise<string> {
+  const email = await getAdminEmail();
+  if (!email) throw new Error('Forbidden');
+  return email;
+}

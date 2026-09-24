@@ -5,6 +5,7 @@ import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { getPayloadClient } from '@/lib/payload';
+import { getPublishedGallery } from '@/lib/gallery';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -21,10 +22,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function GalleryPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const payload = await getPayloadClient();
-  const [t, tNav, media, settings] = await Promise.all([
+  const [t, tNav, managed, settings] = await Promise.all([
     getTranslations('gallery'),
     getTranslations('nav'),
-    payload
+    getPublishedGallery(locale === 'th' ? 'th' : 'en'),
+    payload.findGlobal({ slug: 'settings' }).catch(() => null),
+  ]);
+
+  // The dashboard's gallery is the source of truth. Only if its table can't be
+  // read (null) do we fall back to the CMS media library, so the page never breaks.
+  let photos = managed;
+  if (photos === null) {
+    const media = await payload
       .find({
         collection: 'media',
         locale: locale as 'en' | 'th',
@@ -34,16 +43,16 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
         // show up on the public gallery, only ones deliberately tagged for it.
         where: { category: { exists: true } },
       })
-      .catch(() => null),
-    payload.findGlobal({ slug: 'settings' }).catch(() => null),
-  ]);
-
-  const photos = (media?.docs ?? []).map((doc) => ({
-    src: doc.url || '',
-    alt: doc.alt,
-    caption: doc.caption || '',
-    category: doc.category || 'events',
-  }));
+      .catch(() => null);
+    photos = (media?.docs ?? []).map((doc) => ({
+      src: doc.url || '',
+      width: doc.width || 600,
+      height: doc.height || 400,
+      alt: doc.alt,
+      caption: doc.caption || '',
+      category: doc.category || 'events',
+    }));
+  }
   const instagramUrl =
     settings?.socialLinks?.find((l) => l.platform === 'Instagram')?.url ||
     'https://instagram.com/akdovey';
@@ -94,8 +103,8 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
                 <Image
                   src={photo.src}
                   alt={photo.alt}
-                  width={600}
-                  height={400}
+                  width={photo.width}
+                  height={photo.height}
                   sizes="(max-width: 768px) 50vw, 33vw"
                   className="w-full h-auto object-cover"
                 />

@@ -32,6 +32,9 @@ const securityHeaders = [
 
 const nextConfig = {
   poweredByHeader: false,
+  // Dashboard photo uploads are sent through a server action. The default 1 MB
+  // limit is too small; Vercel itself rejects request bodies over 4.5 MB.
+  experimental: { serverActions: { bodySizeLimit: '4.5mb' as const } },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
   },

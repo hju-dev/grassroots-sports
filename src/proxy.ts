@@ -7,14 +7,14 @@ const intlMiddleware = createIntlMiddleware(routing);
 // Payload's own admin UI — it manages its own session, so this just needs
 // to skip next-intl, not go through Clerk.
 const isPayloadAdminRoute = createRouteMatcher(['/admin(.*)']);
-const isAdminRoute = createRouteMatcher(['/ops(.*)']);
+const isAdminRoute = createRouteMatcher(['/ops(.*)', '/dashboard(.*)']);
 // Only these routes ever need Clerk. clerkMiddleware() is invoked only for
 // requests that match this, so the public marketing/registration site never
 // runs it at all — no Clerk session cookie gets set on a visitor who will
 // never touch /ops (see the note in src/app/(site)/layout.tsx).
 // /api/admin is included because currentUser() in mark-paid throws unless
 // clerkMiddleware ran for that request.
-const needsClerk = createRouteMatcher(['/ops(.*)', '/sign-in(.*)', '/sign-up(.*)', '/api/admin(.*)']);
+const needsClerk = createRouteMatcher(['/ops(.*)', '/dashboard(.*)', '/sign-in(.*)', '/sign-up(.*)', '/api/admin(.*)']);
 
 const clerkHandler = clerkMiddleware(async (auth, req) => {
   if (isAdminRoute(req)) {
