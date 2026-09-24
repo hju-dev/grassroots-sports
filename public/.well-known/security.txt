@@ -1,0 +1,4 @@
+Contact: mailto:team@grassrootssports.org
+Expires: 2027-09-24T00:00:00.000Z
+Preferred-Languages: en, th
+Canonical: https://www.grassrootssports.org/.well-known/security.txt

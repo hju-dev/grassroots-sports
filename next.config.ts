@@ -30,13 +30,39 @@ const securityHeaders = [
   { key: 'Content-Security-Policy-Report-Only', value: csp },
 ];
 
+// ENFORCED policy for the public website pages (/en/... and /th/...) only.
+// These pages load nothing from outside except Google Analytics and the
+// site's own photo storage, so the allowlist is short: a foreign script,
+// iframe or form target is blocked. 'unsafe-inline' stays for scripts because
+// Next.js embeds its page data in inline scripts; no 'unsafe-eval' is needed
+// in production. The dashboard, sign-in and CMS admin are NOT covered here:
+// they load Clerk and Payload, and stay on the report-only policy above until
+// they can be tested signed in.
+const publicCsp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com https://*.google-analytics.com https://*.googletagmanager.com",
+  "font-src 'self' data:",
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
+  "frame-src 'none'",
+  "object-src 'none'",
+  "worker-src 'self' blob:",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join('; ');
+
 const nextConfig = {
   poweredByHeader: false,
   // Dashboard photo uploads are sent through a server action. The default 1 MB
   // limit is too small; Vercel itself rejects request bodies over 4.5 MB.
   experimental: { serverActions: { bodySizeLimit: '4.5mb' as const } },
   async headers() {
-    return [{ source: '/:path*', headers: securityHeaders }];
+    return [
+      { source: '/:path*', headers: securityHeaders },
+      { source: '/:locale(en|th)/:path*', headers: [{ key: 'Content-Security-Policy', value: publicCsp }] },
+    ];
   },
   images: {
     // Vercel Blob URLs, once BLOB_READ_WRITE_TOKEN is set in production —
