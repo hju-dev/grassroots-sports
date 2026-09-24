@@ -1,4 +1,6 @@
+import { redirect } from 'next/navigation';
 import { getDb } from '@/lib/db';
+import { getAdminEmail } from '@/lib/requireAdmin';
 import MarkPaidButton from '@/components/MarkPaidButton';
 
 export const dynamic = 'force-dynamic';
@@ -29,6 +31,7 @@ const programLabels: Record<string, { label: string; color: string }> = {
 };
 
 export default async function AdminPage() {
+  if (!(await getAdminEmail())) redirect('/');
   const sql = getDb();
   const [registrations, messages] = await Promise.all([
     sql`SELECT * FROM registrations ORDER BY created_at DESC`.then((r) => r as Registration[]),

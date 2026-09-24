@@ -12,7 +12,9 @@ const isAdminRoute = createRouteMatcher(['/ops(.*)']);
 // requests that match this, so the public marketing/registration site never
 // runs it at all — no Clerk session cookie gets set on a visitor who will
 // never touch /ops (see the note in src/app/(site)/layout.tsx).
-const needsClerk = createRouteMatcher(['/ops(.*)', '/sign-in(.*)', '/sign-up(.*)']);
+// /api/admin is included because currentUser() in mark-paid throws unless
+// clerkMiddleware ran for that request.
+const needsClerk = createRouteMatcher(['/ops(.*)', '/sign-in(.*)', '/sign-up(.*)', '/api/admin(.*)']);
 
 const clerkHandler = clerkMiddleware(async (auth, req) => {
   if (isAdminRoute(req)) {
@@ -37,5 +39,5 @@ export default function middleware(req: NextRequest, event: NextFetchEvent) {
 }
 
 export const config = {
-  matcher: ['/((?!_next|api|.*\\..*).*)'],
+  matcher: ['/((?!_next|api|.*\\..*).*)', '/api/admin/(.*)'],
 };

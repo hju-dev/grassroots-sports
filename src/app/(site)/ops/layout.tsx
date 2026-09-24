@@ -1,19 +1,15 @@
 import { ClerkProvider, UserButton } from '@clerk/nextjs';
-import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
-import { isAdminEmail } from '@/lib/adminEmails';
+import { getAdminEmail } from '@/lib/requireAdmin';
 
 // ClerkProvider is scoped to just this subtree (not the root layout) so
 // public site visitors never load Clerk or get its cookies — see the note
 // in src/app/(site)/layout.tsx.
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  const user = await currentUser();
-  const email = user?.emailAddresses?.[0]?.emailAddress;
-  if (!isAdminEmail(email)) {
-    // A signed-in-but-not-authorized Clerk account reaching /ops is more
-    // interesting than a plain signed-out visitor (already caught earlier by
-    // auth.protect() in proxy.ts) — worth a log line either way.
-    console.warn(`[auth] /ops rejected email="${email ?? 'none'}"`);
+  // Layouts are not a security boundary in the App Router (they can be skipped
+  // on client navigation), so page.tsx repeats this check before reading data.
+  if (!(await getAdminEmail())) {
+    console.warn('[auth] /ops rejected non-admin');
     redirect('/');
   }
   return (

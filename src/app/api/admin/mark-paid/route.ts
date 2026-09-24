@@ -1,18 +1,24 @@
 import { NextResponse } from 'next/server';
-import { currentUser } from '@clerk/nextjs/server';
 import { getDb } from '@/lib/db';
-import { isAdminEmail } from '@/lib/adminEmails';
+import { getAdminEmail } from '@/lib/requireAdmin';
 import { isBodyTooLarge } from '@/lib/requestSize';
+
+const ALLOWED_ORIGINS = ['https://www.grassrootssports.org', 'http://localhost:3000'];
 
 export async function POST(request: Request) {
   if (isBodyTooLarge(request, 1_000)) {
     return NextResponse.json({ error: 'Request too large' }, { status: 413 });
   }
 
-  const user = await currentUser();
-  const email = user?.emailAddresses?.[0]?.emailAddress;
-  if (!isAdminEmail(email)) {
-    console.warn(`[auth] mark-paid rejected email="${email ?? 'none'}"`);
+  // Same-origin browser calls always send Origin on POST. Rejecting anything
+  // else is a second layer behind the session cookie's SameSite protection.
+  const origin = request.headers.get('origin');
+  if (!origin || !ALLOWED_ORIGINS.includes(origin)) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
+
+  if (!(await getAdminEmail())) {
+    console.warn('[auth] mark-paid rejected non-admin');
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
