@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { buildAlternates } from '@/lib/seo';
+import { getLinks, instagramHandle } from '@/lib/content';
 import CourtLines from '@/components/CourtLines';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
@@ -28,6 +29,7 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
   const t = await getTranslations('schedule');
   const tPrograms = await getTranslations('programs');
   const tNav = await getTranslations('nav');
+  const links = await getLinks();
 
   const week: DaySchedule[] = [
     {
@@ -68,7 +70,7 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
       dayKey: 'sat',
       slots: [
         { program: tPrograms('youthTitle'), programKey: 'youth', color: 'bg-[var(--color-forest)]/10 text-[var(--color-forest)]' },
-        { program: 'Skills Clinic',         programKey: 'event', color: 'bg-[var(--color-lime)]/10   text-[var(--color-black)]'   },
+        { program: t('skillsClinic'),        programKey: 'event', color: 'bg-[var(--color-lime)]/10   text-[var(--color-black)]'   },
         { program: tPrograms('privateTitle'), programKey: 'private', color: 'bg-[var(--color-black)]/5 text-[var(--color-body)]' },
       ],
     },
@@ -137,21 +139,21 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
             <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-black)] mb-4">{t('specialTitle')}</h2>
             <p className="text-[var(--color-body)] leading-relaxed">{t('specialDesc')}</p>
             <a
-              href="https://instagram.com/akdovey"
+              href={links.instagram}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block mt-6 text-sm font-bold text-[var(--color-forest)] hover:text-[var(--color-lime)] transition-colors uppercase tracking-widest"
             >
-              @akdovey
+              @{instagramHandle(links.instagram)}
             </a>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            {(['Holiday Camps', 'Skills Clinics', 'Tournaments', 'Open Gym'] as const).map((label) => (
-              <div key={label} className="bg-white rounded-xl p-5 text-center">
+            {(['campHoliday', 'campClinics', 'campTournaments', 'campOpenGym'] as const).map((key) => (
+              <div key={key} className="bg-white rounded-xl p-5 text-center">
                 <span className="inline-block bg-[var(--color-lime)] text-[var(--color-black)] text-xs font-bold py-1 px-3 rounded-full uppercase tracking-wider mb-2">
                   {t('comingSoonBadge')}
                 </span>
-                <p className="text-sm font-bold text-[var(--color-black)] mt-1">{label}</p>
+                <p className="text-sm font-bold text-[var(--color-black)] mt-1">{t(key)}</p>
               </div>
             ))}
           </div>
@@ -171,7 +173,7 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
               {t('notifyRegister')}
             </Link>
             <a
-              href="https://instagram.com/akdovey"
+              href={links.instagram}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block border border-white/30 hover:border-white text-white font-bold py-3.5 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"

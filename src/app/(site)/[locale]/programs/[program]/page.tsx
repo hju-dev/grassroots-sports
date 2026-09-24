@@ -10,7 +10,6 @@ import {
   TrophyIcon,
   TargetIcon,
 } from '@/components/Icons';
-import { getPayloadClient } from '@/lib/payload';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -32,30 +31,21 @@ export function generateStaticParams() {
   return validPrograms.map((program) => ({ program }));
 }
 
-async function findProduct(slug: Program, locale: string) {
-  const payload = await getPayloadClient();
-  const result = await payload
-    .find({ collection: 'products', where: { slug: { equals: slug } }, locale: locale as 'en' | 'th', limit: 1 })
-    .catch(() => null);
-  return result?.docs?.[0] ?? null;
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; program: string }> }): Promise<Metadata> {
   const { locale, program } = await params;
   if (!validPrograms.includes(program as Program)) return {};
 
   const p = program as Program;
-  const [t, s, slots] = await Promise.all([
+  const [t, slots] = await Promise.all([
     getTranslations('programDetail'),
-    findProduct(p, locale),
     getSlotImages(locale === 'th' ? 'th' : 'en'),
   ]);
   const share = slots.social_share;
   const d = (key: string): string => (t as unknown as (k: string) => string)(`${p}.${key}`);
 
-  const hero = s?.hero || d('hero');
-  const tagline = s?.tagline || d('tagline');
-  const overview = s?.overview || d('overview');
+  const hero = d('hero');
+  const tagline = d('tagline');
+  const overview = d('overview');
 
   return {
     title: `${hero} | Grass Roots Sports`,
@@ -75,37 +65,33 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
   if (!validPrograms.includes(program as Program)) notFound();
 
   const p = program as Program;
-  const [t, tNav, s] = await Promise.all([getTranslations('programDetail'), getTranslations('nav'), findProduct(p, locale)]);
+  const [t, tNav] = await Promise.all([getTranslations('programDetail'), getTranslations('nav')]);
 
   const icons = programIcons[p];
   const d = (key: string): string => (t as unknown as (k: string) => string)(`${p}.${key}`);
-  const cms = (val: string | null | undefined, fallback: string) => val || fallback;
 
-  const hero = cms(s?.hero, d('hero'));
-  const tagline = cms(s?.tagline, d('tagline'));
-  const ages = cms(s?.ages, d('ages'));
-  const overview = cms(s?.overview, d('overview'));
-  const philosophyLabel = cms(s?.philosophyLabel, d('philosophyLabel'));
-  const philosophy = cms(s?.philosophy, d('philosophy'));
-  const learnTitle = cms(s?.learnTitle, d('learnTitle'));
-  const formatTitle = cms(s?.formatTitle, d('formatTitle'));
-  const formatDesc = cms(s?.formatDesc, d('formatDesc'));
-  const forTitle = cms(s?.forTitle, d('forTitle'));
-  const forDesc = cms(s?.forDesc, d('forDesc'));
-  const pathwayLabel = cms(s?.pathwayLabel, d('pathwayLabel'));
-  const pathway = cms(s?.pathway, d('pathway'));
-  const ctaTitle = cms(s?.ctaTitle, d('ctaTitle'));
-  const ctaDesc = cms(s?.ctaDesc, d('ctaDesc'));
+  const hero = d('hero');
+  const tagline = d('tagline');
+  const ages = d('ages');
+  const overview = d('overview');
+  const philosophyLabel = d('philosophyLabel');
+  const philosophy = d('philosophy');
+  const learnTitle = d('learnTitle');
+  const formatTitle = d('formatTitle');
+  const formatDesc = d('formatDesc');
+  const forTitle = d('forTitle');
+  const forDesc = d('forDesc');
+  const pathwayLabel = d('pathwayLabel');
+  const pathway = d('pathway');
+  const ctaTitle = d('ctaTitle');
+  const ctaDesc = d('ctaDesc');
   const ctaBtn = d('cta');
 
-  const learnCards = ([1, 2, 3, 4] as const).map((n, i) => {
-    const card = s?.learnCards?.[i];
-    return {
-      Icon: icons[i],
-      title: cms(card?.title, d(`learn${n}Title`)),
-      desc: cms(card?.description, d(`learn${n}Desc`)),
-    };
-  });
+  const learnCards = ([1, 2, 3, 4] as const).map((n, i) => ({
+    Icon: icons[i],
+    title: d(`learn${n}Title`),
+    desc: d(`learn${n}Desc`),
+  }));
 
   return (
     <>

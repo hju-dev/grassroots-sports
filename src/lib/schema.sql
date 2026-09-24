@@ -108,3 +108,21 @@ CREATE TABLE IF NOT EXISTS image_slots (
 
 -- No public/client access: every read and write goes through server code.
 ALTER TABLE image_slots ENABLE ROW LEVEL SECURITY;
+
+-- ============================================================
+-- Site text and links (editable from /dashboard/content)
+-- key is "en.<message path>", "th.<message path>" (for example
+-- "en.home.headline") or "link.<name>" (see src/lib/content-defs.ts).
+-- value NULL means "use the built-in wording from the message files";
+-- draft_value holds an unpublished edit. A row only exists once someone edits
+-- a field. If this table can't be read, every page shows its built-in text.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS site_content (
+  key         TEXT        PRIMARY KEY,
+  value       TEXT,
+  draft_value TEXT,
+  updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- No public/client access: every read and write goes through server code.
+ALTER TABLE site_content ENABLE ROW LEVEL SECURITY;

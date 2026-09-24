@@ -6,7 +6,6 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import HtmlLangSync from '@/components/HtmlLangSync';
 import StickyMobileCTA from '@/components/StickyMobileCTA';
-import { getPayloadClient } from '@/lib/payload';
 import { getSlotImages } from '@/lib/image-slots';
 
 export function generateStaticParams() {
@@ -27,16 +26,15 @@ export default async function LocaleLayout({
   }
 
   setRequestLocale(locale);
-  const [messages, payload, slots] = await Promise.all([
+  const [messages, slots] = await Promise.all([
     getMessages(),
-    getPayloadClient(),
     getSlotImages(locale as 'en' | 'th'),
   ]);
-  const settings = await payload
-    .findGlobal({ slug: 'settings', locale: locale as 'en' | 'th' })
-    .catch(() => null);
 
-  const banner = settings?.announcementBanner;
+  // The announcement bar text is editable in the dashboard (Menus & footer).
+  // Empty means no bar. Read straight from the messages so an empty string is
+  // never sent through the message formatter.
+  const banner = (messages as { site?: { announcement?: string } }).site?.announcement?.trim() ?? '';
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>

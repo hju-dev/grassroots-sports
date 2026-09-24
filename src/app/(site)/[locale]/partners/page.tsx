@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { PartnerIcon, TrendingUpIcon, CommunityIcon, BasketballIcon, TargetIcon, GrowthIcon } from '@/components/Icons';
 import { buildAlternates } from '@/lib/seo';
+import { getLinks } from '@/lib/content';
 import CourtLines from '@/components/CourtLines';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
@@ -25,6 +26,7 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
   const { locale } = await params;
   const tNav = await getTranslations('nav');
   const t = await getTranslations('partners');
+  const links = await getLinks();
 
   const sponsorshipTiers = sponsorshipIcons.map((Icon, i) => {
     const n = i + 1;
@@ -191,7 +193,7 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
               {t('contactUsBtn')}
             </Link>
             <a
-              href="https://instagram.com/akdovey"
+              href={links.instagram}
               target="_blank"
               rel="noopener noreferrer"
               className="border border-white/50 hover:border-white text-white font-bold py-3.5 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"

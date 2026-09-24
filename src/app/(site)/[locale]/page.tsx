@@ -12,7 +12,7 @@ import {
   PartnerIcon,
   TrendingUpIcon,
 } from '@/components/Icons';
-import { getPayloadClient } from '@/lib/payload';
+import { getLinks } from '@/lib/content';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
 import HeroArcGlow from '@/components/HeroArcGlow';
@@ -45,18 +45,14 @@ const programs = [
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const payload = await getPayloadClient();
-  const [t, tp, s, slots] = await Promise.all([
+  const [t, tp, slots, links] = await Promise.all([
     getTranslations('home'),
     getTranslations('programs'),
-    payload.findGlobal({ slug: 'settings', locale: locale as 'en' | 'th' }).catch(() => null),
     getSlotImages(locale === 'th' ? 'th' : 'en'),
+    getLinks(),
   ]);
 
-  const cms = (val: string | null | undefined, fallback: string) => val || fallback;
-  const instagramUrl =
-    s?.socialLinks?.find((l) => l.platform === 'Instagram')?.url ||
-    'https://instagram.com/akdovey';
+  const instagramUrl = links.instagram;
   const missionIcons = [BasketballIcon, CommunityIcon, GrowthIcon];
 
   const programCards = [
@@ -78,10 +74,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <Image src={slots.site_logo.src} alt={slots.site_logo.alt} fill className="object-contain" sizes="80px" priority />
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl mb-5">
-              {cms(s?.heroHeadline, t('headline'))}
+              {t('headline')}
             </h1>
             <p className="text-base md:text-xl text-white/80 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              {cms(s?.heroSubheadline, t('subheadline'))}
+              {t('subheadline')}
             </p>
             <Link
               href={`/${locale}/programs`}
@@ -118,21 +114,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="bg-[var(--color-sage)] py-14 md:py-20 px-4">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-8 lg:gap-16 items-start">
           <h2 className="text-3xl md:text-5xl text-[var(--color-black)]">
-            {cms(s?.missionTitle, t('missionTitle'))}
+            {t('missionTitle')}
           </h2>
           <div className="flex flex-col gap-8">
             {(['mission1', 'mission2', 'mission3'] as const).map((tKey, i) => {
-              const card = s?.missionCards?.[i];
               const Icon = missionIcons[i];
               return (
                 <div key={tKey} className="flex gap-4 items-start">
                   <Icon className="w-9 h-9 text-[var(--color-forest)] flex-shrink-0" />
                   <div>
                     <h3 className="text-lg md:text-xl font-bold text-[var(--color-black)] mb-1">
-                      {cms(card?.title, t(`${tKey}Title` as Parameters<typeof t>[0]))}
+                      {t(`${tKey}Title` as Parameters<typeof t>[0])}
                     </h3>
                     <p className="text-[var(--color-muted)] text-sm leading-relaxed">
-                      {cms(card?.description, t(`${tKey}Desc` as Parameters<typeof t>[0]))}
+                      {t(`${tKey}Desc` as Parameters<typeof t>[0])}
                     </p>
                   </div>
                 </div>
@@ -160,7 +155,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <h3 className="text-sm md:text-base font-bold text-[var(--color-black)] mb-1">{title}</h3>
                 <p className="text-xs text-[var(--color-muted)] mb-4">{ages}</p>
                 <span className="text-xs bg-[var(--color-lime)] text-[var(--color-black)] font-bold py-1 px-3 rounded-full uppercase tracking-wider">
-                  Coming Soon
+                  {tp('comingSoon')}
                 </span>
               </div>
             ))}
@@ -251,10 +246,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <Image src={slots.site_logo.src} alt={slots.site_logo.alt} fill className="object-contain" sizes="80px" />
           </div>
           <h2 className="text-3xl md:text-6xl mb-4">
-            {cms(s?.igSectionTitle, t('instagramTitle'))}
+            {t('instagramTitle')}
           </h2>
           <p className="text-white/70 mb-8 leading-relaxed text-sm md:text-base">
-            {cms(s?.igSectionSubtitle, t('instagramSubtitle'))}
+            {t('instagramSubtitle')}
           </p>
           <a
             href={instagramUrl}

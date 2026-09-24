@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { BasketballIcon, LightningIcon, TrophyIcon, TargetIcon } from '@/components/Icons';
 import { buildAlternates } from '@/lib/seo';
+import { getLinks } from '@/lib/content';
 import CourtLines from '@/components/CourtLines';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import FAQ from '@/components/FAQ';
@@ -25,7 +26,7 @@ export default async function ProgramsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [t, tNav] = await Promise.all([getTranslations('programs'), getTranslations('nav')]);
+  const [t, tNav, links] = await Promise.all([getTranslations('programs'), getTranslations('nav'), getLinks()]);
 
   const programs = [
     {
@@ -135,7 +136,7 @@ export default async function ProgramsPage({
           <h2 className="text-4xl md:text-6xl mb-4">{t('notifyTitle')}</h2>
           <p className="text-white/70 mb-8 leading-relaxed">{t('notifyDesc')}</p>
           <a
-            href="https://instagram.com/akdovey"
+            href={links.instagram}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white hover:text-[var(--color-black)] font-bold py-3.5 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"

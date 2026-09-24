@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import RegistrationForm from '@/components/RegistrationForm';
 import { getPayloadClient } from '@/lib/payload';
+import { getLinks, instagramHandle as handleFromUrl } from '@/lib/content';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
 
@@ -34,10 +35,8 @@ export default async function RegisterPage({
   ]);
 
   const isOpen = settings?.registrationsOpen !== false;
-  const instagramUrl =
-    settings?.socialLinks?.find((l) => l.platform === 'Instagram')?.url ||
-    'https://instagram.com/akdovey';
-  const instagramHandle = instagramUrl.replace(/^https?:\/\/(www\.)?instagram\.com\//, '').replace(/\/$/, '') || 'akdovey';
+  const instagramUrl = (await getLinks()).instagram;
+  const instagramHandle = handleFromUrl(instagramUrl);
 
   const closedTitle = locale === 'th' ? 'ปิดรับสมัครชั่วคราว' : 'Registrations Closed';
   const closedDesc =

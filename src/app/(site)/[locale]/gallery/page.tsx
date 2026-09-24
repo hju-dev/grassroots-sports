@@ -6,6 +6,7 @@ import CourtLines from '@/components/CourtLines';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { getPayloadClient } from '@/lib/payload';
 import { getPublishedGallery } from '@/lib/gallery';
+import { getLinks } from '@/lib/content';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -22,11 +23,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function GalleryPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const payload = await getPayloadClient();
-  const [t, tNav, managed, settings] = await Promise.all([
+  const [t, tNav, managed] = await Promise.all([
     getTranslations('gallery'),
     getTranslations('nav'),
     getPublishedGallery(locale === 'th' ? 'th' : 'en'),
-    payload.findGlobal({ slug: 'settings' }).catch(() => null),
   ]);
 
   // The dashboard's gallery is the source of truth. Only if its table can't be
@@ -53,9 +53,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
       category: doc.category || 'events',
     }));
   }
-  const instagramUrl =
-    settings?.socialLinks?.find((l) => l.platform === 'Instagram')?.url ||
-    'https://instagram.com/akdovey';
+  const instagramUrl = (await getLinks()).instagram;
 
   return (
     <>

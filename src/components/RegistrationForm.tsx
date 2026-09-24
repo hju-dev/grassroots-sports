@@ -175,7 +175,7 @@ export default function RegistrationForm({ defaultProgram }: Props) {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           className={inputClass}
-          placeholder="e.g. 081 234 5678"
+          placeholder={t('placeholderPhone')}
         />
       </div>
 

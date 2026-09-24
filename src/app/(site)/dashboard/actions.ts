@@ -7,6 +7,7 @@ import { assertAdmin } from '@/lib/requireAdmin';
 import { z } from 'zod';
 import { encodeUpload } from '@/lib/image-encode';
 import { IMAGE_SLOTS, SLOT_KEYS } from '@/lib/image-slot-defs';
+import { cleanContentValue, defaultForContentKey, isContentKey } from '@/lib/content-defs';
 import type { GalleryPhoto, GalleryTextField } from '@/lib/gallery-defs';
 import {
   cleanGalleryText,
@@ -296,4 +297,129 @@ export async function updateSlotAlt(slot: string, lang: string, value: string): 
   }
   revalidateSlots();
   return {};
+}
+
+// ============================================================
+// Site text and links (see lib/content-defs.ts)
+// Storage keys look like "en.home.headline", "th.home.headline" or "link.instagram".
+// site_content: value is what is live (NULL = built-in wording), draft_value is
+// an unpublished edit.
+// ============================================================
+
+type ContentResult = { error?: string; field?: string };
+
+const contentEntriesSchema = z.record(z.string().max(120), z.string().max(4000));
+const contentKeysSchema = z.array(z.string().max(120)).max(500);
+
+function cleanContentEntries(
+  raw: unknown,
+): { values: Array<[string, string]> } | { error: string; field?: string } {
+  const parsed = contentEntriesSchema.safeParse(raw);
+  if (!parsed.success) return { error: 'Invalid request.' };
+  const pairs = Object.entries(parsed.data);
+  if (pairs.length === 0) return { values: [] };
+  if (pairs.length > 500) return { error: 'Too many fields at once.' };
+
+  const values: Array<[string, string]> = [];
+  for (const [key, value] of pairs) {
+    const cleaned = cleanContentValue(key, value);
+    if (!cleaned.ok) return { error: cleaned.error, field: key };
+    values.push([key, cleaned.value]);
+  }
+  return { values };
+}
+
+// Stores the edits as drafts: the live site keeps its current wording until
+// publishContent. A value identical to what is live right now is not a change,
+// so it clears any old draft instead.
+export async function saveContentDraft(entries: Record<string, string>): Promise<ContentResult> {
+  await assertAdmin();
+  const cleaned = cleanContentEntries(entries);
+  if ('error' in cleaned) return cleaned;
+  if (cleaned.values.length === 0) return {};
+
+  const sql = getDb();
+  const keys = cleaned.values.map(([k]) => k);
+  const liveRows = (await sql`SELECT key, value FROM site_content WHERE key = ANY(${keys}::text[])`) as Array<{ key: string; value: string | null }>;
+  const live = new Map(liveRows.map((r) => [r.key, r.value]));
+
+  const setKeys: string[] = [];
+  const setVals: string[] = [];
+  const clearKeys: string[] = [];
+  for (const [key, value] of cleaned.values) {
+    const effective = live.get(key) ?? defaultForContentKey(key);
+    if (value === effective) clearKeys.push(key);
+    else { setKeys.push(key); setVals.push(value); }
+  }
+
+  if (setKeys.length > 0) {
+    await sql`
+      INSERT INTO site_content (key, draft_value)
+      SELECT * FROM unnest(${setKeys}::text[], ${setVals}::text[])
+      ON CONFLICT (key) DO UPDATE SET draft_value = EXCLUDED.draft_value, updated_at = now()
+    `;
+  }
+  if (clearKeys.length > 0) {
+    await sql`UPDATE site_content SET draft_value = NULL, updated_at = now() WHERE key = ANY(${clearKeys}::text[])`;
+  }
+  revalidatePath('/dashboard/content');
+  return {};
+}
+
+// Makes the given values live and clears their drafts. A value equal to the
+// built-in original is stored as "no override", so the original stays the fallback.
+export async function publishContent(entries: Record<string, string>): Promise<ContentResult> {
+  await assertAdmin();
+  const cleaned = cleanContentEntries(entries);
+  if ('error' in cleaned) return cleaned;
+  if (cleaned.values.length === 0) return {};
+
+  const sql = getDb();
+  const setKeys: string[] = [];
+  const setVals: string[] = [];
+  const clearKeys: string[] = [];
+  for (const [key, value] of cleaned.values) {
+    if (value === defaultForContentKey(key)) clearKeys.push(key);
+    else { setKeys.push(key); setVals.push(value); }
+  }
+
+  if (setKeys.length > 0) {
+    await sql`
+      INSERT INTO site_content (key, value)
+      SELECT * FROM unnest(${setKeys}::text[], ${setVals}::text[])
+      ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, draft_value = NULL, updated_at = now()
+    `;
+  }
+  if (clearKeys.length > 0) {
+    await sql`UPDATE site_content SET value = NULL, draft_value = NULL, updated_at = now() WHERE key = ANY(${clearKeys}::text[])`;
+  }
+  revalidatePath('/', 'layout');
+  revalidatePath('/dashboard/content');
+  return {};
+}
+
+function validContentKeys(keys: unknown): string[] {
+  return contentKeysSchema.parse(keys).filter(isContentKey);
+}
+
+export async function discardContentDrafts(keys: string[]): Promise<void> {
+  await assertAdmin();
+  const safe = validContentKeys(keys);
+  if (safe.length === 0) return;
+
+  const sql = getDb();
+  await sql`UPDATE site_content SET draft_value = NULL, updated_at = now() WHERE key = ANY(${safe}::text[])`;
+  revalidatePath('/dashboard/content');
+}
+
+// Back to the wording (or link) that came with the website.
+export async function resetContent(keys: string[]): Promise<void> {
+  await assertAdmin();
+  const safe = validContentKeys(keys);
+  if (safe.length === 0) return;
+
+  const sql = getDb();
+  await sql`UPDATE site_content SET value = NULL, draft_value = NULL, updated_at = now() WHERE key = ANY(${safe}::text[])`;
+  revalidatePath('/', 'layout');
+  revalidatePath('/dashboard/content');
 }

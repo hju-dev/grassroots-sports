@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 
 type State = 'idle' | 'loading' | 'success' | 'error';
 
-export default function ContactForm() {
+export default function ContactForm({ instagramUrl, instagramHandle }: { instagramUrl: string; instagramHandle: string }) {
   const t = useTranslations('contact');
   const [state, setState] = useState<State>('idle');
 
@@ -45,12 +45,12 @@ export default function ContactForm() {
         <p className="text-sm text-[var(--color-muted)]">{t('formSuccessSub')}</p>
         <p className="text-xs font-semibold text-[var(--color-forest)] uppercase tracking-wider mt-4">{t('responseTime')}</p>
         <a
-          href="https://instagram.com/akdovey"
+          href={instagramUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-6 text-sm font-bold text-[var(--color-forest)] hover:text-[var(--color-lime)] transition-colors uppercase tracking-widest"
         >
-          @akdovey
+          @{instagramHandle}
         </a>
       </div>
     );

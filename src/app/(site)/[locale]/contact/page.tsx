@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import ContactForm from '@/components/ContactForm';
-import { getPayloadClient } from '@/lib/payload';
+import { getLinks, instagramHandle } from '@/lib/content';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -21,18 +21,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const payload = await getPayloadClient();
-  const [t, tNav, s] = await Promise.all([
+  const [t, tNav, links] = await Promise.all([
     getTranslations('contact'),
     getTranslations('nav'),
-    payload.findGlobal({ slug: 'settings', locale: locale as 'en' | 'th' }).catch(() => null),
+    getLinks(),
   ]);
 
-  const cms = (val: string | null | undefined, fallback: string) => val || fallback;
-  const instagramUrl =
-    s?.socialLinks?.find((l) => l.platform === 'Instagram')?.url ||
-    'https://instagram.com/akdovey';
-  const instagramHandle = instagramUrl.replace(/^https?:\/\/(www\.)?instagram\.com\//, '').replace(/\/$/, '') || 'akdovey';
+  const instagramUrl = links.instagram;
+  const handle = instagramHandle(instagramUrl);
 
   return (
     <>
@@ -43,10 +39,10 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         <CourtLines className="text-white/10" fit="contain" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <h1 className="text-5xl md:text-7xl mb-4">
-            {cms(s?.contactHeadline, t('headline'))}
+            {t('headline')}
           </h1>
           <p className="text-base md:text-lg text-white/90 max-w-xl mx-auto">
-            {cms(s?.contactSubtitle, t('subtitle'))}
+            {t('subtitle')}
           </p>
         </div>
       </section>
@@ -65,10 +61,10 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                 </p>
               </div>
               <p className="font-bold text-[var(--color-black)] mb-1">
-                {cms(s?.locationDesc, t('locationDesc'))}
+                {t('locationDesc')}
               </p>
               <p className="text-sm text-[var(--color-muted)] mb-3">
-                {cms(s?.locationSub, t('locationSub'))}
+                {t('locationSub')}
               </p>
               <p className="text-sm text-[var(--color-body)] leading-relaxed">
                 {t('locationModel')}
@@ -86,13 +82,13 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                 rel="noopener noreferrer"
                 className="font-bold text-[var(--color-forest)] hover:text-[var(--color-lime)] transition-colors"
               >
-                @{instagramHandle}
+                @{handle}
               </a>
             </div>
           </div>
 
           {/* Form */}
-          <ContactForm />
+          <ContactForm instagramUrl={instagramUrl} instagramHandle={handle} />
 
         </div>
       </section>

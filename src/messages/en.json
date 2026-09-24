@@ -7,7 +7,9 @@
     "register": "Register",
     "gallery": "Gallery",
     "schedule": "Schedule",
-    "partners": "Partners"
+    "partners": "Partners",
+    "toggleMenu": "Toggle menu",
+    "breadcrumbLabel": "Breadcrumb"
   },
   "home": {
     "headline": "Where Athletes Grow. Communities Connect.",
@@ -57,7 +59,14 @@
     "why3Desc": "Pattaya is a city full of energy and potential. Grass Roots Sports is here to channel that into something lasting.",
     "comingTitle": "Coming to Pattaya",
     "comingDesc": "We are in the final stages of bringing Grass Roots Sports to life in Pattaya, Thailand. Follow us on Instagram to stay up to date on our launch.",
-    "instagramCta": "Follow @akdovey"
+    "instagramCta": "Follow @akdovey",
+    "storyLabel": "Our Story",
+    "story1": "Grass Roots Sports wasn't created overnight. It's the product of more than 15 years of coaching, learning, and building relationships through sport.",
+    "story2": "From the United States to Spain, Thailand, Vietnam, and China, every community has offered new ideas about coaching, player development, competition, and the role sport plays in bringing people together. Along the way, one lesson has remained constant: the strongest sporting communities are built when everyone has the opportunity to participate.",
+    "story3": "That belief became the foundation of Grass Roots Sports.",
+    "story4": "Our vision is to make quality sport more accessible while creating opportunities for athletes of all ages and abilities. We are committed to providing high-level coaching and professional training environments for those who want to compete, while ensuring that beginners, recreational players, and families always have an affordable and welcoming place to start. We believe there should never be an age limit on enjoying sport or becoming part of a sporting community.",
+    "story5": "Looking beyond our own programs, we hope to help strengthen the sporting landscape across Thailand by supporting the development of local facilities, improving access to equipment, and working alongside schools, clubs, businesses, and community organisations to create more opportunities for participation.",
+    "story6": "As Grass Roots Sports continues to grow, so will the team behind it. What began as one person's vision has already been shaped by countless coaches, players, educators, parents, and community leaders. In the years ahead, we aim to build a board of experienced community leaders, sporting professionals, and investment partners who share our commitment to creating something that will benefit generations to come."
   },
   "programs": {
     "headline": "Our Programs",
@@ -133,7 +142,8 @@
     "scanInstructions": "Scan with any Thai banking app",
     "promptPayLabel": "PromptPay",
     "paidBtn": "I've Paid: Complete Registration",
-    "skipBtn": "Pay Later: Just Register Interest"
+    "skipBtn": "Pay Later: Just Register Interest",
+    "placeholderPhone": "e.g. 081 234 5678"
   },
   "gallery": {
     "headline": "Gallery",
@@ -169,7 +179,12 @@
     "notifyTitle": "Get Notified at Launch",
     "notifyDesc": "Register your interest now and we'll contact you directly when schedules and pricing are confirmed.",
     "notifyRegister": "Register Interest",
-    "notifyInstagram": "Follow @akdovey"
+    "notifyInstagram": "Follow @akdovey",
+    "skillsClinic": "Skills Clinic",
+    "campHoliday": "Holiday Camps",
+    "campClinics": "Skills Clinics",
+    "campTournaments": "Tournaments",
+    "campOpenGym": "Open Gym"
   },
   "partners": {
     "heroTitle": "Partner With Us",
@@ -331,6 +346,12 @@
     "tagline": "Coming to Pattaya, Thailand",
     "copyright": "© 2026 Grass Roots Sports. All rights reserved.",
     "followUs": "Follow Us",
-    "instagramCta": "Follow @akdovey"
+    "instagramCta": "Follow @akdovey",
+    "privacyLabel": "Privacy Policy",
+    "termsLabel": "Terms & Conditions",
+    "accessibilityLabel": "Accessibility"
+  },
+  "site": {
+    "announcement": ""
   }
 }

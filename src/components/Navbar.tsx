@@ -73,7 +73,7 @@ export default function Navbar({ logo }: { logo: { src: string; alt: string } })
         <button
           className="lg:hidden min-w-11 min-h-11 flex flex-col items-center justify-center rounded hover:bg-white/10 transition-colors"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          aria-label={t('toggleMenu')}
           aria-expanded={menuOpen}
         >
           <span className="block w-5 h-0.5 bg-white mb-1.5" />
