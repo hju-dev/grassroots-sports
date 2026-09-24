@@ -6,6 +6,7 @@ import { getPayloadClient } from '@/lib/payload';
 import CourtLines from '@/components/CourtLines';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { buildAlternates } from '@/lib/seo';
+import { getSlotImages } from '@/lib/image-slots';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -22,10 +23,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const payload = await getPayloadClient();
-  const [t, tNav, s] = await Promise.all([
+  const [t, tNav, s, slots] = await Promise.all([
     getTranslations('about'),
     getTranslations('nav'),
     payload.findGlobal({ slug: 'settings', locale: locale as 'en' | 'th' }).catch(() => null),
+    getSlotImages(locale === 'th' ? 'th' : 'en'),
   ]);
 
   const cms = (val: string | null | undefined, fallback: string) => val || fallback;
@@ -65,8 +67,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </p>
             <div className="relative aspect-video w-full rounded-2xl overflow-hidden my-2">
               <Image
-                src="/images/community-group.webp"
-                alt="Grass Roots Sports community: players and coaches together"
+                src={slots.about_story_photo.src}
+                alt={slots.about_story_photo.alt}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 768px"
@@ -93,8 +95,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
           <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden order-2 md:order-1">
             <Image
-              src="/images/youth-scrimmage.webp"
-              alt="Young players in a Grass Roots Sports scrimmage"
+              src={slots.about_why_photo.src}
+              alt={slots.about_why_photo.alt}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 512px"

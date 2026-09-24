@@ -83,3 +83,28 @@ FROM (VALUES
   ('https://uoqwszddze2o4hsz.public.blob.vercel-storage.com/team-dinner.webp', 1600, 2133, 'Team community dinner', 'Team dinner', 'events', 8)
 ) AS v(url, width, height, alt_en, caption_en, category, sort_order)
 WHERE NOT EXISTS (SELECT 1 FROM gallery_photos);
+
+-- ============================================================
+-- Image slots (replace named images from /dashboard/images)
+-- A row only exists once someone edits a slot. NULL url/width/height means
+-- "use the bundled default" (see src/lib/image-slot-defs.ts); NULL alt_en
+-- means the built-in English description; empty alt_th means "show the
+-- English". draft_* holds an uploaded replacement that isn't live until it is
+-- published. If this table can't be read, every image falls back to the
+-- bundled file, so public pages never break.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS image_slots (
+  slot         TEXT        PRIMARY KEY,
+  url          TEXT,
+  width        INTEGER,
+  height       INTEGER,
+  alt_en       TEXT,
+  alt_th       TEXT,
+  draft_url    TEXT,
+  draft_width  INTEGER,
+  draft_height INTEGER,
+  updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- No public/client access: every read and write goes through server code.
+ALTER TABLE image_slots ENABLE ROW LEVEL SECURITY;

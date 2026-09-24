@@ -14,6 +14,7 @@ import { getPayloadClient } from '@/lib/payload';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { getSlotImages } from '@/lib/image-slots';
 
 const validPrograms = ['youth', 'teen', 'adult', 'private'] as const;
 type Program = (typeof validPrograms)[number];
@@ -44,7 +45,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (!validPrograms.includes(program as Program)) return {};
 
   const p = program as Program;
-  const [t, s] = await Promise.all([getTranslations('programDetail'), findProduct(p, locale)]);
+  const [t, s, slots] = await Promise.all([
+    getTranslations('programDetail'),
+    findProduct(p, locale),
+    getSlotImages(locale === 'th' ? 'th' : 'en'),
+  ]);
+  const share = slots.social_share;
   const d = (key: string): string => (t as unknown as (k: string) => string)(`${p}.${key}`);
 
   const hero = s?.hero || d('hero');
@@ -58,7 +64,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       title: `${hero} | Grass Roots Sports`,
       description: tagline,
-      images: [{ url: '/logo.jpg', width: 800, height: 800, alt: 'Grass Roots Sports' }],
+      images: [{ url: share.src, width: share.width, height: share.height, alt: share.alt }],
     },
   };
 }

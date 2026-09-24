@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import HtmlLangSync from '@/components/HtmlLangSync';
 import StickyMobileCTA from '@/components/StickyMobileCTA';
 import { getPayloadClient } from '@/lib/payload';
+import { getSlotImages } from '@/lib/image-slots';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -26,7 +27,11 @@ export default async function LocaleLayout({
   }
 
   setRequestLocale(locale);
-  const [messages, payload] = await Promise.all([getMessages(), getPayloadClient()]);
+  const [messages, payload, slots] = await Promise.all([
+    getMessages(),
+    getPayloadClient(),
+    getSlotImages(locale as 'en' | 'th'),
+  ]);
   const settings = await payload
     .findGlobal({ slug: 'settings', locale: locale as 'en' | 'th' })
     .catch(() => null);
@@ -41,7 +46,7 @@ export default async function LocaleLayout({
           {banner}
         </div>
       )}
-      <Navbar />
+      <Navbar logo={{ src: slots.site_logo.src, alt: slots.site_logo.alt }} />
       <main className="flex-1 pb-20 lg:pb-0">{children}</main>
       <Footer locale={locale} />
       <StickyMobileCTA />

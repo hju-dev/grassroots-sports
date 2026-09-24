@@ -6,6 +6,7 @@ import { UserButton } from '@clerk/nextjs';
 
 const TABS = [
   { href: '/dashboard/gallery', label: 'Gallery' },
+  { href: '/dashboard/images', label: 'Images' },
   { href: '/ops', label: 'Registrations' },
 ];
 

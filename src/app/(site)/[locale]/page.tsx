@@ -16,10 +16,12 @@ import { getPayloadClient } from '@/lib/payload';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
 import HeroArcGlow from '@/components/HeroArcGlow';
+import { getSlotImages } from '@/lib/image-slots';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const isEn = locale === 'en';
+  const share = (await getSlotImages(isEn ? 'en' : 'th')).social_share;
   return {
     title: 'Grass Roots Sports | Basketball Academy Pattaya',
     description: isEn
@@ -29,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       title: 'Grass Roots Sports',
       description: isEn ? 'Basketball for everyone. Coming to Pattaya, Thailand.' : 'บาสเกตบอลสำหรับทุกคน กำลังมาถึงพัทยา',
-      images: [{ url: '/logo.jpg', width: 800, height: 800, alt: 'Grass Roots Sports' }],
+      images: [{ url: share.src, width: share.width, height: share.height, alt: share.alt }],
     },
   };
 }
@@ -44,10 +46,11 @@ const programs = [
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const payload = await getPayloadClient();
-  const [t, tp, s] = await Promise.all([
+  const [t, tp, s, slots] = await Promise.all([
     getTranslations('home'),
     getTranslations('programs'),
     payload.findGlobal({ slug: 'settings', locale: locale as 'en' | 'th' }).catch(() => null),
+    getSlotImages(locale === 'th' ? 'th' : 'en'),
   ]);
 
   const cms = (val: string | null | undefined, fallback: string) => val || fallback;
@@ -72,7 +75,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-center">
           <div className="text-center lg:text-left">
             <div className="relative w-16 h-16 md:w-20 md:h-20 mx-auto lg:mx-0 mb-6 rounded-xl overflow-hidden shadow-lg">
-              <Image src="/logo.png" alt="Grass Roots Sports" fill className="object-contain" sizes="80px" priority />
+              <Image src={slots.site_logo.src} alt={slots.site_logo.alt} fill className="object-contain" sizes="80px" priority />
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl mb-5">
               {cms(s?.heroHeadline, t('headline'))}
@@ -89,8 +92,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           </div>
           <div className="relative w-full aspect-[4/5] max-w-sm mx-auto lg:max-w-none rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
             <Image
-              src="/images/game-action.webp"
-              alt="Grass Roots Sports player in action"
+              src={slots.home_hero_photo.src}
+              alt={slots.home_hero_photo.alt}
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 90vw, 40vw"
@@ -103,11 +106,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* Photo strip */}
       <section className="px-4 py-6 bg-[var(--color-black)]">
         <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {[
-            { src: '/images/team-huddle.webp',  alt: 'Grassroots Sports team' },
-            { src: '/images/coach-huddle.webp', alt: 'Coaching session' },
-          ].map((photo) => (
-            <div key={photo.src} className="relative aspect-video overflow-hidden rounded-xl">
+          {[slots.home_strip_left, slots.home_strip_right].map((photo, i) => (
+            <div key={i} className="relative aspect-video overflow-hidden rounded-xl">
               <Image src={photo.src} alt={photo.alt} fill className="object-cover" sizes="(max-width: 640px) 100vw, 50vw" />
             </div>
           ))}
@@ -248,7 +248,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="bg-[var(--color-black)] text-white py-14 md:py-16 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <div className="relative w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden ring-2 ring-white/20 bg-white">
-            <Image src="/logo.png" alt="Grass Roots Sports" fill className="object-contain" sizes="80px" />
+            <Image src={slots.site_logo.src} alt={slots.site_logo.alt} fill className="object-contain" sizes="80px" />
           </div>
           <h2 className="text-3xl md:text-6xl mb-4">
             {cms(s?.igSectionTitle, t('instagramTitle'))}

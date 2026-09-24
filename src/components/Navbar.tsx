@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-export default function Navbar() {
+export default function Navbar({ logo }: { logo: { src: string; alt: string } }) {
   const t = useTranslations('nav');
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -33,8 +33,8 @@ export default function Navbar() {
         <Link href={`/${locale}`} className="flex items-center gap-2.5 shrink-0">
           <div className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0 bg-white">
             <Image
-              src="/logo.png"
-              alt="Grass Roots Sports"
+              src={logo.src}
+              alt={logo.alt}
               fill
               className="object-contain"
               sizes="36px"

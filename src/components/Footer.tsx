@@ -2,13 +2,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { getPayloadClient } from '@/lib/payload';
+import { getSlotImages } from '@/lib/image-slots';
 
 export default async function Footer({ locale }: { locale: string }) {
   const payload = await getPayloadClient();
-  const [tNav, tFooter, settings] = await Promise.all([
+  const [tNav, tFooter, settings, slots] = await Promise.all([
     getTranslations('nav'),
     getTranslations('footer'),
     payload.findGlobal({ slug: 'settings' }).catch(() => null),
+    getSlotImages(locale === 'th' ? 'th' : 'en'),
   ]);
   const instagramUrl =
     settings?.socialLinks?.find((l) => l.platform === 'Instagram')?.url ||
@@ -22,8 +24,8 @@ export default async function Footer({ locale }: { locale: string }) {
             <div className="flex items-center gap-3 mb-3 justify-center md:justify-start">
               <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 bg-white">
                 <Image
-                  src="/logo.png"
-                  alt="Grass Roots Sports"
+                  src={slots.site_logo.src}
+                  alt={slots.site_logo.alt}
                   fill
                   className="object-contain"
                   sizes="56px"
