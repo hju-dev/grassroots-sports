@@ -9,6 +9,7 @@ import { isStaff } from '@/access/isStaff';
 export const Posts: CollectionConfig = {
   slug: 'posts',
   admin: {
+    hidden: true,
     useAsTitle: 'title',
     defaultColumns: ['title', 'publishedAt', '_status'],
   },

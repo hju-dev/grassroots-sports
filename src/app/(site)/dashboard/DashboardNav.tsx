@@ -8,7 +8,9 @@ const TABS = [
   { href: '/dashboard/gallery', label: 'Gallery' },
   { href: '/dashboard/content', label: 'Text & links' },
   { href: '/dashboard/images', label: 'Images' },
-  { href: '/ops', label: 'Registrations' },
+  { href: '/dashboard/schedule', label: 'Schedule' },
+  { href: '/dashboard/registration', label: 'Form on/off' },
+  { href: '/ops', label: 'Sign-ups list' },
 ];
 
 export function DashboardNav() {

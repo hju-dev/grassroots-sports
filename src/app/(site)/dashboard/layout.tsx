@@ -23,13 +23,13 @@ export default async function DashboardLayout({ children }: { children: React.Re
       <div className="dashboard-root min-h-screen bg-[var(--color-offwhite)]">
         <header className="sticky top-0 z-10 bg-[var(--color-black)] border-b-4 border-[var(--color-lime)] shadow-lg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
+            <Link href="/dashboard" className="flex items-center gap-3" aria-label="Dashboard home">
               <Image src="/logo.png" alt="Grass Roots Sports" width={40} height={40} className="h-10 w-10 rounded object-contain bg-white" />
               <div className="leading-tight">
                 <p className="text-white font-extrabold text-base tracking-tight">Grass Roots Sports</p>
                 <p className="text-[var(--color-lime)] text-[10px] font-bold uppercase tracking-widest">Website Dashboard</p>
               </div>
-            </div>
+            </Link>
             <DashboardNav />
           </div>
         </header>

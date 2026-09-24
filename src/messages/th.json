@@ -143,7 +143,10 @@
     "promptPayLabel": "PromptPay",
     "paidBtn": "ชำระเงินแล้ว ยืนยันการลงทะเบียน",
     "skipBtn": "ชำระภายหลัง แค่ลงทะเบียนความสนใจ",
-    "placeholderPhone": "เช่น 081 234 5678"
+    "placeholderPhone": "เช่น 081 234 5678",
+    "closedTitle": "ปิดรับสมัครชั่วคราว",
+    "closedDesc": "ขณะนี้เราปิดรับสมัครชั่วคราว กรุณาติดตามเราทาง Instagram เพื่ออัปเดตเมื่อเปิดรับอีกครั้ง",
+    "closedCta": "ติดตาม @akdovey"
   },
   "gallery": {
     "headline": "แกลเลอรี่",

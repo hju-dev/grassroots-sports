@@ -143,7 +143,10 @@
     "promptPayLabel": "PromptPay",
     "paidBtn": "I've Paid: Complete Registration",
     "skipBtn": "Pay Later: Just Register Interest",
-    "placeholderPhone": "e.g. 081 234 5678"
+    "placeholderPhone": "e.g. 081 234 5678",
+    "closedTitle": "Registrations Closed",
+    "closedDesc": "Registrations are currently closed. Follow us on Instagram for updates on when they reopen.",
+    "closedCta": "Follow @akdovey"
   },
   "gallery": {
     "headline": "Gallery",

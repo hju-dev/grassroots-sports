@@ -15,6 +15,7 @@ import { ImageGridBlock } from '@/blocks/ImageGrid';
 export const Pages: CollectionConfig = {
   slug: 'pages',
   admin: {
+    hidden: true,
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', '_status'],
   },

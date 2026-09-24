@@ -7,7 +7,11 @@ import { cardGroupField } from '@/fields/cardGroup';
 // client in a different vertical reuses the same shape for whatever they sell.
 export const Products: CollectionConfig = {
   slug: 'products',
+  // LEGACY: the program pages read their text from the dashboard now, so
+  // nothing on the website uses this collection. Hidden so nobody edits
+  // fields that do nothing; the data is kept.
   admin: {
+    hidden: true,
     useAsTitle: 'slug',
     defaultColumns: ['slug', 'priceAmount', 'isActive'],
   },

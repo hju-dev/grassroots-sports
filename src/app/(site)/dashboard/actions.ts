@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { encodeUpload } from '@/lib/image-encode';
 import { IMAGE_SLOTS, SLOT_KEYS } from '@/lib/image-slot-defs';
 import { cleanContentValue, defaultForContentKey, isContentKey } from '@/lib/content-defs';
+import { parseSchedule } from '@/lib/schedule-validate';
 import type { GalleryPhoto, GalleryTextField } from '@/lib/gallery-defs';
 import {
   cleanGalleryText,
@@ -422,4 +423,53 @@ export async function resetContent(keys: string[]): Promise<void> {
   await sql`UPDATE site_content SET value = NULL, draft_value = NULL, updated_at = now() WHERE key = ANY(${safe}::text[])`;
   revalidatePath('/', 'layout');
   revalidatePath('/dashboard/content');
+}
+
+// ============================================================
+// Site settings: schedule and the registrations switch (see lib/settings.ts)
+// Stored as key/value rows in site_settings.
+// ============================================================
+
+function revalidateSchedule() {
+  revalidatePath('/dashboard/schedule');
+  revalidatePath('/en/schedule');
+  revalidatePath('/th/schedule');
+}
+
+// Saves the whole week at once. The week is validated on the server (known
+// days and programs only, short plain-text times), never trusted from the browser.
+export async function saveSchedule(week: unknown): Promise<{ error?: string }> {
+  await assertAdmin();
+  const parsed = parseSchedule(week);
+  if (!parsed.ok) return { error: parsed.error };
+
+  const sql = getDb();
+  const json = JSON.stringify(parsed.week);
+  await sql`
+    INSERT INTO site_settings (key, value) VALUES ('schedule', ${json})
+    ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = now()
+  `;
+  revalidateSchedule();
+  return {};
+}
+
+// Goes back to the planned week that ships with the website.
+export async function resetSchedule(): Promise<void> {
+  await assertAdmin();
+  const sql = getDb();
+  await sql`DELETE FROM site_settings WHERE key = 'schedule'`;
+  revalidateSchedule();
+}
+
+export async function setRegistrationsOpen(open: boolean): Promise<void> {
+  await assertAdmin();
+  const safe = z.boolean().parse(open);
+  const sql = getDb();
+  await sql`
+    INSERT INTO site_settings (key, value) VALUES ('registrations_open', ${safe ? 'true' : 'false'})
+    ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = now()
+  `;
+  revalidatePath('/dashboard/registration');
+  revalidatePath('/en/register');
+  revalidatePath('/th/register');
 }

@@ -3,6 +3,8 @@ import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { buildAlternates } from '@/lib/seo';
 import { getLinks, instagramHandle } from '@/lib/content';
+import { getSchedule } from '@/lib/settings';
+import { SCHEDULE_DAYS, type ScheduleProgram } from '@/lib/schedule-defs';
 import CourtLines from '@/components/CourtLines';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
@@ -18,12 +20,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-type DaySchedule = {
-  dayKey: string;
-  slots: { program: string; programKey: string; color: string }[];
-  closed?: boolean;
-};
-
 export default async function SchedulePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations('schedule');
@@ -31,55 +27,22 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
   const tNav = await getTranslations('nav');
   const links = await getLinks();
 
-  const week: DaySchedule[] = [
-    {
-      dayKey: 'mon',
-      slots: [
-        { program: tPrograms('youthTitle'), programKey: 'youth', color: 'bg-[var(--color-forest)]/10 text-[var(--color-forest)]' },
-        { program: tPrograms('teenTitle'),  programKey: 'teen',  color: 'bg-[var(--color-lime)]/10   text-[var(--color-black)]'   },
-      ],
-    },
-    {
-      dayKey: 'tue',
-      slots: [
-        { program: tPrograms('privateTitle'), programKey: 'private', color: 'bg-[var(--color-black)]/5 text-[var(--color-body)]' },
-      ],
-    },
-    {
-      dayKey: 'wed',
-      slots: [
-        { program: tPrograms('youthTitle'), programKey: 'youth', color: 'bg-[var(--color-forest)]/10 text-[var(--color-forest)]' },
-        { program: tPrograms('teenTitle'),  programKey: 'teen',  color: 'bg-[var(--color-lime)]/10   text-[var(--color-black)]'   },
-        { program: tPrograms('adultTitle'), programKey: 'adult', color: 'bg-[var(--color-black)]/5   text-[var(--color-body)]'   },
-      ],
-    },
-    {
-      dayKey: 'thu',
-      slots: [
-        { program: tPrograms('privateTitle'), programKey: 'private', color: 'bg-[var(--color-black)]/5 text-[var(--color-body)]' },
-      ],
-    },
-    {
-      dayKey: 'fri',
-      slots: [
-        { program: tPrograms('teenTitle'),  programKey: 'teen',  color: 'bg-[var(--color-lime)]/10 text-[var(--color-black)]'     },
-        { program: tPrograms('adultTitle'), programKey: 'adult', color: 'bg-[var(--color-black)]/5 text-[var(--color-body)]'     },
-      ],
-    },
-    {
-      dayKey: 'sat',
-      slots: [
-        { program: tPrograms('youthTitle'), programKey: 'youth', color: 'bg-[var(--color-forest)]/10 text-[var(--color-forest)]' },
-        { program: t('skillsClinic'),        programKey: 'event', color: 'bg-[var(--color-lime)]/10   text-[var(--color-black)]'   },
-        { program: tPrograms('privateTitle'), programKey: 'private', color: 'bg-[var(--color-black)]/5 text-[var(--color-body)]' },
-      ],
-    },
-    {
-      dayKey: 'sun',
-      closed: true,
-      slots: [],
-    },
-  ];
+  const { week } = await getSchedule();
+
+  const programLabel: Record<ScheduleProgram, string> = {
+    youth: tPrograms('youthTitle'),
+    teen: tPrograms('teenTitle'),
+    adult: tPrograms('adultTitle'),
+    private: tPrograms('privateTitle'),
+    clinic: t('skillsClinic'),
+  };
+  const programColor: Record<ScheduleProgram, string> = {
+    youth: 'bg-[var(--color-forest)]/10 text-[var(--color-forest)]',
+    teen: 'bg-[var(--color-lime)]/10 text-[var(--color-black)]',
+    adult: 'bg-[var(--color-black)]/5 text-[var(--color-body)]',
+    private: 'bg-[var(--color-black)]/5 text-[var(--color-body)]',
+    clinic: 'bg-[var(--color-lime)]/10 text-[var(--color-black)]',
+  };
 
   return (
     <>
@@ -106,28 +69,31 @@ export default async function SchedulePage({ params }: { params: Promise<{ local
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {week.map((day) => (
-              <div key={day.dayKey} className="bg-[var(--color-sage)] rounded-2xl p-6">
-                <p className="text-xs font-bold uppercase tracking-widest text-[var(--color-forest)] mb-4">
-                  {t(day.dayKey as Parameters<typeof t>[0])}
-                </p>
+            {SCHEDULE_DAYS.map((dayKey) => {
+              const slots = week[dayKey];
+              return (
+                <div key={dayKey} className="bg-[var(--color-sage)] rounded-2xl p-6">
+                  <p className="text-xs font-bold uppercase tracking-widest text-[var(--color-forest)] mb-4">
+                    {t(dayKey)}
+                  </p>
 
-                {day.closed ? (
-                  <p className="text-sm text-[var(--color-muted)] italic">{t('closed')}</p>
-                ) : (
-                  <div className="flex flex-col gap-2">
-                    {day.slots.map((slot) => (
-                      <div key={slot.programKey + slot.program} className={`rounded-lg px-3 py-2.5 ${slot.color}`}>
-                        <p className="text-xs font-bold">{slot.program}</p>
-                        <p className="text-xs opacity-70 mt-0.5">
-                          {slot.programKey === 'private' ? t('byAppt') : t('tbc')}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+                  {slots.length === 0 ? (
+                    <p className="text-sm text-[var(--color-muted)] italic">{t('closed')}</p>
+                  ) : (
+                    <div className="flex flex-col gap-2">
+                      {slots.map((slot, i) => (
+                        <div key={i} className={`rounded-lg px-3 py-2.5 ${programColor[slot.program]}`}>
+                          <p className="text-xs font-bold">{programLabel[slot.program]}</p>
+                          <p className="text-xs opacity-70 mt-0.5">
+                            {slot.time || (slot.program === 'private' ? t('byAppt') : t('tbc'))}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

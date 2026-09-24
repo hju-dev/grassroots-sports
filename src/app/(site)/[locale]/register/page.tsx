@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import RegistrationForm from '@/components/RegistrationForm';
-import { getPayloadClient } from '@/lib/payload';
-import { getLinks, instagramHandle as handleFromUrl } from '@/lib/content';
+import { getLinks } from '@/lib/content';
+import { getRegistrationsOpen } from '@/lib/settings';
 import { buildAlternates } from '@/lib/seo';
 import CourtLines from '@/components/CourtLines';
 
@@ -20,29 +20,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export default async function RegisterPage({
-  params,
   searchParams,
 }: {
-  params: Promise<{ locale: string }>;
   searchParams: Promise<{ program?: string }>;
 }) {
-  const payload = await getPayloadClient();
-  const [{ program }, { locale }, t, settings] = await Promise.all([
+  const [{ program }, t, isOpen, links] = await Promise.all([
     searchParams,
-    params,
     getTranslations('register'),
-    payload.findGlobal({ slug: 'settings' }).catch(() => null),
+    getRegistrationsOpen(),
+    getLinks(),
   ]);
 
-  const isOpen = settings?.registrationsOpen !== false;
-  const instagramUrl = (await getLinks()).instagram;
-  const instagramHandle = handleFromUrl(instagramUrl);
-
-  const closedTitle = locale === 'th' ? 'ปิดรับสมัครชั่วคราว' : 'Registrations Closed';
-  const closedDesc =
-    locale === 'th'
-      ? 'ขณะนี้เราปิดรับสมัครชั่วคราว กรุณาติดตามเราทาง Instagram เพื่ออัปเดตเมื่อเปิดรับอีกครั้ง'
-      : 'Registrations are currently closed. Follow us on Instagram for updates on when they reopen.';
+  const instagramUrl = links.instagram;
 
   return (
     <>
@@ -66,15 +55,15 @@ export default async function RegisterPage({
                   <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-[var(--color-black)]">{closedTitle}</h2>
-              <p className="text-[var(--color-body)] leading-relaxed">{closedDesc}</p>
+              <h2 className="text-2xl font-bold text-[var(--color-black)]">{t('closedTitle')}</h2>
+              <p className="text-[var(--color-body)] leading-relaxed">{t('closedDesc')}</p>
               <a
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2 inline-block bg-[var(--color-forest)] hover:bg-[var(--color-lime)] text-white hover:text-[var(--color-black)] font-bold py-3 px-8 rounded-lg transition-colors uppercase tracking-widest text-sm"
               >
-                Follow @{instagramHandle}
+                {t('closedCta')}
               </a>
             </div>
           )}

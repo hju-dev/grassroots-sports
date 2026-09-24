@@ -126,3 +126,19 @@ CREATE TABLE IF NOT EXISTS site_content (
 
 -- No public/client access: every read and write goes through server code.
 ALTER TABLE site_content ENABLE ROW LEVEL SECURITY;
+
+-- ============================================================
+-- Site settings (owner-controlled, edited from /dashboard)
+--   registrations_open  'true' | 'false'  (Form on/off tab)
+--   schedule            the weekly schedule as JSON (Schedule tab)
+-- A row only exists once the owner changes something. If this table can't be
+-- read, registrations stay open and the planned schedule shows.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS site_settings (
+  key        TEXT        PRIMARY KEY,
+  value      TEXT        NOT NULL,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- No public/client access: every read and write goes through server code.
+ALTER TABLE site_settings ENABLE ROW LEVEL SECURITY;

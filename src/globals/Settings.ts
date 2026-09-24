@@ -2,10 +2,17 @@ import type { GlobalConfig } from 'payload';
 import { isStaff } from '@/access/isStaff';
 import { cardGroupField } from '@/fields/cardGroup';
 
+// LEGACY: the website no longer reads anything from this global. Text, links,
+// the schedule and the registrations switch are all edited in /dashboard now.
+// It is hidden from the admin panel so nobody edits fields that do nothing,
+// and its API is staff-only (it used to be public, including the PromptPay
+// number below). The real PromptPay number for the QR code is the
+// NEXT_PUBLIC_PROMPTPAY_NUMBER environment variable, not this field.
 export const Settings: GlobalConfig = {
   slug: 'settings',
+  admin: { hidden: true },
   access: {
-    read: () => true,
+    read: isStaff,
     update: isStaff,
   },
   fields: [
