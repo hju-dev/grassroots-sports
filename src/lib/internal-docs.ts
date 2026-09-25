@@ -38,6 +38,17 @@ export const INTERNAL_DOCS: InternalDoc[] = [
     status: 'Active. The first records fall due around August 2027.',
   },
   {
+    slug: 'service-provider-agreements',
+    title: 'Service provider agreements',
+    file: 'SERVICE_PROVIDER_AGREEMENTS.md',
+    whatItIs:
+      'A checklist of the companies that store or send the personal details of visitors for us (email, hosting, database, analytics), and the data agreement each one needs. Data protection law expects a written agreement with each.',
+    usedFor:
+      'Work down the table: sign in to each account, accept or download its data agreement, and save the PDF in one folder. It also lists questions to put to the lawyer, including a hosting plan that may not allow commercial use.',
+    whoUsesIt: 'Alex (for accounts he owns) and the developer.',
+    status: 'Not started. Nothing on the list has been confirmed yet.',
+  },
+  {
     slug: 'privacy-and-consent-draft',
     title: 'Privacy and consent draft',
     file: 'DRAFT_PRIVACY_AND_CONSENT.md',

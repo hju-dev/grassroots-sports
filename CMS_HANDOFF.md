@@ -61,6 +61,7 @@ The validators were tested with hostile input (prototype keys, SQL, braces, wron
 
 Owner actions (only the owner can do these):
 - Change DMARC from `p=none` to `p=quarantine`. First send a test from the `team@` mailbox to a personal Gmail and check SPF, DKIM and DMARC all show PASS (Show original), and check a website confirmation email the same way. The record has no `rua=` report address yet. DNS checked 2026-09-25: SPF, Google DKIM, Resend DKIM and Clerk DKIM records are all present, so only the live test is missing. Waiting on the client (unreachable). Once it passes, set TXT `_dmarc` at Squarespace to `v=DMARC1; p=quarantine; pct=25; rua=mailto:team@grassrootssports.org`, then raise `pct` to 100 after a couple of weeks of clean reports.
+- Confirm and save the data processing agreement of each service provider (Google Workspace, Vercel, Neon, Resend, Google Analytics), and decide about Vercel's Hobby plan (non-commercial use; verify current terms). Checklist: `internal-docs/SERVICE_PROVIDER_AGREEMENTS.md`, also shown in the dashboard Documents section.
 - Turn on MFA on Clerk, GitHub, Vercel, Neon, Resend and the registrar. Save backup codes off the phone.
 - Raise Neon history retention above 6 hours if the plan allows it, or take regular exports of `registrations` and `contact_messages`.
 - Have a Thai speaker review the Thai written by Claude (sheet: `thai-review.csv`), then apply corrections to `th.json`.
