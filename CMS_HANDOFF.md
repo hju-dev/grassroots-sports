@@ -13,7 +13,8 @@ Sign in at `/dashboard` (Clerk). Only emails in the `ADMIN_EMAILS` Vercel variab
 | Images | 7 named images (logo, share picture, home and About photos) | table `image_slots` |
 | Schedule | The weekly grid of programs and times | table `site_settings` (key `schedule`) |
 | Form on/off | Switches the Register Interest form off and on | table `site_settings` (key `registrations_open`) |
-| Sign-ups list (`/ops`) | Registrations and messages, mark as paid | tables `registrations`, `contact_messages` |
+| Sign-ups list (`/ops`) | Registrations and messages, mark as paid, permanently delete one record at a time (inline Yes/Cancel, server action `src/app/(site)/ops/actions.ts`) | tables `registrations`, `contact_messages` |
+| Documents (`/dashboard/documents`) | Internal read-only notes: privacy procedures, yearly data check, privacy and consent draft. Files live in `internal-docs/`; the list and the plain-language descriptions are in `src/lib/internal-docs.ts` | markdown files in the repo |
 
 Every editor has a numbered how-to strip. Nothing goes live until Publish or Save. Every editor can go back to the original.
 
