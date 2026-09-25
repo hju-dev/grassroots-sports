@@ -64,15 +64,12 @@ Owner actions (only the owner can do these):
 - Raise Neon history retention above 6 hours if the plan allows it, or take regular exports of `registrations` and `contact_messages`.
 - Have a Thai speaker review the Thai written by Claude (sheet: `thai-review.csv`), then apply corrections to `th.json`.
 
-Privacy and consent work (branch `compliance-consent`, built and tested locally, NOT committed or deployed). Draft and reasoning: `DRAFT_PRIVACY_AND_CONSENT.md`.
-- **Run the schema change on the Neon `production` branch first** (the `ALTER TABLE` block at the end of `src/lib/schema.sql`, adds empty consent columns). Tested on a temporary branch on 2026-09-25 (since deleted). If the code deploys before this, /api/register and /api/contact fail on insert.
-- A lawyer reviews the policy and consent wording, and a Thai speaker reviews the Thai text.
-- Confirm the Vercel function region (policy says data may go to the United States) and set the real "Last updated" date.
-- Then commit, merge to `main` and deploy. `scripts/purge-old-records.mjs` is the yearly retention purge (dry run by default).
-- After the consent flow is live, this "Not built" line about GA and the privacy policy is resolved by the banner.
+Privacy and consent work: DEPLOYED 2026-09-25 (commit 373bddb) without legal or Thai review. The schema change was applied first, and the Vercel function region was changed to Singapore. Verified live: banner shows before any cookie, Google Analytics loads only after Accept, both forms reject requests without consent (HTTP 400). Outstanding reviews and follow-ups are listed at the top of `DRAFT_PRIVACY_AND_CONSENT.md`:
+- Lawyer review of the policy, consent wording, retention periods and the cookie-banner requirement.
+- Thai speaker review of the Thai policy, checkboxes, banner and Terms photo clause.
+- Schedule the yearly purge (`scripts/purge-old-records.mjs`, dry run by default) and write the deletion, access and breach procedures.
+- Decide whether registrations collected before the consent flow need re-consent.
 
 Not built:
 - Editable page titles and descriptions for Google, and the legal pages.
 - A limit on how many confirmation emails one address can receive (email relay abuse), and a least-privilege database role.
-- A data-retention rule for registrations (Thailand PDPA).
-- Google Analytics is live and sets cookies while the privacy policy says no tracking cookies. The policy wording needs to match.
