@@ -40,10 +40,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid email' }, { status: 400 });
   }
 
+  // PDPA consent is enforced here, not only in the browser.
+  if (body.consentPrivacy !== true) {
+    return NextResponse.json({ error: 'Consent required' }, { status: 400 });
+  }
+
   const resend = new Resend(process.env.RESEND_API_KEY);
   await sql`
-    INSERT INTO contact_messages (name, email, message)
-    VALUES (${name}, ${email}, ${message})
+    INSERT INTO contact_messages (name, email, message, consent_privacy, consented_at)
+    VALUES (${name}, ${email}, ${message}, TRUE, NOW())
   `;
 
   await resend.emails.send({

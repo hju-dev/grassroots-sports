@@ -2,11 +2,15 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 type State = 'idle' | 'loading' | 'success' | 'error';
 
 export default function ContactForm({ instagramUrl, instagramHandle }: { instagramUrl: string; instagramHandle: string }) {
   const t = useTranslations('contact');
+  const params = useParams();
+  const locale = (params?.locale as string) ?? 'en';
   const [state, setState] = useState<State>('idle');
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -19,6 +23,7 @@ export default function ContactForm({ instagramUrl, instagramHandle }: { instagr
       email: (form.elements.namedItem('email') as HTMLInputElement).value,
       message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
       website: (form.elements.namedItem('website') as HTMLInputElement).value,
+      consentPrivacy: (form.elements.namedItem('consentPrivacy') as HTMLInputElement).checked,
     };
 
     try {
@@ -89,6 +94,24 @@ export default function ContactForm({ instagramUrl, instagramHandle }: { instagr
       <div className="flex flex-col gap-1.5">
         <label htmlFor="contact-message" className="text-xs font-semibold uppercase tracking-wider text-[var(--color-body)]">{t('formMessage')}</label>
         <textarea id="contact-message" name="message" required rows={5} className={`${inputClass} resize-none`} placeholder={t('formMessage')} />
+      </div>
+      <div className="flex items-start gap-3">
+        <input
+          id="contact-consent"
+          type="checkbox"
+          name="consentPrivacy"
+          required
+          className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-forest)]"
+        />
+        <label htmlFor="contact-consent" className="text-xs leading-relaxed text-[var(--color-body)]">
+          {t.rich('consentPrivacy', {
+            link: (chunks) => (
+              <Link href={`/${locale}/privacy`} className="underline text-[var(--color-forest)]">
+                {chunks}
+              </Link>
+            ),
+          })}
+        </label>
       </div>
       <button
         type="submit"

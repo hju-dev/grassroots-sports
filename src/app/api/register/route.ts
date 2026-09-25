@@ -46,17 +46,30 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid program' }, { status: 400 });
   }
 
+  // PDPA consent is enforced here, not only in the browser. Privacy consent is
+  // always required; a guardian must confirm for the youth and teen programs.
+  // Photo consent is optional and never blocks registration.
+  const consentPrivacy = body.consentPrivacy === true;
+  const consentGuardian = body.consentGuardian === true;
+  const consentPhotos = body.consentPhotos === true;
+  const needsGuardian = program === 'youth' || program === 'teen';
+  if (!consentPrivacy || (needsGuardian && !consentGuardian)) {
+    return NextResponse.json({ error: 'Consent required' }, { status: 400 });
+  }
+
   const resend = new Resend(process.env.RESEND_API_KEY);
   await sql`
-    INSERT INTO registrations (name, email, phone, program, locale)
-    VALUES (${name}, ${email}, ${phone}, ${program}, ${locale ?? 'en'})
+    INSERT INTO registrations
+      (name, email, phone, program, locale, consent_privacy, consent_guardian, consent_photos, consented_at)
+    VALUES
+      (${name}, ${email}, ${phone}, ${program}, ${locale ?? 'en'}, ${consentPrivacy}, ${needsGuardian ? consentGuardian : null}, ${consentPhotos}, NOW())
   `;
 
   await resend.emails.send({
     from: 'Grass Roots Sports <noreply@grassrootssports.org>',
     to: 'team@grassrootssports.org',
     subject: `New registration: ${program}`,
-    text: `New registration\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nProgram: ${program}`,
+    text: `New registration\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nProgram: ${program}\nPhoto consent: ${consentPhotos ? 'yes' : 'no'}`,
   });
 
   await resend.emails.send({

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Bebas_Neue } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import AnalyticsGate from '@/components/AnalyticsGate';
 import { toSafeJsonLd } from '@/lib/jsonLd';
 import '../globals.css';
 
@@ -58,11 +58,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         {children}
         <Analytics />
-        {/* No-op until NEXT_PUBLIC_GA_MEASUREMENT_ID is set in Vercel — see
-            env.example. Once it is, this starts setting GA's measurement
-            cookies, which the privacy policy's cookie section needs to be
-            updated to reflect (it currently says "no tracking cookies"). */}
-        {gaId && <GoogleAnalytics gaId={gaId} />}
+        {/* Google Analytics loads only after the visitor accepts analytics in
+            the cookie banner (see AnalyticsGate). No-op until
+            NEXT_PUBLIC_GA_MEASUREMENT_ID is set in Vercel — see env.example. */}
+        {gaId && <AnalyticsGate gaId={gaId} />}
       </body>
     </html>
   );

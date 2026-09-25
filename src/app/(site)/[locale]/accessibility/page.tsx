@@ -60,7 +60,7 @@ export default async function AccessibilityPage({ params }: { params: Promise<{ 
               <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">Feedback</h2>
               <p className="leading-relaxed">
                 If you have trouble accessing any part of this site, or need information in a different format, please contact us at{' '}
-                <a href="mailto:akdovey@gmail.com" className="text-[var(--color-forest)] hover:underline">akdovey@gmail.com</a>. We will do our best to respond within a few days and address the issue.
+                <a href="mailto:team@grassrootssports.org" className="text-[var(--color-forest)] hover:underline">team@grassrootssports.org</a>. We will do our best to respond within a few days and address the issue.
               </p>
             </section>
           </>
@@ -102,7 +102,7 @@ export default async function AccessibilityPage({ params }: { params: Promise<{ 
               <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">ข้อเสนอแนะ</h2>
               <p className="leading-relaxed">
                 หากคุณพบปัญหาในการเข้าถึงส่วนใดของเว็บไซต์นี้ หรือต้องการข้อมูลในรูปแบบอื่น กรุณาติดต่อเราที่{' '}
-                <a href="mailto:akdovey@gmail.com" className="text-[var(--color-forest)] hover:underline">akdovey@gmail.com</a> เราจะพยายามตอบกลับภายในไม่กี่วันและแก้ไขปัญหาดังกล่าว
+                <a href="mailto:team@grassrootssports.org" className="text-[var(--color-forest)] hover:underline">team@grassrootssports.org</a> เราจะพยายามตอบกลับภายในไม่กี่วันและแก้ไขปัญหาดังกล่าว
               </p>
             </section>
           </>

@@ -18,7 +18,7 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
         {isEn ? 'Terms & Conditions' : 'ข้อกำหนดและเงื่อนไข'}
       </h1>
       <p className="text-[var(--color-muted)] text-sm mb-12">
-        {isEn ? 'Last updated: August 2026' : 'อัปเดตล่าสุด: สิงหาคม 2569'}
+        {isEn ? 'Last updated: September 2026' : 'อัปเดตล่าสุด: กันยายน 2569'}
       </p>
 
       <div className="text-[var(--color-body)] space-y-10">
@@ -71,7 +71,7 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
 
             <section>
               <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">6. Photography & Media</h2>
-              <p className="leading-relaxed text-sm">Photos and videos may be taken during sessions for use on our website and social media. If you do not consent to your or your child's image being used, please notify us in writing before the first session.</p>
+              <p className="leading-relaxed text-sm">Photos and videos may be taken during sessions. We only publish images of a participant if you agreed on the registration form. You can withdraw that agreement at any time by emailing team@grassrootssports.org.</p>
             </section>
 
             <section>
@@ -81,7 +81,7 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
 
             <section>
               <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">8. Contact</h2>
-              <p className="leading-relaxed text-sm">Questions about these terms? Email <a href="mailto:akdovey@gmail.com" className="text-[var(--color-forest)] hover:underline">akdovey@gmail.com</a>.</p>
+              <p className="leading-relaxed text-sm">Questions about these terms? Email <a href="mailto:team@grassrootssports.org" className="text-[var(--color-forest)] hover:underline">team@grassrootssports.org</a>.</p>
             </section>
           </>
         ) : (
@@ -128,13 +128,18 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">6. กฎหมายที่ใช้บังคับ</h2>
+              <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">6. ภาพถ่ายและสื่อ</h2>
+              <p className="leading-relaxed text-sm">อาจมีการถ่ายภาพและวิดีโอระหว่างเซสชัน เราจะเผยแพร่ภาพของผู้เข้าร่วมเฉพาะเมื่อคุณยินยอมในแบบฟอร์มลงทะเบียน คุณถอนความยินยอมได้ทุกเมื่อโดยส่งอีเมลถึง team@grassrootssports.org</p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">7. กฎหมายที่ใช้บังคับ</h2>
               <p className="leading-relaxed text-sm">ข้อกำหนดเหล่านี้อยู่ภายใต้กฎหมายไทย ข้อพิพาทใดๆ จะอยู่ภายใต้เขตอำนาจศาลไทย</p>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">7. ติดต่อ</h2>
-              <p className="leading-relaxed text-sm">มีคำถาม? อีเมล <a href="mailto:akdovey@gmail.com" className="text-[var(--color-forest)] hover:underline">akdovey@gmail.com</a></p>
+              <h2 className="text-xl font-bold text-[var(--color-black)] mb-3">8. ติดต่อ</h2>
+              <p className="leading-relaxed text-sm">มีคำถาม? อีเมล <a href="mailto:team@grassrootssports.org" className="text-[var(--color-forest)] hover:underline">team@grassrootssports.org</a></p>
             </section>
           </>
         )}

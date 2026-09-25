@@ -49,3 +49,6 @@ next-env.d.ts
 
 # generic build output
 /dist
+
+.vercel
+.env*

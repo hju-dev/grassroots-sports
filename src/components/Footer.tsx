@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { getSlotImages } from '@/lib/image-slots';
 import { getLinks } from '@/lib/content';
+import CookieSettingsButton from '@/components/CookieSettingsButton';
 
 export default async function Footer({ locale }: { locale: string }) {
   const [tNav, tFooter, slots, links] = await Promise.all([
@@ -87,6 +88,7 @@ export default async function Footer({ locale }: { locale: string }) {
             <Link href={`/${locale}/accessibility`} className="text-xs text-[var(--color-muted)] hover:text-white transition-colors">
               {tFooter('accessibilityLabel')}
             </Link>
+            <CookieSettingsButton label={tFooter('cookieSettings')} />
           </div>
         </div>
       </div>

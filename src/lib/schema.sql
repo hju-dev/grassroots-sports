@@ -142,3 +142,19 @@ CREATE TABLE IF NOT EXISTS site_settings (
 
 -- No public/client access: every read and write goes through server code.
 ALTER TABLE site_settings ENABLE ROW LEVEL SECURITY;
+
+-- ============================================================
+-- Consent records (PDPA). Added 2026-09 with the consent checkboxes.
+-- MUST be run in Neon BEFORE deploying the code that writes these columns,
+-- otherwise /api/register and /api/contact fail on insert.
+-- Existing rows keep NULL: they were collected before consent was recorded.
+-- ============================================================
+ALTER TABLE registrations
+  ADD COLUMN IF NOT EXISTS consent_privacy  BOOLEAN,
+  ADD COLUMN IF NOT EXISTS consent_guardian BOOLEAN,
+  ADD COLUMN IF NOT EXISTS consent_photos   BOOLEAN,
+  ADD COLUMN IF NOT EXISTS consented_at     TIMESTAMPTZ;
+
+ALTER TABLE contact_messages
+  ADD COLUMN IF NOT EXISTS consent_privacy  BOOLEAN,
+  ADD COLUMN IF NOT EXISTS consented_at     TIMESTAMPTZ;

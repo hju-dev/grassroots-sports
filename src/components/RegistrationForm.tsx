@@ -7,6 +7,7 @@ import QRCode from 'react-qr-code';
 import { sendGAEvent } from '@next/third-parties/google';
 import { generatePromptPayPayload } from '@/lib/promptpay';
 import { useParams } from 'next/navigation';
+import { readConsent } from '@/lib/consent';
 
 const PROMPTPAY_NUMBER = process.env.NEXT_PUBLIC_PROMPTPAY_NUMBER ?? '0812345678';
 
@@ -33,6 +34,11 @@ export default function RegistrationForm({ defaultProgram }: Props) {
   const [phone, setPhone] = useState('');
   const [program, setProgram] = useState(defaultProgram ?? '');
   const [website, setWebsite] = useState(''); // honeypot — real users never fill this in
+  const [consentPrivacy, setConsentPrivacy] = useState(false);
+  const [consentGuardian, setConsentGuardian] = useState(false);
+  const [consentPhotos, setConsentPhotos] = useState(false);
+  const [error, setError] = useState('');
+  const needsGuardian = program === 'youth' || program === 'teen';
 
   const programs = [
     { value: 'youth', label: t('programYouth') },
@@ -45,13 +51,28 @@ export default function RegistrationForm({ defaultProgram }: Props) {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setError('');
+    if (!consentPrivacy || (needsGuardian && !consentGuardian)) {
+      setError(t('consentError'));
+      return;
+    }
     setLoading(true);
     try {
-      await fetch('/api/register', {
+      const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, program, website }),
+        body: JSON.stringify({
+          name, email, phone, program, website, locale,
+          consentPrivacy, consentGuardian: needsGuardian ? consentGuardian : false, consentPhotos,
+        }),
       });
+      // A 400 means the details or consent were rejected: stay on the form so
+      // nothing is silently lost. Other failures stay non-blocking, as before.
+      if (res.status === 400) {
+        setError(t('submitError'));
+        setLoading(false);
+        return;
+      }
     } catch {
       // non-blocking — show QR regardless
     } finally {
@@ -61,7 +82,7 @@ export default function RegistrationForm({ defaultProgram }: Props) {
       // don't let it pollute the conversion count. GA has no server-side
       // visibility into the honeypot check /api/register does, so this
       // client-side guard is the only place to exclude it.
-      if (!website) {
+      if (!website && readConsent() === 'granted') {
         sendGAEvent('event', 'register_started', { program });
       }
     }
@@ -194,6 +215,54 @@ export default function RegistrationForm({ defaultProgram }: Props) {
           ))}
         </select>
       </div>
+
+      <div className="flex flex-col gap-3">
+        <label className="flex items-start gap-3 text-xs leading-relaxed text-[var(--color-body)]">
+          <input
+            type="checkbox"
+            checked={consentPrivacy}
+            onChange={(e) => setConsentPrivacy(e.target.checked)}
+            required
+            className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-forest)]"
+          />
+          <span>
+            {t.rich('consentPrivacy', {
+              link: (chunks) => (
+                <Link href={`/${locale}/privacy`} className="underline text-[var(--color-forest)]">
+                  {chunks}
+                </Link>
+              ),
+            })}
+          </span>
+        </label>
+        {needsGuardian && (
+          <label className="flex items-start gap-3 text-xs leading-relaxed text-[var(--color-body)]">
+            <input
+              type="checkbox"
+              checked={consentGuardian}
+              onChange={(e) => setConsentGuardian(e.target.checked)}
+              required
+              className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-forest)]"
+            />
+            <span>{t('consentGuardian')}</span>
+          </label>
+        )}
+        <label className="flex items-start gap-3 text-xs leading-relaxed text-[var(--color-body)]">
+          <input
+            type="checkbox"
+            checked={consentPhotos}
+            onChange={(e) => setConsentPhotos(e.target.checked)}
+            className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-forest)]"
+          />
+          <span>{t('consentPhotos')}</span>
+        </label>
+      </div>
+
+      {error && (
+        <p role="alert" className="text-sm text-red-700">
+          {error}
+        </p>
+      )}
 
       <button
         type="submit"

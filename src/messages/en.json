@@ -118,7 +118,8 @@
     "responseTime": "We reply within 24 hours.",
     "formSuccess": "Thanks! We'll be in touch soon.",
     "formSuccessSub": "In the meantime, follow us on Instagram.",
-    "formError": "Something went wrong. Please try again or reach out on Instagram."
+    "formError": "Something went wrong. Please try again or reach out on Instagram.",
+    "consentPrivacy": "I have read the <link>Privacy Policy</link> and agree that you may use my details to reply to this message."
   },
   "register": {
     "headline": "Register Interest",
@@ -146,7 +147,12 @@
     "placeholderPhone": "e.g. 081 234 5678",
     "closedTitle": "Registrations Closed",
     "closedDesc": "Registrations are currently closed. Follow us on Instagram for updates on when they reopen.",
-    "closedCta": "Follow @akdovey"
+    "closedCta": "Follow @akdovey",
+    "consentPrivacy": "I have read the <link>Privacy Policy</link> and agree that Grass Roots Sports may use my details to contact me about this registration.",
+    "consentGuardian": "I am the parent or legal guardian of the participant and I agree to this on their behalf.",
+    "consentPhotos": "Photos and video of the participant may appear on the Grass Roots Sports website and social media. (Optional)",
+    "consentError": "Please tick the required boxes to continue.",
+    "submitError": "Something went wrong. Please try again."
   },
   "gallery": {
     "headline": "Gallery",
@@ -352,9 +358,17 @@
     "instagramCta": "Follow @akdovey",
     "privacyLabel": "Privacy Policy",
     "termsLabel": "Terms & Conditions",
-    "accessibilityLabel": "Accessibility"
+    "accessibilityLabel": "Accessibility",
+    "cookieSettings": "Cookie settings"
   },
   "site": {
     "announcement": ""
+  },
+  "consent": {
+    "title": "Cookies and analytics",
+    "body": "We would like to use Google Analytics to see how the site is used. It sets cookies. If you decline, Google Analytics is not loaded. You can change your mind at any time with \"Cookie settings\" at the bottom of the page.",
+    "privacyLink": "Privacy Policy",
+    "accept": "Accept",
+    "decline": "Decline"
   }
 }

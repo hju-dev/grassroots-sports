@@ -40,24 +40,36 @@ The validators were tested with hostile input (prototype keys, SQL, braces, wron
 ## Gotchas
 
 - Local `.env.local` points at the **production** Payload database. Local dev reads and writes live data.
-- There are no Clerk keys locally, so `/ops` and `/dashboard` return 500 locally.
+- There are no working Clerk keys locally, so `/ops` and `/dashboard` return 500 locally. Vercel will not export Sensitive values (Clerk secret, Blob token, database URL, Resend key): `vercel env pull` writes `[SENSITIVE]` placeholders. Local `.env.local` needs real values pasted in by hand for those.
 - `curl` shows a misleading 500 on Clerk routes (no dev-browser handshake). Check signed-out redirects in a real browser.
 - Many files use CRLF line endings. Multi-line scripted edits can silently mismatch. Re-read after any scripted edit.
 - Do not use `window.confirm` in the dashboard (silently dead in some browsers). Use inline Yes/Cancel.
 - Payload 3.90.x needs a new database column (`users.reset_password_requested_at`). The upgrade was tried and reverted. Only upgrade with a migration.
 - Payload (`/admin`) is legacy: Settings, Products, Pages and Posts are hidden. Users and Media remain (Media feeds the gallery fallback).
 
+## Done 2026-09-25
+
+- Vercel Blob token rotated and tested with a live upload.
+- Uptime monitors (UptimeRobot) on `/en` and `/th`, plus Vercel deployment and error alerts.
+- Registrar lock turned on at Squarespace Domains.
+- SPF record added on the root domain (`v=spf1 include:_spf.google.com ~all`). Before this the root had none. Resend mail uses `send.` (own SPF) and `resend._domainkey`.
+- Clerk moved to a **production instance** (`pk_live_` and `sk_live_` set for Production only in Vercel; Preview and Development keep test keys). Its DNS records (`clerk`, `accounts`, `clkmail`, `clk._domainkey`, `clk2._domainkey`) are CNAMEs at Squarespace. Google sign-in was removed, so sign-in is by email code. Sign-ups are **invite only**. New admins must be invited in Clerk and listed in `ADMIN_EMAILS`.
+- Neon restore practised: a branch from one hour back, row counts checked, branch deleted. **History retention is 6 hours** (21600 seconds, checked through the Neon API on 2026-09-25; it had been reported as one day), so anything older than 6 hours cannot be restored from Neon. The Neon free plan may cap this, so check the plan.
+
 ## Still open
 
 Owner actions (only the owner can do these):
-- Turn on MFA in Clerk and on GitHub, Vercel, Neon, Resend and the domain registrar. Save backup codes off the phone.
-- Restrict Clerk sign-ups to the two admin emails.
-- Rotate the Vercel Blob token (an old debug route briefly showed a fragment of it).
-- Set up an uptime monitor and Vercel error alerts.
-- Turn on the registrar lock. Change DMARC from `p=none` to `p=quarantine` once reports look clean.
-- Move Clerk to a production instance (the sign-in page says "Development mode").
-- Confirm the Neon backup window and practise one restore.
+- Change DMARC from `p=none` to `p=quarantine`. First send a test from the `team@` mailbox to a personal Gmail and check SPF, DKIM and DMARC all show PASS (Show original), and check a website confirmation email the same way. The record has no `rua=` report address yet. DNS checked 2026-09-25: SPF, Google DKIM, Resend DKIM and Clerk DKIM records are all present, so only the live test is missing. Waiting on the client (unreachable). Once it passes, set TXT `_dmarc` at Squarespace to `v=DMARC1; p=quarantine; pct=25; rua=mailto:team@grassrootssports.org`, then raise `pct` to 100 after a couple of weeks of clean reports.
+- Turn on MFA on Clerk, GitHub, Vercel, Neon, Resend and the registrar. Save backup codes off the phone.
+- Raise Neon history retention above 6 hours if the plan allows it, or take regular exports of `registrations` and `contact_messages`.
 - Have a Thai speaker review the Thai written by Claude (sheet: `thai-review.csv`), then apply corrections to `th.json`.
+
+Privacy and consent work (branch `compliance-consent`, built and tested locally, NOT committed or deployed). Draft and reasoning: `DRAFT_PRIVACY_AND_CONSENT.md`.
+- **Run the schema change on the Neon `production` branch first** (the `ALTER TABLE` block at the end of `src/lib/schema.sql`, adds empty consent columns). Tested on a temporary branch on 2026-09-25 (since deleted). If the code deploys before this, /api/register and /api/contact fail on insert.
+- A lawyer reviews the policy and consent wording, and a Thai speaker reviews the Thai text.
+- Confirm the Vercel function region (policy says data may go to the United States) and set the real "Last updated" date.
+- Then commit, merge to `main` and deploy. `scripts/purge-old-records.mjs` is the yearly retention purge (dry run by default).
+- After the consent flow is live, this "Not built" line about GA and the privacy policy is resolved by the banner.
 
 Not built:
 - Editable page titles and descriptions for Google, and the legal pages.

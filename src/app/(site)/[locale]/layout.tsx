@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import HtmlLangSync from '@/components/HtmlLangSync';
 import StickyMobileCTA from '@/components/StickyMobileCTA';
+import CookieBanner from '@/components/CookieBanner';
 import { getSlotImages } from '@/lib/image-slots';
 
 export function generateStaticParams() {
@@ -48,6 +49,7 @@ export default async function LocaleLayout({
       <main className="flex-1 pb-20 lg:pb-0">{children}</main>
       <Footer locale={locale} />
       <StickyMobileCTA />
+      <CookieBanner gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
     </NextIntlClientProvider>
   );
 }
