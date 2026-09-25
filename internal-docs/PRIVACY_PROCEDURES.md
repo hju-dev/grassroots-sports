@@ -33,7 +33,7 @@ Deadline: reply within 30 days (the policy promises this). [LAWYER: confirm the 
 4. **Do what they asked.**
    - *Access:* send them a copy of what step 3 found (a simple table in an email, or a PDF).
    - *Correct:* update the row, after you have checked the new details with them.
-   - *Delete:* run the deletes below, then delete their emails in `team@`. Neon keeps history only for a few hours, so the deleted rows cannot be restored later. That is intended.
+   - *Delete:* easiest is the **Delete** button next to their record in the dashboard's Sign-ups list (one record at a time, with a Yes/Cancel step). If you prefer SQL, run the deletes below. Then delete their emails in `team@`. Neon keeps history only for a few hours, so the deleted rows cannot be restored later. That is intended.
      ```sql
      DELETE FROM registrations    WHERE lower(email) = 'person@example.com';
      DELETE FROM contact_messages WHERE lower(email) = 'person@example.com';

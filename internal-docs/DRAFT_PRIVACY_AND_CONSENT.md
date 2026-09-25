@@ -12,7 +12,7 @@ The owner decided to publish now and review afterwards. The text is live but **u
    - the "not liable for injury" wording in Terms section 5 (not changed here).
 2. **Thai speaker review** of: the Thai privacy policy, the Thai consent checkboxes and cookie banner (`src/messages/th.json`, keys `consent.*`, `register.consent*`, `contact.consentPrivacy`, `footer.cookieSettings`), and the Thai photography clause added to Terms (section 6).
 3. **Yearly retention purge.** `scripts/purge-old-records.mjs` is a dry run by default and needs a real `DATABASE_URL`. The reminder task lists what is due; deleting stays a manual decision. First rows fall due around 2027-08 (contact messages) and 2028-08 (registrations).
-4. **Deletion, access and breach procedures** now exist in `PRIVACY_PROCEDURES.md` (draft, unreviewed). A yearly retention reminder runs each 1 September (scheduled task `grassroots-yearly-data-purge-check`, read-only; it only runs while the Claude desktop app is open, and otherwise on next launch).
+4. **Deletion, access and breach procedures** now exist in `internal-docs/PRIVACY_PROCEDURES.md` (draft, unreviewed). A yearly retention reminder runs each 1 September (scheduled task `grassroots-yearly-data-purge-check`, read-only; it only runs while the Claude desktop app is open, and otherwise on next launch).
 5. **Existing rows** (collected before this change) have no consent record. Ask the lawyer whether they need re-consent.
 6. **Vercel function region** was changed to Singapore on 2026-09-25 and takes effect with this deployment.
 
@@ -31,7 +31,7 @@ Questions:
 4. Should anything be done about the contact copies already in the `team@` inbox?
 Other things found in the same database, not personal data but worth cleaning: a table `orders` (1 row) and a table `playing_with_neon` (10 rows) that the website does not use. They look like leftovers and should be checked and removed with the owner's approval.
 
-Internal procedures for requests, breaches and the yearly review are in `PRIVACY_PROCEDURES.md`. Ask the lawyer to review that too (the [LAWYER] points).
+Internal procedures for requests, breaches and the yearly review are in `internal-docs/PRIVACY_PROCEDURES.md`. Ask the lawyer to review that too (the [LAWYER] points).
 
 When a review changes any wording, update the page, this file and the "Last updated" date together.
 

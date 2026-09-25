@@ -1,7 +1,9 @@
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getDb } from '@/lib/db';
 import { getAdminEmail } from '@/lib/requireAdmin';
 import MarkPaidButton from '@/components/MarkPaidButton';
+import DeleteRecordButton from '@/components/DeleteRecordButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -45,7 +47,10 @@ export default async function AdminPage() {
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-10">
-
+      <p className="mb-6 text-sm text-gray-500">
+        Deleting removes a record permanently. Retention limits are in the Privacy Policy: contact messages 12 months, registrations 2 years after last contact.
+        See <Link href="/dashboard/documents" className="underline">Documents</Link> for the procedure.
+      </p>
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-10">
@@ -74,8 +79,8 @@ export default async function AdminPage() {
               <table className="w-full text-sm">
                 <thead className="bg-gray-50 border-b border-gray-100">
                   <tr>
-                    {['Name', 'Email', 'Phone', 'Program', 'Paid', 'Date'].map((h) => (
-                      <th key={h} className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3">{h}</th>
+                    {['Name', 'Email', 'Phone', 'Program', 'Paid', 'Date', ''].map((h, i) => (
+                      <th key={i} className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3">{h || <span className="sr-only">Delete</span>}</th>
                     ))}
                   </tr>
                 </thead>
@@ -102,6 +107,9 @@ export default async function AdminPage() {
                       </td>
                       <td className="px-5 py-4 text-gray-500 text-xs">
                         {new Date(r.created_at).toLocaleDateString('en-GB')}
+                      </td>
+                      <td className="px-5 py-4">
+                        <DeleteRecordButton kind="registration" id={r.id} label={`registration from ${r.name}`} />
                       </td>
                     </tr>
                   ))}
@@ -133,6 +141,9 @@ export default async function AdminPage() {
                   </p>
                 </div>
                 <p className="text-sm text-gray-600">{m.message}</p>
+                <div className="mt-3">
+                  <DeleteRecordButton kind="message" id={m.id} label={`message from ${m.name}`} />
+                </div>
               </div>
             ))}
           </div>

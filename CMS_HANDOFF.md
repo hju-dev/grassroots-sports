@@ -64,7 +64,7 @@ Owner actions (only the owner can do these):
 - Raise Neon history retention above 6 hours if the plan allows it, or take regular exports of `registrations` and `contact_messages`.
 - Have a Thai speaker review the Thai written by Claude (sheet: `thai-review.csv`), then apply corrections to `th.json`.
 
-Privacy and consent work: DEPLOYED 2026-09-25 (commit 373bddb) without legal or Thai review. The schema change was applied first, and the Vercel function region was changed to Singapore. Verified live: banner shows before any cookie, Google Analytics loads only after Accept, both forms reject requests without consent (HTTP 400). Outstanding reviews and follow-ups are listed at the top of `DRAFT_PRIVACY_AND_CONSENT.md`:
+Privacy and consent work: DEPLOYED 2026-09-25 (commit 373bddb) without legal or Thai review. The schema change was applied first, and the Vercel function region was changed to Singapore. Verified live: banner shows before any cookie, Google Analytics loads only after Accept, both forms reject requests without consent (HTTP 400). Outstanding reviews and follow-ups are listed at the top of `internal-docs/DRAFT_PRIVACY_AND_CONSENT.md`:
 - Lawyer review of the policy, consent wording, retention periods and the cookie-banner requirement.
 - Thai speaker review of the Thai policy, checkboxes, banner and Terms photo clause.
 - Schedule the yearly purge (`scripts/purge-old-records.mjs`, dry run by default) and write the deletion, access and breach procedures.

@@ -1,4 +1,5 @@
 import { ClerkProvider, UserButton } from '@clerk/nextjs';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getAdminEmail } from '@/lib/requireAdmin';
 
@@ -21,6 +22,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               <span className="text-green-400">Grass Roots</span> Sports
             </span>
             <span className="text-xs bg-gray-700 text-gray-300 px-2 py-0.5 rounded font-mono">Admin</span>
+            <Link href="/dashboard" className="ml-2 text-sm text-gray-300 underline hover:text-white">← Back to dashboard</Link>
           </div>
           <UserButton />
         </header>

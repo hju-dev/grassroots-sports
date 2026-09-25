@@ -11,6 +11,7 @@ const TABS = [
   { href: '/dashboard/schedule', label: 'Schedule' },
   { href: '/dashboard/registration', label: 'Form on/off' },
   { href: '/ops', label: 'Sign-ups list' },
+  { href: '/dashboard/documents', label: 'Documents' },
 ];
 
 export function DashboardNav() {

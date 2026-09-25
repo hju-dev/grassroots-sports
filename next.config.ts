@@ -55,6 +55,11 @@ const publicCsp = [
 
 const nextConfig = {
   poweredByHeader: false,
+  // The dashboard reads these markdown files at request time with fs, so they
+  // must be copied into the serverless bundle.
+  outputFileTracingIncludes: {
+    '/dashboard/documents/[slug]': ['./internal-docs/**/*'],
+  },
   // Dashboard photo uploads are sent through a server action. The default 1 MB
   // limit is too small; Vercel itself rejects request bodies over 4.5 MB.
   experimental: { serverActions: { bodySizeLimit: '4.5mb' as const } },

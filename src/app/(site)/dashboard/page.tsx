@@ -6,7 +6,8 @@ const SECTIONS = [
   { href: '/dashboard/gallery', title: 'Gallery', body: 'Add, describe, reorder, publish or remove the photos on the Gallery page.' },
   { href: '/dashboard/schedule', title: 'Schedule', body: 'Set which programs run on which days and at what times.' },
   { href: '/dashboard/registration', title: 'Registration form on/off', body: 'Turn the Register Interest form on or off for everyone.' },
-  { href: '/ops', title: 'Sign-ups list', body: 'See who has registered and who has sent a message, and mark payments as received.' },
+  { href: '/ops', title: 'Sign-ups list', body: 'See who has registered and who has sent a message, mark payments as received, and permanently delete a record when someone asks or it is past its retention limit.' },
+  { href: '/dashboard/documents', title: 'Documents', body: 'Internal notes for running the site: how to handle privacy requests, the yearly data check, and the privacy and consent draft. Only visible here.' },
 ];
 
 export default function DashboardHome() {
