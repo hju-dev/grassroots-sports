@@ -11,10 +11,27 @@ The owner decided to publish now and review afterwards. The text is live but **u
    - whether the cookie banner is required for Google Analytics;
    - the "not liable for injury" wording in Terms section 5 (not changed here).
 2. **Thai speaker review** of: the Thai privacy policy, the Thai consent checkboxes and cookie banner (`src/messages/th.json`, keys `consent.*`, `register.consent*`, `contact.consentPrivacy`, `footer.cookieSettings`), and the Thai photography clause added to Terms (section 6).
-3. **Yearly retention purge** is not scheduled. `scripts/purge-old-records.mjs` is a dry run by default. It needs a real `DATABASE_URL`, and a decision on who runs it and when. The policy promises a yearly review.
-4. **Deletion, access and breach procedures** are promised by the policy but not yet written down as internal documents.
+3. **Yearly retention purge.** `scripts/purge-old-records.mjs` is a dry run by default and needs a real `DATABASE_URL`. The reminder task lists what is due; deleting stays a manual decision. First rows fall due around 2027-08 (contact messages) and 2028-08 (registrations).
+4. **Deletion, access and breach procedures** now exist in `PRIVACY_PROCEDURES.md` (draft, unreviewed). A yearly retention reminder runs each 1 September (scheduled task `grassroots-yearly-data-purge-check`, read-only; it only runs while the Claude desktop app is open, and otherwise on next launch).
 5. **Existing rows** (collected before this change) have no consent record. Ask the lawyer whether they need re-consent.
 6. **Vercel function region** was changed to Singapore on 2026-09-25 and takes effect with this deployment.
+
+### Data already held before consent was recorded (question for the lawyer)
+
+Checked in Neon on 2026-09-25 (counts and dates only):
+- **Registrations: 4 rows**, all created 2026-08-06 and 2026-08-07 (programmes: 2 teen, 1 private, 1 adult; none marked paid; all in English). They hold name, email and phone number. They were collected before the consent checkboxes existed, so they have **no consent record**. It is not yet known whether they are real prospective customers or test entries from the launch.
+- **Contact messages: 2 rows**, created 2026-08-06 to 2026-08-08. They hold name, email and the message text. Same situation.
+- Neither set was collected under the new privacy policy.
+- The owner can view both lists in the dashboard at `/ops`, the "Sign-ups list" (registrations and messages, with a button to mark payment).
+
+Questions:
+1. Do these six people need to be asked for consent again, or can they be kept until the retention limit (messages 12 months, registrations 2 years) because they contacted us themselves?
+2. If they are real people, is a short confirmation email enough, and what should it say?
+3. If they are test entries, delete them now (recommended, and it needs the owner or developer to confirm which rows).
+4. Should anything be done about the contact copies already in the `team@` inbox?
+Other things found in the same database, not personal data but worth cleaning: a table `orders` (1 row) and a table `playing_with_neon` (10 rows) that the website does not use. They look like leftovers and should be checked and removed with the owner's approval.
+
+Internal procedures for requests, breaches and the yearly review are in `PRIVACY_PROCEDURES.md`. Ask the lawyer to review that too (the [LAWYER] points).
 
 When a review changes any wording, update the page, this file and the "Last updated" date together.
 
